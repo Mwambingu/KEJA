@@ -1,4 +1,4 @@
-<img width="200" height="200" alt="keja logo" src="./assets/KejaV2.png">
+<img width="400" height="400" alt="keja logo" src="./assets/KejaV2.png">
 
 # KEJA PROJECT
 
@@ -9,8 +9,8 @@
 ##### Keja is for Landlords that want to take real ownership in managing and dealing with their properties first hand.
 
 # PROJECT LANGUAGES
-<img width="40" height="40" src="./assets/html_logo.png"> <img width="40" height="40" src="./assets/css_logo.png"> <img width="40" height="40" src="./assets/js_logo.png"> 
-<img width="40" height="40" src="./assets/python_logo.png"> <img width="40" height="40" src="./assets/mysql_logo.png">
+<img width="60" height="60" src="./assets/html_logo.png"> <img width="60" height="60" src="./assets/css_logo.png"> <img width="60" height="60" src="./assets/js_logo.png"> 
+<img width="60" height="60" src="./assets/python_logo.png"> <img width="60" height="60" src="./assets/mysql_logo.png">
 
 # PROJECT TECHNOLOGIES
 ### The project has 3 versions
