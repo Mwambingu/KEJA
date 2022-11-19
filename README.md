@@ -10,8 +10,10 @@
 
 # PROJECT TECHNOLOGIES
 ##### The project has 3 versions
-<img width="40" height="40" src="./assets/cmd_logo.png"> A console version. For testing feasability.
+```
+<img width="40" height="40" src="./assets/cmd_logo.png">   A console version. For testing feasability.
 
-<img width="80" height="40" src="./assets/flask_logo.jpg"> A Flask + Jinja version.
+<img width="80" height="40" src="./assets/flask_logo.jpg">   A Flask + Jinja version.
 
-<img width="40" height="40" src="./assets/react_logo.png"> A Final React + Flask version.
+<img width="40" height="40" src="./assets/react_logo.png">   A Final React + Flask version.
+```
