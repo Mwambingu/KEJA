@@ -10,7 +10,7 @@
 
 # PROJECT LANGUAGES
 <img width="40" height="40" src="./assets/html_logo.png"> <img width="40" height="40" src="./assets/css_logo.png"> <img width="40" height="40" src="./assets/js_logo.png"> 
-<img width="40" height="40" src="./assets/python_logo.png"> <img width="40" height="40" src="./assets/mysql_logo.jpg">
+<img width="40" height="40" src="./assets/python_logo.png"> <img width="40" height="40" src="./assets/mysql_logo.png">
 
 # PROJECT TECHNOLOGIES
 ### The project has 3 versions
