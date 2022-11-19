@@ -49,6 +49,9 @@ def login():
     if value == "3":
         main()
     
+    print("Incorrect input!")
+    login()
+    
 # Account Actions and Management
 def landlord_cli():
     print("""
@@ -60,18 +63,37 @@ def landlord_cli():
     """)
 
     value = input("Enter value: ")
-    if value == "":
+    if value == "1":
         print("The Landlord")
-    if value ==
+    if value == "2":
+        print("Apartments")
+    if value == "3":
+        print("Tenants")
+    if value == "4":
+        login()
+    
+    landlord_cli()
+
 def tenant_cli():
     print("""
     Welcome Back!!
     1. Tenancy Information
     2. Rent Amount
-    4. Landlord Contact
-    5. Exit
+    3. Landlord Contact
+    4. Exit
     """)
     value = input("Enter value: ")
+
+    if value == "1":
+        print("The Tenant")
+    if value == "2":
+        print("Rent!!")
+    if value == "3":
+        print("Landlord!!")
+    if value == "4":
+        login()
+        
+    tenant_cli()
 
 # Main application function
 def main():
@@ -98,5 +120,6 @@ def main():
     print("Incorrect input!")
     main()
 
-if __name__ == "__main___":
-    main()
+# if __name__ == "__main___":
+#     main()
+main()
