@@ -10,6 +10,6 @@
 
 # PROJECT LANGUAGES
 ##### The project has 3 versions
-<img src="console_logo.png"> A console version. For testing feasability.
-<img src="flask_logo.png"> A Flask + Jinja version.
-<img src="react_logo.png"> A Final React + Flask version.
+<img src="./assets/console_logo.png"> A console version. For testing feasability.
+<img src="./assets/flask_logo.png"> A Flask + Jinja version.
+<img src="./assets/react_logo.png"> A Final React + Flask version.
