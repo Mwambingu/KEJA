@@ -9,14 +9,11 @@
 ##### Keja is for Landlords that want to take real ownership in managing and dealing with their properties first hand.
 
 # PROJECT LANGUAGES
-<img width="40" height="40" src="./assets/html_logo.png">
-<img width="40" height="40" src="./assets/css_logo.png">
-<img width="40" height="40" src="./assets/js_logo.png">
-<img width="40" height="40" src="./assets/python_logo.png">
-<img width="40" height="40" src="./assets/mysql_logo.png">
+<img width="40" height="40" src="./assets/html_logo.png"> <img width="40" height="40" src="./assets/css_logo.png"> <img width="40" height="40" src="./assets/js_logo.png"> 
+<img width="40" height="40" src="./assets/python_logo.png"> <img width="40" height="40" src="./assets/mysql_logo.jpg">
 
 # PROJECT TECHNOLOGIES
-##### The project has 3 versions
+### The project has 3 versions
 
 <img width="40" height="40" src="./assets/cmd_logo.png">   A console version. For testing feasability.
 
