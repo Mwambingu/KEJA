@@ -8,10 +8,10 @@
 
 ##### Keja is for Landlords that want to take real ownership in managing and dealing with their properties first hand.
 
-# PROJECT LANGUAGES
+# PROJECT TECHNOLOGIES
 ##### The project has 3 versions
-i<img width="100" height="100" src="./assets/cmd_logo.png"> A console version. For testing feasability.
+<img width="20" height="20" src="./assets/cmd_logo.png"> A console version. For testing feasability.
 
-<img width="200" height="100" src="./assets/flask_logo.png"> A Flask + Jinja version.
+<img width="40" height="20" src="./assets/flask_logo.png"> A Flask + Jinja version.
 
-<img width="100" height="100" src="./assets/react_logo.png"> A Final React + Flask version.
+<img width="20" height="20" src="./assets/react_logo.png"> A Final React + Flask version.
