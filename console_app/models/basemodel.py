@@ -3,6 +3,7 @@
 Contains the base for all models.
 """
 from sqlalchemy import Column, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
 from uuid import uuid4
 from sqlalchemy.sql import func
 
@@ -15,4 +16,3 @@ class BaseModel():
         self.id = self.__class__.__name__. + "." + str(uuid4())
         if kwargs:
             self.__dict__.update(kwargs)
-
