@@ -1,7 +1,7 @@
-from sqlalchemy import Column, String, Integer
-from basemodel import BaseModel
+from sqlalchemy import Column, String, Integer, ForeignKey
+from models.basemodel import BaseModel
 
-class Tenant(BaseMode):
+class Tenant(BaseModel):
     __tablename__ = "tenants"
 
     first_name = Column(String(16), nullable=False)

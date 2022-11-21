@@ -1,4 +1,4 @@
-from basemodel import BaseModel
+from models.basemodel import BaseModel
 from sqlalchemy import Column, String
 
 class Landlord(BaseModel):

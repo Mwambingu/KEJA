@@ -7,7 +7,7 @@ class DBStorage():
   __session=None
 
   def __init__(self):
-    self.__engine = create_engine("mysql+mysqldb://keja_admin:keja001@localhost/Keja_TestDB")
+    self.__engine = create_engine("mysql+mysqldb://keja_admin:keja001@localhost/Keja_TestDB", echo=True, pool_pre_ping=True)
 
   
   def new(self, obj):

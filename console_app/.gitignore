@@ -1,0 +1,2 @@
+# ignore extra python files
+*__pycache__
