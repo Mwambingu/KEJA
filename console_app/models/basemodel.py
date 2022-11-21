@@ -16,3 +16,7 @@ class BaseModel():
         self.id = self.__class__.__name__. + "." + str(uuid4())
         if kwargs:
             self.__dict__.update(kwargs)
+    
+    def save(self):
+        storage.new(self)
+        storage.save(self)
