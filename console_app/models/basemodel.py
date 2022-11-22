@@ -24,9 +24,15 @@ class BaseModel():
             self.__dict__.update(kwargs)
     
     def save(self):
-
         models.storage.new(self)
-        models.storage.save(self)
+        models.storage.save()
     
+    def update(self, obj_dict):
+        self.updated_at = datetime.utcnow()
+        for k, v in obj_dict.items():
+            setattr(self, k, v)
+        models.storage.new(self)
+        models.storage.save()
+
     def __repr__(self):
         return "<{}> <{}>".format(self.__class__.__name__, self.id)

@@ -23,7 +23,7 @@ class DBStorage():
   def new(self, obj):
     self.__session.add(obj)
 
-  def save(self, obj):
+  def save(self):
     self.__session.commit()
   
   def list_all(self, obj=None):
@@ -32,9 +32,7 @@ class DBStorage():
       obj_list = self.__session.query(classes[obj]).all()
     else:
       for value in classes.values():
-        obj_list.append(self.__session.query(value).all())
-    return obj_list
-
+        obj_list += self.__session.query(value).all()
     return obj_list
   
   def delete(self, obj=None):

@@ -84,6 +84,47 @@ class KejaShell(Cmd):
             obj.save()
 
 
+    def do_update(self, inp=None):
+        """Usage: Updates a specified object
+        ex: Update Tenant <id=""> <first_name=""> <last_name="">
+        """
+        if not inp:
+            print("Missing class!!")
+            return
+        
+        inps = shlex.split(inp)
+        cls_str = inps.pop(0)
+        obj_dict = {}
+        obj_list = []
+        obj = None
+
+        # Splitting inputs into dictionary
+        for key_value in inps:
+            key_item = key_value.split("=")[0]
+            if key_value.split("=")[1].isdigit():
+                value_item = int(key_value.split("=")[1])
+            else:
+                value_item = key_value.split("=")[1]
+            obj_dict[key_item] = value_item
+
+        if "id" not in obj_dict:
+            print("Please enter id of object!!")
+            return
+        
+        obj_list = storage.list_all(cls_str)
+        for obj_item in obj_list:
+            if obj_item.id == obj_dict["id"]:
+                obj = obj_item
+
+        if obj:
+            del obj_dict["id"]
+            obj.update(obj_dict)
+        else:
+            print("Object Not Found!!")
+
+        return
+
+
     def do_exit(self, inp):
         print("Bye")
         return True
