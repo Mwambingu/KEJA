@@ -13,6 +13,17 @@ class KejaShell(Cmd):
     intro = 'Welcome to KeJa Shell. Type help or ? to get started!\n'
     prompt = '(KeJa)> '
     
+    def do_all(self, inp=None):
+        """Usage: Returns list of all objs or a all of a specified type
+        ex: all or all Tenant"""
+        if inp and inp not in classes:
+            print("Class does not exist")
+            return
+        
+        all_objs = storage.list_all(inp)
+        print(all_objs)
+        return
+
     def do_create(self, inp):
         """Usage: Creates objects
         ex: Create Tenant <first_name=''> <last_name=''> <apartment_id=''>
@@ -45,7 +56,7 @@ class KejaShell(Cmd):
             obj = Tenant(**obj_dict)
 
         if cls_str == "House":
-            if len(inps) >= 2 and len(inps) < 4:
+            if len(inps) < 2 and len(inps) >=4:
                 print("Missing inputs! \nex: Create House <house_name=''> <landlord_id=''> <number_of_apartments=0>")
                 return
             obj = House(**obj_dict)
@@ -56,7 +67,8 @@ class KejaShell(Cmd):
                 return
             obj = Apartment(**obj_dict)
 
-        if inps[0] == "Landlord":
+        if cls_str == "Landlord":
+            print("Found Landlord!!")
             if len(inps) != 4:
                 print(
                 "Missing inputs! \nex: Create Landlord <first_name> <last_name> <email> <password> <apartment_id>")
