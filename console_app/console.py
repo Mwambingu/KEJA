@@ -24,10 +24,14 @@ class KejaShell(Cmd):
         print(all_objs)
         return
 
-    def do_create(self, inp):
+    def do_create(self, inp=None):
         """Usage: Creates objects
         ex: Create Tenant <first_name=''> <last_name=''> <apartment_id=''>
         """
+        if not inp:
+            print("Missing class!!")
+            return 
+        
         inps = shlex.split(inp)
         cls_str = inps.pop(0)
         obj_dict = {}
@@ -124,6 +128,37 @@ class KejaShell(Cmd):
 
         return
 
+
+    def do_delete(self, inp):
+        """Usage: Deletes A model specified by it's ID
+        ex: delete Tenant <id=''>"""
+        inps = shlex.split(inp)
+        
+        if not inps:
+            print("Missing class!!")
+            return
+        if len(inps) < 2:
+            print("Please enter an id!")
+            return
+
+        cls_str = inps.pop(0)
+        cls_id = inps.pop(0).split("=")[1]
+        obj_list = []
+
+        if cls_str not in classes:
+            print("Class doesn't exist!")
+            return
+        
+        obj_list = storage.list_all(cls_str)
+
+        for obj_item in obj_list:
+            if obj_item.id == cls_id:
+                storage.delete(obj_item)
+                storage.save()
+                print("Object with id {} has been deleted successfully!".format(cls_id))
+                return
+        print("Object with id {} doesn't exist!".format(cls_id))
+        return
 
     def do_exit(self, inp):
         print("Bye")
