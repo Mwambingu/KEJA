@@ -6,4 +6,4 @@ class Tenant(BaseModel, Base):
 
     first_name = Column(String(16), nullable=False)
     last_name = Column(String(16), nullable=False)
-    apartment_id = Column(String(32), nullable=True)
+    apartment_id = Column(String(60), ForeignKey("apartments.id"), nullable=False)

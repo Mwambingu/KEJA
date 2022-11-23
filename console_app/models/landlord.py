@@ -1,5 +1,7 @@
 from models.basemodel import BaseModel, Base
 from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
+from models.house import House
 
 class Landlord(BaseModel, Base):
     __tablename__ = "landlords"
@@ -8,3 +10,4 @@ class Landlord(BaseModel, Base):
     last_name = Column(String(16), nullable=False)
     email = Column(String(32), nullable=False)
     password = Column(String(32), nullable=False)
+    houses = relationship("House", backref="landlords", cascade="all, delete")
