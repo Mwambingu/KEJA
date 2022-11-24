@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from cmd import Cmd
 from models import storage
 from models.landlord import Landlord
 from models.tenants import Tenant
@@ -9,26 +8,52 @@ from models.house import House
 # Account Authentication
 def landlord():
     """Initiates Landlord's Account authentication"""
+    print("Landlord Login:")
+    print("Type: 'exit' on any field to leave")
     email = str(input("Enter email: "))
     password = str(input("Enter password: "))
+    if email == "exit" or password == "exit":
+        main()
 
-    landlord_cli()
-    main()
+    if '@' not in email:
+        print("Enter a valid email address!!")
+        landlord()
+    
+    obj_item = landlord_check(email, password)
+    if obj_item:
+        landlord_cli(obj_item)
+    print("User doesn't exist or password is incorrect!!")
+    landlord()
+
+def landlord_check(em, pwd):
+    obj_list=storage.list_all("Landlord")
+    for obj_item in obj_list:
+        if obj_item.email == em and obj_item.password == pwd:
+            return obj_item
+    return None
 
 def tenant():
     """Initiates Tenant's Account authentication"""
+    print("Tenant Login:")
+    print("Type: 'exit' on any field to leave")
     tenant_id = str(input("Enter Tenant ID: "))
     password = str(input("Enter Tenant Password: "))
-
+    if tenant_id == "exit" or password == "exit":
+        main()
     tenant_cli()
     main()
 
 def signup():
     print("SignUp")
-    username = str(input("Enter username: "))
+    print("Type: 'exit' on any field to leave")
+    first_name = str(input("Enter First name: "))
+    last_name  = str(input("Enter Last name: "))
     password = str(input("Enter password: "))
     email = str(input("Enter email: "))
     print("\n")
+
+    if username == "exit" or password == "exit" or email == "exit":
+        main()
 
     if '@' not in email:
         print("Enter a valid email address!!")
@@ -60,7 +85,19 @@ def login():
     login()
     
 # Account Actions and Management
-def landlord_cli():
+def get_info(obj_item):
+    obj_dict = obj_item.__dict__
+    key_list = ['_sa_instance_state', 'id', 'updated_at', 'created_at', 'password']
+    for key in key_list:
+        if key in obj_dict:
+            del obj_dict[key]
+    
+    for k, v in obj_dict.items():
+        print("{}: {}".format(k, v))
+    return
+
+# Landlord CLI Functionality
+def landlord_cli(obj_item):
     print("""
     Welcome Back!!
     1. Landlord Information
@@ -71,16 +108,18 @@ def landlord_cli():
 
     value = input("Enter value: ")
     if value == "1":
-        print("The Landlord")
+        get_info(obj_item)
     if value == "2":
         print("Apartments")
     if value == "3":
         print("Tenants")
     if value == "4":
-        login()
+        main()
     
-    landlord_cli()
+    landlord_cli(obj_item)
 
+
+# Tenant CLI Functionality
 def tenant_cli():
     print("""
     Welcome Back!!
@@ -98,8 +137,7 @@ def tenant_cli():
     if value == "3":
         print("Landlord!!")
     if value == "4":
-        login()
-        
+        main()
     tenant_cli()
 
 # Main application function
