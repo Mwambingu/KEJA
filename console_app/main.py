@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+from cmd import Cmd
+from models import storage
+from models.landlord import Landlord
+from models.tenants import Tenant
+from models.apartment import Apartment
+from models.house import House
+
 # Account Authentication
 def landlord():
     """Initiates Landlord's Account authentication"""
@@ -57,8 +64,8 @@ def landlord_cli():
     print("""
     Welcome Back!!
     1. Landlord Information
-    2. Apartments
-    3. Tenants
+    2. Create House
+    3. Houses
     4. Exit
     """)
 
@@ -120,6 +127,4 @@ def main():
     print("Incorrect input!")
     main()
 
-# if __name__ == "__main___":
-#     main()
 main()

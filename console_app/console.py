@@ -54,26 +54,26 @@ class KejaShell(Cmd):
             return
         
         if cls_str == "Tenant":
-            if len(inps) != 3:
+            if len(inps) < 3:
                 print("Missing inputs! \nex: Create Tenant <first_name=''> <last_name=''> <apartment_id>=''")
                 return
             obj = Tenant(**obj_dict)
 
         if cls_str == "House":
-            if len(inps) < 2 and len(inps) >=4:
+            if len(inps) < 2:
                 print("Missing inputs! \nex: Create House <house_name=''> <landlord_id=''> <number_of_apartments=0>")
                 return
             obj = House(**obj_dict)
 
         if cls_str == "Apartment":
-            if len(inps) != 4:
+            if len(inps) < 4:
                 print("Missing inputs! \nex: Create Apartment <apartment_no=''> <room_type=''> <rent> <house_id=''>")
                 return
             obj = Apartment(**obj_dict)
 
         if cls_str == "Landlord":
             print("Found Landlord!!")
-            if len(inps) != 4:
+            if len(inps) < 4:
                 print(
                 "Missing inputs! \nex: Create Landlord <first_name> <last_name> <email> <password> <apartment_id>")
                 return
