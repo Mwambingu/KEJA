@@ -130,7 +130,25 @@ def create_house(obj_item):
     return
 
 def house(obj_item):
-    print(f"Using Relationships !!{obj_item.houses.id}")
+    house_objs = obj_item.houses
+    count = 1
+    for house_obj in house_objs:
+        print("{}.{}".format(count, house_obj.house_name))
+        count +=1
+    value = int(input("Enter Value: "))
+
+    print("{} has been selected!!".format(house_objs[value].house_name))
+    house_cli(house_objs[value])
+    return
+
+def house_cli(obj_item):
+    print("""
+    1. Create Apartment
+    2. Apartments
+    3. Exit
+    """)
+    print("Enter value: ")
+    return
 
 # Tenant CLI Functionality
 def tenant_cli():
