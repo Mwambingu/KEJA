@@ -101,7 +101,7 @@ def landlord_cli(obj_item):
     print("""
     Welcome Back!!
     1. Landlord Information
-    2. Create House
+    2. Add House
     3. Houses
     4. Exit
     """)
@@ -110,14 +110,27 @@ def landlord_cli(obj_item):
     if value == "1":
         get_info(obj_item)
     if value == "2":
-        print("Apartments")
+        create_house(obj_item)
     if value == "3":
-        print("Tenants")
+        house(obj_item)
     if value == "4":
         main()
     
     landlord_cli(obj_item)
 
+def create_house(obj_item):
+    house_dict = {}
+    house_dict['house_name'] = input("Enter House Name: ")
+    house_dict['landlord_id'] = obj_item.id
+
+    new_house = House(**house_dict)
+    print("{} has been successfully created!!".format(new_house))
+    new_house.save()
+    print("{} saved to db!!".format(new_house))
+    return
+
+def house(obj_item):
+    print(f"Using Relationships !!{obj_item.houses.id}")
 
 # Tenant CLI Functionality
 def tenant_cli():
