@@ -190,6 +190,9 @@ def apartment(obj_item):
     count = 1
 
     for aptmt_obj in aptmt_objs:
+        apartment_no = aptmt_obj.apartment_no
+        room_type = aptmt_obj.room_type
+        rent = aptmt_obj.rent
         print("{}. Apartment No: {} Room Type: {} Rent: Ksh. {}".format(count, apartment_no, room_type, rent))
         count += 1
     
@@ -205,8 +208,8 @@ def apartment(obj_item):
         print("Input doesn't exist")
         return
     
-    print("{} has been selected!!".format(aptmt_objs[int(value)]-1.apartment_no))
-    apartment_cli(aptmt_objs[int(value)]-1)
+    print("{} has been selected!!".format(aptmt_objs[int(value)-1].apartment_no))
+    apartment_cli(aptmt_objs[int(value)-1])
 
 def apartment_cli(obj_item):
     print("""
@@ -221,7 +224,7 @@ def apartment_cli(obj_item):
         print("Error! Not a valid integer!")
         return
 
-    if int(value) == 0 or int(value) > len(aptmt_objs):
+    if int(value) == 0 or int(value) > 3:
         print("Input doesn't exist")
         return
     return
