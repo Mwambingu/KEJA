@@ -135,7 +135,7 @@ def house(obj_item):
     for house_obj in house_objs:
         print("{}.{}".format(count, house_obj.house_name))
         count +=1
-    value = int(input("Enter Value: "))
+    value = int(input("Enter Value: "))-1
 
     print("{} has been selected!!".format(house_objs[value].house_name))
     house_cli(house_objs[value])
@@ -145,13 +145,20 @@ def house_cli(obj_item):
     print("""
     1. Create Apartment
     2. Apartments
-    3. Exit
+    3. Go back
+    4. Exit
     """)
     value = input("Enter value: ")
 
     if value == "1":
         create_apartment(obj_item)
-    return
+    if value == "2":
+        apartment(obj_item)
+    if value == "3":
+        return
+    if value == "4":
+        main()
+
 
 def create_apartment(obj_item):
     aptmt_dict = {}
@@ -178,6 +185,46 @@ def create_apartment(obj_item):
 
     house_cli(obj_item)
 
+def apartment(obj_item):
+    aptmt_objs = obj_item.apartments
+    count = 1
+
+    for aptmt_obj in aptmt_objs:
+        print("{}. Apartment No: {} Room Type: {} Rent: Ksh. {}".format(count, apartment_no, room_type, rent))
+        count += 1
+    
+    value = input("Enter value: ")
+
+    try:
+        int(value)
+    except (TypeError, ValueError):
+        print("Error! Not a valid integer!")
+        return
+
+    if int(value) == 0 or int(value) > len(aptmt_objs):
+        print("Input doesn't exist")
+        return
+    
+    print("{} has been selected!!".format(aptmt_objs[int(value)]-1.apartment_no))
+    apartment_cli(aptmt_objs[int(value)]-1)
+
+def apartment_cli(obj_item):
+    print("""
+    1. Add Tenant
+    2. Adjust Rent
+    3. Exit
+    """)
+    value = input("Enter value: ")
+    try:
+        int(value)
+    except (TypeError, ValueError):
+        print("Error! Not a valid integer!")
+        return
+
+    if int(value) == 0 or int(value) > len(aptmt_objs):
+        print("Input doesn't exist")
+        return
+    return
 # Tenant CLI Functionality
 def tenant_cli():
     print("""
