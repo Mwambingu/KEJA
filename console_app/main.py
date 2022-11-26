@@ -147,8 +147,36 @@ def house_cli(obj_item):
     2. Apartments
     3. Exit
     """)
-    print("Enter value: ")
+    value = input("Enter value: ")
+
+    if value == "1":
+        create_apartment(obj_item)
     return
+
+def create_apartment(obj_item):
+    aptmt_dict = {}
+    not_int = False
+    new_aptmt = None
+
+    aptmt_dict['apartment_no'] = input("Enter Apartment No: ")
+    aptmt_dict['room_type'] = input("Enter apartment type: ")
+    
+    try:
+        aptmt_dict['rent'] = int(input("Rent Amount: "))
+    except (TypeError, ValueError):
+        print("Invalid input! Please enter a valid amount!!")
+        not_int = True
+    
+    if not not_int:
+            aptmt_dict['house_id'] = obj_item.id
+            new_aptmt = Apartment(**aptmt_dict)
+            print("{} has been successfully created!!".format(new_aptmt))
+            print(new_aptmt.__dict__)
+            new_aptmt.save()
+    else:
+        create_apartment(obj_item)
+
+    house_cli(obj_item)
 
 # Tenant CLI Functionality
 def tenant_cli():
