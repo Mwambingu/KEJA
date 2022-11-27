@@ -4,8 +4,74 @@ from models.landlord import Landlord
 from models.tenants import Tenant
 from models.apartment import Apartment
 from models.house import House
+import random
+
+# Other Functions
+
+def get_pass():
+    letters_alpha = ["abcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyz".upper(), "1234567890", "!@#$%"]
+    choice = ""
+    pass_size = []
+    rand_size = 0
+    pass_str = ""
+
+    for i in range(8):
+        pass_size = []
+        rand_size = 0
+        choice = random.choice(letters_alpha)
+        size = len(choice)
+        for i in range(size):
+            pass_size.append(i)
+        rand_size = random.choice(pass_size)
+        pass_str += choice[rand_size]
+    return pass_str
+    
 
 # Account Authentication
+# Signup Module
+def signup():
+    print("SignUp")
+    print("Type: 'exit' on any field to leave")
+    first_name = str(input("Enter First name: "))
+    last_name  = str(input("Enter Last name: "))
+    password = str(input("Enter password: "))
+    email = str(input("Enter email: "))
+    print("\n")
+
+    if username == "exit" or password == "exit" or email == "exit":
+        main()
+
+    if '@' not in email:
+        print("Enter a valid email address!!")
+        signup()
+    print("User successfully created!!")
+    print(f"Welcome {username}!!")
+    main()
+
+# Login Module
+def login():
+    """Initiates the login process"""
+    print("""
+    Login:
+    1. Landlord Login
+    2. Tenant Login
+    3. Exit
+    """)
+
+    value = str(input("Enter value: "))
+    print("\n")
+
+    if value == "1":
+        landlord()
+    if value == "2":
+        tenant()
+    if value == "3":
+        main()
+    
+    print("Incorrect input!")
+    login()
+
+#Account Authenticaiton -- Login Module
 def landlord():
     """Initiates Landlord's Account authentication"""
     print("Landlord Login:")
@@ -43,47 +109,7 @@ def tenant():
     tenant_cli()
     main()
 
-def signup():
-    print("SignUp")
-    print("Type: 'exit' on any field to leave")
-    first_name = str(input("Enter First name: "))
-    last_name  = str(input("Enter Last name: "))
-    password = str(input("Enter password: "))
-    email = str(input("Enter email: "))
-    print("\n")
 
-    if username == "exit" or password == "exit" or email == "exit":
-        main()
-
-    if '@' not in email:
-        print("Enter a valid email address!!")
-        signup()
-    print("User successfully created!!")
-    print(f"Welcome {username}!!")
-    main()
-
-def login():
-    """Initiates the login process"""
-    print("""
-    Login:
-    1. Landlord Login
-    2. Tenant Login
-    3. Exit
-    """)
-
-    value = str(input("Enter value: "))
-    print("\n")
-
-    if value == "1":
-        landlord()
-    if value == "2":
-        tenant()
-    if value == "3":
-        main()
-    
-    print("Incorrect input!")
-    login()
-    
 # Account Actions and Management
 def get_info(obj_item):
     obj_dict = obj_item.__dict__
@@ -103,8 +129,8 @@ def landlord_cli(obj_item):
     1. Landlord Information
     2. Add House
     3. Houses
-    5. Tenants
-    4. Exit
+    4. Tenants
+    5. Exit
     """)
 
     value = input("Enter value: ")
@@ -121,21 +147,46 @@ def landlord_cli(obj_item):
     
     landlord_cli(obj_item)
 
+# Creating Tenants accounts and management cli
 def tenants(obj_item):
     print("""
     1. Create Tenant
     2. Tenants
     3. Go back
     """)
-    value = ("Enter value: ")
+    value = input("Enter value: ")
     if value == "1":
-        print("Creating Tenants")
+        create_tenants(obj_item)
         return
     if value == "2":
         print("Here's a list of tenants!")
         return
     if value == "3":
         return
+
+def create_tenants(obj_item):
+    obj_dict = {}
+    random_int = random.randint(1000,9999)
+    first_name = input("Enter First Name: ")
+    last_name = input("Enter Last Name: ")
+    password = get_pass()
+    tenant_id = (first_name[:2] + last_name[:2] + str(random_int)).upper()
+
+    obj_dict['first_name'] = first_name
+    obj_dict['last_name'] = last_name
+    obj_dict['password'] = password
+    obj_dict['tenant_id'] = tenant_id
+    obj_dict['landlord_id'] = obj_item.id
+
+    new_tenant = Tenant(**obj_dict)
+    new_tenant.save()
+
+    print("{} successfully created!!".format(new_tenant))
+    print("Tenant ID: {}".format(new_tenant.tenant_id))
+    print("Password: {}".format(new_tenant.password))
+    
+    return
+
 
 def create_house(obj_item):
     house_dict = {}
@@ -161,6 +212,7 @@ def house(obj_item):
     return
 
 def house_cli(obj_item):
+    print("{} Apartments: {}".format(obj_item.house_name, obj_item.number_of_apartments))
     print("""
     1. Create Apartment
     2. Apartments
@@ -249,8 +301,7 @@ def apartment_cli(obj_item):
         return
     return
 
-
-# Tenant CLI Functionality
+# Tenant Account CLI Functionality
 def tenant_cli():
     print("""
     Welcome Back!!
