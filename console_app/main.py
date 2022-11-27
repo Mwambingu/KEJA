@@ -103,6 +103,7 @@ def landlord_cli(obj_item):
     1. Landlord Information
     2. Add House
     3. Houses
+    5. Tenants
     4. Exit
     """)
 
@@ -114,9 +115,27 @@ def landlord_cli(obj_item):
     if value == "3":
         house(obj_item)
     if value == "4":
+        tenants(obj_item)
+    if value == "5":
         main()
     
     landlord_cli(obj_item)
+
+def tenants(obj_item):
+    print("""
+    1. Create Tenant
+    2. Tenants
+    3. Go back
+    """)
+    value = ("Enter value: ")
+    if value == "1":
+        print("Creating Tenants")
+        return
+    if value == "2":
+        print("Here's a list of tenants!")
+        return
+    if value == "3":
+        return
 
 def create_house(obj_item):
     house_dict = {}
@@ -228,6 +247,8 @@ def apartment_cli(obj_item):
         print("Input doesn't exist")
         return
     return
+
+
 # Tenant CLI Functionality
 def tenant_cli():
     print("""

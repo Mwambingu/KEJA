@@ -11,4 +11,4 @@ class Apartment(BaseModel, Base):
     room_type = Column(String(16), nullable=False)
     rent = Column(Integer, nullable=False)
     house_id = Column(String(60), ForeignKey("houses.id"), nullable=False)
-    tenants = relationship("Tenant", backref="apartments", cascade="all, delete")
+    tenants = relationship("Tenant", backref="apartments")
