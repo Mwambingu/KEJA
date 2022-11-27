@@ -27,10 +27,11 @@ class BaseModel():
         models.storage.new(self)
         models.storage.save()
     
-    def update(self, obj_dict):
+    def update(self, obj_dict=None):
         self.updated_at = datetime.utcnow()
-        for k, v in obj_dict.items():
-            setattr(self, k, v)
+        if obj_dict:
+            for k, v in obj_dict.items():
+                setattr(self, k, v)
         models.storage.new(self)
         models.storage.save()
 

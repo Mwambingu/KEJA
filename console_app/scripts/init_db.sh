@@ -16,7 +16,9 @@ fi
 echo "create Landlord first_name='Nyumba' last_name='Zangu' email='nyumba@zangu.com' password='Umelipa?' id=$landlord_id" | ./console.py
 echo "create House house_name='Nyumba Kubwa' landlord_id=$landlord_id id=$house_id" | ./console.py
 echo "create Apartment apartment_no='D001'  room_type='Two Bedroom' rent='32000' house_id=$house_id id=$aptmt1_id" | ./console.py
+echo "update House id=$house_id number_of_apartments=1" | ./console.py
 echo "create Apartment apartment_no='D002' room_type='Single Room' rent='8000' house_id=$house_id id=$aptmt2_id" | ./console.py
+echo "update House id=$house_id number_of_apartments=2" | ./console.py
 echo "create Tenant first_name='Mpiga' last_name='Kelele' apartment_id=$aptmt1_id landlord_id=$landlord_id" | ./console.py
 echo "create Tenant first_name='Mkosa' last_name='Kulipa' apartment_id=$aptmt2_id landlord_id=$landlord_id" | ./console.py
 

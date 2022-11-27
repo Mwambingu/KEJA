@@ -197,7 +197,8 @@ def create_apartment(obj_item):
             aptmt_dict['house_id'] = obj_item.id
             new_aptmt = Apartment(**aptmt_dict)
             print("{} has been successfully created!!".format(new_aptmt))
-            print(new_aptmt.__dict__)
+            obj_item.number_of_apartments += 1
+            obj_item.update()
             new_aptmt.save()
     else:
         create_apartment(obj_item)
