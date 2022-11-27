@@ -55,7 +55,7 @@ class KejaShell(Cmd):
         
         if cls_str == "Tenant":
             if len(inps) < 3:
-                print("Missing inputs! \nex: Create Tenant <first_name=''> <last_name=''> <apartment_id>=''")
+                print("Missing inputs! \nex: Create Tenant <first_name=''> <last_name=''> <landlord_id>='' <apartment_id=''>")
                 return
             obj = Tenant(**obj_dict)
 
