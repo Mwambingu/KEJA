@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
+import os
+import random
 from models import storage
 from models.landlord import Landlord
 from models.tenants import Tenant
 from models.apartment import Apartment
 from models.house import House
-import random
+from time import sleep
+
 
 # Other Functions
 
@@ -25,11 +28,18 @@ def get_pass():
         rand_size = random.choice(pass_size)
         pass_str += choice[rand_size]
     return pass_str
+
+def screen_clear():
+    if os.name == 'posix':
+        _ = os.system('clear')
+    else:
+        _ = os.system('cls')
     
 
 # Account Authentication
 # Signup Module
 def signup():
+    screen_clear()
     print("SignUp")
     print("Type: 'exit' on any field to leave")
     first_name = str(input("Enter First name: "))
@@ -46,11 +56,13 @@ def signup():
         signup()
     print("User successfully created!!")
     print(f"Welcome {username}!!")
+    sleep(2)
     main()
 
 # Login Module
 def login():
     """Initiates the login process"""
+    screen_clear()
     print("""
     Login:
     1. Landlord Login
@@ -74,6 +86,7 @@ def login():
 #Account Authenticaiton -- Login Module
 def landlord():
     """Initiates Landlord's Account authentication"""
+    screen_clear()
     print("Landlord Login:")
     print("Type: 'exit' on any field to leave")
     email = str(input("Enter email: "))
@@ -89,6 +102,7 @@ def landlord():
     if obj_item:
         landlord_cli(obj_item)
     print("User doesn't exist or password is incorrect!!")
+    sleep(1)
     landlord()
 
 def landlord_check(em, pwd):
@@ -100,6 +114,7 @@ def landlord_check(em, pwd):
 
 def tenant():
     """Initiates Tenant's Account authentication"""
+    screen_clear()
     print("Tenant Login:")
     print("Type: 'exit' on any field to leave")
     tenant_id = str(input("Enter Tenant ID: "))
@@ -124,14 +139,15 @@ def get_info(obj_item):
 
 # Landlord CLI Functionality
 def landlord_cli(obj_item):
+    screen_clear()
     print("""
-    Welcome Back!!
+    {} Welcome Back!!
     1. Landlord Information
     2. Add House
     3. Houses
     4. Tenants
     5. Exit
-    """)
+    """.format(obj_item.first_name))
 
     value = input("Enter value: ")
     if value == "1":
@@ -145,10 +161,12 @@ def landlord_cli(obj_item):
     if value == "5":
         main()
     
+    sleep(1)
     landlord_cli(obj_item)
 
 # Creating Tenants accounts and management cli
 def tenants(obj_item):
+    screen_clear()
     print("""
     1. Create Tenant
     2. Tenants
@@ -157,14 +175,18 @@ def tenants(obj_item):
     value = input("Enter value: ")
     if value == "1":
         create_tenants(obj_item)
-        return
     if value == "2":
-        print("Here's a list of tenants!")
-        return
+        get_tenants(obj_item)
     if value == "3":
         return
+    if value not in ["1", "2", "3"]:
+        print("Incorrect Input!!")
+        sleep(1)
+        tenants(obj_item)
+    tenants(obj_item)
 
 def create_tenants(obj_item):
+    screen_clear()
     obj_dict = {}
     random_int = random.randint(1000,9999)
     first_name = input("Enter First Name: ")
@@ -184,11 +206,18 @@ def create_tenants(obj_item):
     print("{} successfully created!!".format(new_tenant))
     print("Tenant ID: {}".format(new_tenant.tenant_id))
     print("Password: {}".format(new_tenant.password))
+    sleep(1)
     
+    return
+
+def get_tenants(obj_item):
+    screen_clear()
+    print("Here's a list of tenants")
     return
 
 
 def create_house(obj_item):
+    screen_clear()
     house_dict = {}
     house_dict['house_name'] = input("Enter House Name: ")
     house_dict['landlord_id'] = obj_item.id
@@ -200,6 +229,7 @@ def create_house(obj_item):
     return
 
 def house(obj_item):
+    screen_clear()
     house_objs = obj_item.houses
     count = 1
     for house_obj in house_objs:
@@ -212,6 +242,7 @@ def house(obj_item):
     return
 
 def house_cli(obj_item):
+    screen_clear()
     print("{} Apartments: {}".format(obj_item.house_name, obj_item.number_of_apartments))
     print("""
     1. Create Apartment
@@ -258,6 +289,8 @@ def create_apartment(obj_item):
     house_cli(obj_item)
 
 def apartment(obj_item):
+    screen_clear()
+    print("{} Apartments".format(obj_item.house_name))
     aptmt_objs = obj_item.apartments
     count = 1
 
@@ -274,16 +307,20 @@ def apartment(obj_item):
         int(value)
     except (TypeError, ValueError):
         print("Error! Not a valid integer!")
+        sleep(1)
         return
 
     if int(value) == 0 or int(value) > len(aptmt_objs):
         print("Input doesn't exist")
+        sleep(1)
         return
     
     print("{} has been selected!!".format(aptmt_objs[int(value)-1].apartment_no))
+    sleep(1)
     apartment_cli(aptmt_objs[int(value)-1])
 
 def apartment_cli(obj_item):
+    screen_clear()
     print("""
     1. Add Tenant
     2. Adjust Rent
@@ -294,15 +331,18 @@ def apartment_cli(obj_item):
         int(value)
     except (TypeError, ValueError):
         print("Error! Not a valid integer!")
+        sleep(1)
         return
 
     if int(value) == 0 or int(value) > 3:
         print("Input doesn't exist")
+        sleep(1)
         return
     return
 
 # Tenant Account CLI Functionality
 def tenant_cli():
+    screen_clear()
     print("""
     Welcome Back!!
     1. Tenancy Information
@@ -324,6 +364,7 @@ def tenant_cli():
 
 # Main application function
 def main():
+    screen_clear()
     """Launches the main Application"""
     print("""
     Welcome to KeJa!
@@ -338,12 +379,15 @@ def main():
     print("\n")
 
     if value == "1":
+        screen_clear()
         signup()
     if value == "2":
+        screen_clear()
         login()
     if value == "3":
         print("Thank you for using KEJA!")
         quit()
+        screen_clear()
     print("Incorrect input!")
     main()
 
