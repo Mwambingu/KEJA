@@ -258,7 +258,7 @@ def house_cli(house_obj):
     if value == "1":
         create_apartment(house_obj)
     if value == "2":
-        apartment(house_obj)
+        get_apartments(house_obj)
     if value == "3":
         return
     if value == "4":
@@ -293,36 +293,40 @@ def create_apartment(house_obj):
 
     house_cli(house_obj)
 
-def apartment(house_obj):
+def get_apartments(house_obj):
     screen_clear()
-    print("{} Apartments".format(house_obj.house_name))
     aptmt_objs = house_obj.apartments
-    count = 1
 
-    for aptmt_obj in aptmt_objs:
-        apartment_no = aptmt_obj.apartment_no
-        room_type = aptmt_obj.room_type
-        rent = aptmt_obj.rent
-        print("{}. Apartment No: {} Room Type: {} Rent: Ksh. {}".format(count, apartment_no, room_type, rent))
-        count += 1
-    
-    value = input("Enter value: ")
+    if aptmt_objs:
+        print("{} Apartments".format(house_obj.house_name))
+        print("To go back type 'exit' as value")
+        no_of_aptmts = []
+        count = 1
+        for n in range(house_obj.number_of_apartments):
+            no_of_aptmts.append(str(n+1))
 
-    try:
-        int(value)
-    except (TypeError, ValueError):
-        print("Error! Not a valid integer!")
+        for aptmt_obj in aptmt_objs:
+            apartment_no = aptmt_obj.apartment_no
+            room_type = aptmt_obj.room_type
+            rent = aptmt_obj.rent
+            print("{}. Apartment No: {} Room Type: {} Rent: Ksh. {}".format(count, apartment_no, room_type, rent))
+            count += 1
+
+        value = input("Enter value: ")
+
+        if value == "exit":
+            house_cli(house_obj)
+
+        if value not in no_of_aptmts:
+            print("Incorrect Input!")
+            get_apartments(house_obj)
+        
+        print("{} has been selected!!".format(aptmt_objs[int(value)-1].apartment_no))
         sleep(1)
-        return
-
-    if int(value) == 0 or int(value) > len(aptmt_objs):
-        print("Input doesn't exist")
-        sleep(1)
-        return
+        apartment_cli(aptmt_objs[int(value)-1], house_obj)
     
-    print("{} has been selected!!".format(aptmt_objs[int(value)-1].apartment_no))
-    sleep(1)
-    apartment_cli(aptmt_objs[int(value)-1], house_obj)
+    print("No Apartments Found!!")
+    sleep(2)
 
 def apartment_cli(aptmt_obj, house_obj):
     screen_clear()
