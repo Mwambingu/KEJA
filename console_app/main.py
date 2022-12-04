@@ -178,13 +178,17 @@ def get_houses(landlord_obj):
     screen_clear()
     house_objs = landlord_obj.houses
     count = 1
-    for house_obj in house_objs:
-        print("{}.{}".format(count, house_obj.house_name))
-        count +=1
-    value = int(input("Enter Value: "))-1
+    if house_objs:
+        for house_obj in house_objs:
+            print("{}.{}".format(count, house_obj.house_name))
+            count +=1
+        value = int(input("Enter Value: "))-1
 
-    print("{} has been selected!!".format(house_objs[value].house_name))
-    house_cli(house_objs[value])
+        print("{} has been selected!!".format(house_objs[value].house_name))
+        house_cli(house_objs[value])
+        return
+    print("No Houses Found!")
+    sleep(2)
     return
 
 # Creating Tenants accounts and management cli
