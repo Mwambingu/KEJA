@@ -11,4 +11,4 @@ class Landlord(BaseModel, Base):
     email = Column(String(32), nullable=False)
     password = Column(String(32), nullable=False)
     houses = relationship("House", backref="landlords", cascade="all, delete")
-    tenants= relationship("Tenant", backref="landlords", cascade="all, delete")
+    tenants = relationship("Tenant", backref="landlords", cascade="all, delete")

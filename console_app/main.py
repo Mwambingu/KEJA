@@ -176,13 +176,28 @@ def create_house(landlord_obj):
 
 def get_houses(landlord_obj):
     screen_clear()
+    print("{}'s Houses".format(landlord_obj.first_name))
+    print("To go back type 'exit' as value")
     house_objs = landlord_obj.houses
+    no_of_houses = []
     count = 1
     if house_objs:
+        for n_house in range(len(house_objs)):
+            no_of_houses.append(str(n_house+1))
+
         for house_obj in house_objs:
             print("{}.{}".format(count, house_obj.house_name))
             count +=1
-        value = int(input("Enter Value: "))-1
+        value = input("Enter Value: ")
+
+        if value == "exit":
+            return
+        
+        value = int(value)-1
+
+        if str(value) not in no_of_houses:
+            print("Incorrect Input")
+            get_houses(landlord_obj)
 
         print("{} has been selected!!".format(house_objs[value].house_name))
         house_cli(house_objs[value])
@@ -240,7 +255,10 @@ def create_tenants(landlord_obj):
 
 def get_tenants(landlord_obj):
     screen_clear()
+    print("{}'s Tenants".format(landlord_obj.first_name))
+    tenant_objs = landlord_obj.tenants
     print("Here's a list of tenants")
+    print(f"{tenant_objs}")
     return
 
 # creating apartments and management cli
@@ -266,6 +284,8 @@ def house_cli(house_obj):
     if value not in ["1", "2", "3", "4"]:
         print("Incorrect Input!!")
         sleep(1)
+        house_cli(house_obj)
+    sleep(2)
 
 def create_apartment(house_obj):
     aptmt_dict = {}
@@ -291,7 +311,7 @@ def create_apartment(house_obj):
     else:
         create_apartment(house_obj)
 
-    house_cli(house_obj)
+    return
 
 def get_apartments(house_obj):
     screen_clear()
@@ -324,9 +344,11 @@ def get_apartments(house_obj):
         print("{} has been selected!!".format(aptmt_objs[int(value)-1].apartment_no))
         sleep(1)
         apartment_cli(aptmt_objs[int(value)-1], house_obj)
+        return
     
     print("No Apartments Found!!")
     sleep(2)
+    return
 
 def apartment_cli(aptmt_obj, house_obj):
     screen_clear()
@@ -345,11 +367,11 @@ def apartment_cli(aptmt_obj, house_obj):
     if value == "2":
         print("Adjust Rent coming soon...")
     if value == "3":
-        house_cli(house_obj)
+        return
     if value == "4":
         main()
     sleep(3)
-    return
+    apartment_cli(aptmt_obj, house_obj)
 
 # Tenant Account CLI Functionality
 def tenant_cli():
@@ -386,8 +408,7 @@ def main():
     3. Exit
     """)
 
-    value = str(input("Enter value: "))
-    print("\n")
+    value = (input("Enter value: ")
 
     if value == "1":
         screen_clear()
@@ -397,6 +418,7 @@ def main():
         login()
     if value == "3":
         print("Thank you for using KEJA!")
+        sleep(2)
         quit()
         screen_clear()
     print("Incorrect input!")
