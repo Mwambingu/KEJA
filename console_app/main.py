@@ -34,6 +34,12 @@ def screen_clear():
         _ = os.system('clear')
     else:
         _ = os.system('cls')
+
+def reload_obj(sim_obj):
+    obj_list=storage.list_all(sim_obj.__class__.__name__)
+    for obj_item in obj_list:
+        if obj_item.id == sim_obj.id:
+            return obj_item
     
 
 # Account Authentication
@@ -143,6 +149,7 @@ def landlord_cli(landlord_obj):
             print("Email: {}".format(landlord_obj.email))
         if value == "2":
             create_house(landlord_obj)
+            landlord_obj = reload_obj(landlord_obj)
         if value == "3":
             get_houses(landlord_obj)
         if value == "4":
@@ -255,6 +262,7 @@ def create_tenants(landlord_obj):
 
 def get_tenants(landlord_obj):
     screen_clear()
+    storage.reload()
     print("{}'s Tenants".format(landlord_obj.first_name))
     tenant_objs = landlord_obj.tenants
     print("Here's a list of tenants")
@@ -408,7 +416,7 @@ def main():
     3. Exit
     """)
 
-    value = (input("Enter value: ")
+    value = input("Enter value: ")
 
     if value == "1":
         screen_clear()
