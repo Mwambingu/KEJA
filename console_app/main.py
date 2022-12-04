@@ -124,48 +124,71 @@ def tenant():
     tenant_cli()
     main()
 
+# Landlord CLI Functionality
+def landlord_cli(landlord_obj):
+    try:
+        screen_clear()
+        print("""
+        {} Welcome Back!!
+        1. Landlord Information
+        2. Add House
+        3. Houses
+        4. Tenants
+        5. Logout
+        """.format(landlord_obj.first_name))
 
-# Account Actions and Management
-def get_info(obj_item):
-    obj_dict = obj_item.__dict__
-    key_list = ['_sa_instance_state', 'id', 'updated_at', 'created_at', 'password']
-    for key in key_list:
-        if key in obj_dict:
-            del obj_dict[key]
-    
-    for k, v in obj_dict.items():
-        print("{}: {}".format(k, v))
+        value = input("Enter value: ")
+        if value == "1":
+            print("Name: {} {}".format(landlord_obj.first_name, landlord_obj.last_name))
+            print("Email: {}".format(landlord_obj.email))
+        if value == "2":
+            create_house(landlord_obj)
+        if value == "3":
+            get_houses(landlord_obj)
+        if value == "4":
+            access_tenants(landlord_obj)
+        if value == "5":
+            main()
+        if value not in ["1", "2", "3", "4", "5"]:
+            print("Incorrect Input!!")
+            sleep(1)
+        
+        sleep(3)
+        landlord_cli(landlord_obj)
+    except (AttributeError):
+        screen_clear()
+        print("Print Unmapped Instance Error! Reloading.....")
+        sleep(3)
+        landlord_cli(landlord_obj)
+
+# Creating houses and management cli
+def create_house(landlord_obj):
+    screen_clear()
+    house_dict = {}
+    house_dict['house_name'] = input("Enter House Name: ")
+    house_dict['landlord_id'] = landlord_obj.id
+
+    new_house = House(**house_dict)
+    print("{} has been successfully created!!".format(new_house.house_name))
+    new_house.save()
+    print("{} saved to db!!".format(new_house.house_name))
     return
 
-# Landlord CLI Functionality
-def landlord_cli(obj_item):
+def get_houses(landlord_obj):
     screen_clear()
-    print("""
-    {} Welcome Back!!
-    1. Landlord Information
-    2. Add House
-    3. Houses
-    4. Tenants
-    5. Exit
-    """.format(obj_item.first_name))
+    house_objs = landlord_obj.houses
+    count = 1
+    for house_obj in house_objs:
+        print("{}.{}".format(count, house_obj.house_name))
+        count +=1
+    value = int(input("Enter Value: "))-1
 
-    value = input("Enter value: ")
-    if value == "1":
-        get_info(obj_item)
-    if value == "2":
-        create_house(obj_item)
-    if value == "3":
-        house(obj_item)
-    if value == "4":
-        tenants(obj_item)
-    if value == "5":
-        main()
-    
-    sleep(1)
-    landlord_cli(obj_item)
+    print("{} has been selected!!".format(house_objs[value].house_name))
+    house_cli(house_objs[value])
+    return
 
 # Creating Tenants accounts and management cli
-def tenants(obj_item):
+def access_tenants(landlord_obj):
     screen_clear()
     print("""
     1. Create Tenant
@@ -174,18 +197,19 @@ def tenants(obj_item):
     """)
     value = input("Enter value: ")
     if value == "1":
-        create_tenants(obj_item)
+        create_tenants(landlord_obj)
     if value == "2":
-        get_tenants(obj_item)
+        get_tenants(landlord_obj)
     if value == "3":
         return
     if value not in ["1", "2", "3"]:
         print("Incorrect Input!!")
         sleep(1)
-        tenants(obj_item)
-    tenants(obj_item)
+        access_tenants(landlord_obj)
+    sleep(3)
+    access_tenants(landlord_obj)
 
-def create_tenants(obj_item):
+def create_tenants(landlord_obj):
     screen_clear()
     obj_dict = {}
     random_int = random.randint(1000,9999)
@@ -198,7 +222,7 @@ def create_tenants(obj_item):
     obj_dict['last_name'] = last_name
     obj_dict['password'] = password
     obj_dict['tenant_id'] = tenant_id
-    obj_dict['landlord_id'] = obj_item.id
+    obj_dict['landlord_id'] = landlord_obj.id
 
     new_tenant = Tenant(**obj_dict)
     new_tenant.save()
@@ -206,63 +230,40 @@ def create_tenants(obj_item):
     print("{} successfully created!!".format(new_tenant))
     print("Tenant ID: {}".format(new_tenant.tenant_id))
     print("Password: {}".format(new_tenant.password))
-    sleep(1)
+    sleep(3)
     
     return
 
-def get_tenants(obj_item):
+def get_tenants(landlord_obj):
     screen_clear()
     print("Here's a list of tenants")
     return
 
-
-def create_house(obj_item):
+# creating apartments and management cli
+def house_cli(house_obj):
     screen_clear()
-    house_dict = {}
-    house_dict['house_name'] = input("Enter House Name: ")
-    house_dict['landlord_id'] = obj_item.id
-
-    new_house = House(**house_dict)
-    print("{} has been successfully created!!".format(new_house))
-    new_house.save()
-    print("{} saved to db!!".format(new_house))
-    return
-
-def house(obj_item):
-    screen_clear()
-    house_objs = obj_item.houses
-    count = 1
-    for house_obj in house_objs:
-        print("{}.{}".format(count, house_obj.house_name))
-        count +=1
-    value = int(input("Enter Value: "))-1
-
-    print("{} has been selected!!".format(house_objs[value].house_name))
-    house_cli(house_objs[value])
-    return
-
-def house_cli(obj_item):
-    screen_clear()
-    print("{} Apartments: {}".format(obj_item.house_name, obj_item.number_of_apartments))
+    print("{} Apartments: {}".format(house_obj.house_name, house_obj.number_of_apartments))
     print("""
     1. Create Apartment
     2. Apartments
     3. Go back
-    4. Exit
+    4. Logout
     """)
     value = input("Enter value: ")
 
     if value == "1":
-        create_apartment(obj_item)
+        create_apartment(house_obj)
     if value == "2":
-        apartment(obj_item)
+        apartment(house_obj)
     if value == "3":
         return
     if value == "4":
         main()
+    if value not in ["1", "2", "3", "4"]:
+        print("Incorrect Input!!")
+        sleep(1)
 
-
-def create_apartment(obj_item):
+def create_apartment(house_obj):
     aptmt_dict = {}
     not_int = False
     new_aptmt = None
@@ -277,21 +278,21 @@ def create_apartment(obj_item):
         not_int = True
     
     if not not_int:
-            aptmt_dict['house_id'] = obj_item.id
+            aptmt_dict['house_id'] = house_obj.id
             new_aptmt = Apartment(**aptmt_dict)
             print("{} has been successfully created!!".format(new_aptmt))
-            obj_item.number_of_apartments += 1
-            obj_item.update()
+            house_obj.number_of_apartments += 1
+            house_obj.update()
             new_aptmt.save()
     else:
-        create_apartment(obj_item)
+        create_apartment(house_obj)
 
-    house_cli(obj_item)
+    house_cli(house_obj)
 
-def apartment(obj_item):
+def apartment(house_obj):
     screen_clear()
-    print("{} Apartments".format(obj_item.house_name))
-    aptmt_objs = obj_item.apartments
+    print("{} Apartments".format(house_obj.house_name))
+    aptmt_objs = house_obj.apartments
     count = 1
 
     for aptmt_obj in aptmt_objs:
@@ -317,27 +318,29 @@ def apartment(obj_item):
     
     print("{} has been selected!!".format(aptmt_objs[int(value)-1].apartment_no))
     sleep(1)
-    apartment_cli(aptmt_objs[int(value)-1])
+    apartment_cli(aptmt_objs[int(value)-1], house_obj)
 
-def apartment_cli(obj_item):
+def apartment_cli(aptmt_obj, house_obj):
     screen_clear()
     print("""
     1. Add Tenant
     2. Adjust Rent
-    3. Exit
+    3. Go back
+    4. Logout
     """)
     value = input("Enter value: ")
-    try:
-        int(value)
-    except (TypeError, ValueError):
-        print("Error! Not a valid integer!")
-        sleep(1)
-        return
 
-    if int(value) == 0 or int(value) > 3:
-        print("Input doesn't exist")
-        sleep(1)
-        return
+    if value not in ["1", "2", "3", "4"]:
+        print("Incorrect Input")
+    if value == "1":
+        print("Add Rent coming soon...")
+    if value == "2":
+        print("Adjust Rent coming soon...")
+    if value == "3":
+        house_cli(house_obj)
+    if value == "4":
+        main()
+    sleep(3)
     return
 
 # Tenant Account CLI Functionality
