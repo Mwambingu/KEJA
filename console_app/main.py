@@ -281,10 +281,13 @@ def get_tenants(obj_item):
     no_of_tenants = []
 
     for db_tenant_obj in db_tenant_objs:
-        if db_aptmt_obj.landlord_id == obj_item.id:
+        if db_tenant_obj.landlord_id == obj_item.id:
             tenant_objs.append(db_tenant_obj)
     for tenant_obj in tenant_objs:
-        print("Tenant ID:{} | Name: {}  {} |".format(tenant_obj.tenant_id, tenant_obj.first_name, tenant_obj.last_name))
+        print("Tenant ID:{} | Name: {}  {}".format(tenant_obj.tenant_id, tenant_obj.first_name, tenant_obj.last_name))
+    
+    if not db_tenant_objs:
+        print("No Tenants found!!")
     sleep(3)
     return
 
