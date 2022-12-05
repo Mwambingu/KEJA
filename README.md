@@ -10,13 +10,13 @@
 <br>
 <br>
 
-# PROJECT LANGUAGES
+# Project Languages
 <img width="60" height="60" src="./assets/html_logo.png"> <img width="60" height="60" src="./assets/css_logo.png"> <img width="60" height="60" src="./assets/js_logo.png"> 
 <img width="60" height="60" src="./assets/python_logo.png"> <img width="60" height="60" src="./assets/mysql_logo.png">
 <br>
 <br>
 
-# PROJECT TECHNOLOGIES
+# Project Technologies
 ### The project has 3 versions
 
 <img width="60" height="60" src="./assets/cmd_logo.png">   A console version. For testing feasability.
