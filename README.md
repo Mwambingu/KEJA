@@ -8,7 +8,6 @@
 
 #### Keja is for Landlords that want to take real ownership in managing and dealing with their properties first hand.
 <br>
-<br>
 
 # Project Languages
 <img width="60" height="60" src="./assets/html_logo.png"> <img width="60" height="60" src="./assets/css_logo.png"> <img width="60" height="60" src="./assets/js_logo.png"> 
