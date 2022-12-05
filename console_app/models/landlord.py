@@ -3,6 +3,7 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.house import House
 from models.tenants import Tenant
+
 class Landlord(BaseModel, Base):
     __tablename__ = "landlords"
     
