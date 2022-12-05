@@ -1,8 +1,6 @@
 <img width="400" height="400" alt="keja logo" src="./assets/KejaV2.png">
 
 # KEJA PROJECT
-<img alt="keja app" src="./assets/keja.jpg">
-
 
 #### Landlords usually have more than one apartment. To cater to all those apartments does take a lot of time and expenses. 
 
@@ -19,7 +17,7 @@
 <br>
 
 # PROJECT TECHNOLOGIES
-## The project has 3 versions
+### The project has 3 versions
 
 <img width="60" height="60" src="./assets/cmd_logo.png">   A console version. For testing feasability.
 
@@ -28,5 +26,7 @@
 <img width="60" height="60" src="./assets/react_logo.png">   A Final React + Flask version.
 <br>
 <br>
+
+#
 
 
