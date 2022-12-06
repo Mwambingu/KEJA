@@ -17,7 +17,7 @@
 # Project Technologies
 ### The project has 3 versions
 
-<img width="60" height="60" src="./assets/cmd_logo.png">   A console version. For testing feasability.
+<img width="60" height="60" src="./assets/cmd_logo.png">   A [Console](https://github.com/Mwambingu/KEJA/tree/master/console_app) version. For testing feasability.
 
 <img width="120" height="60" src="./assets/flask_logo.jpg">   A Flask + Jinja version.
 
