@@ -42,4 +42,4 @@ For a light read on the project. I have written an article on Medium. You can re
 - Once in the directory open app a terminal and just run `./console.py` or `./main.py`.
 
 # **Demo**
-<img src="../assets/app_demo.gif"/>
+<img width="640" height="360" src="../assets/app_demo.gif"/>
