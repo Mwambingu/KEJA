@@ -1,2 +1,35 @@
 # **KEJA**
-## *Your House Your Rules! Lmao!!*
+<h3><i>Console Version of the app</i></h3>
+<p>This is the console version of the app. This project is to test feasability of the overall project</p>
+
+For a light read on the project. I have written an article on Medium. You can read using the link below:
+
+- [Introducing KEJA ](https://medium.com/@tonny.mwambingu/keja-blog-post-3221c9a62daf)
+
+# **Tech Stack**
+**Front-End:**
+- Html
+- Css
+- Javascript
+
+**Back-End:**
+- Python
+- Mysql
+- SQLAlchemy
+
+# **Usage**
+**Front-End**
+<p>For the landing page. I used <a href="https://vitejs.dev/">Vite</a>. A frontend build tool that I used to setup my development environment. I can hot reload my site with only three commands which was super convenient.</p>
+
+- First clone the repo
+- Open a terminal window in the directory
+- Then Run `npm run dev`
+
+**Back-End**
+<p>Assuming you already cloned the repo. To make it easier setting up. I created a few scripts that will help when working with the backend and the main application.<p>
+
+| /scripts                    | What it does  |
+| --------------------------------- | -------- |
+| `setup_mysql_db.sql` | A sql script for creating a test DB, user with access to created DB |
+| `init_db.sh`  | Creates the tables and fills them with data in the test DB |
+| `drop_table.sql`   | Drops all created tables in the test DB  |
