@@ -30,9 +30,9 @@ For a light read on the project. I have written an article on Medium. You can re
 
 | console_app/scripts                    | What it does  |
 | --------------------------------- | -------- |
-| `setup_mysql_db.sql` | A sql script for creating a test DB, user with access to created DB |
-| `init_db.sh`  | Creates the tables and fills them with data in the test DB |
-| `drop_table.sql`   | Drops all created tables in the test DB  |
+| `setup_mysql_db.sql` | SQL script that creates a test DB, user with access to created DB |
+| `init_db.sh`  | Bash script that creates the tables and fills them with data in the test DB |
+| `drop_table.sql`   | SQL sciprt that drops all created tables in the test DB  |
 
 **Running the console app and handling data in the db**
 - To use the console app or setup the backend. `cd` into the console_app directory.
@@ -40,6 +40,10 @@ For a light read on the project. I have written an article on Medium. You can re
 - The `main.py` is the main console application. That has an interactive cli. It has features that are indicative of what to expect in the final version of the Keja project.
 - The `console.py` is an interactive shell that is to test and work with models directly from the DB. You can list, create, update and delete models in the db.
 - Once in the directory open app a terminal and just run `./console.py` or `./main.py`.
+- To run the SQL scipts just run cat `./scripts/<sql_script.sql> | mysql -uroot -p`
 
 # **Demo**
 <img width="640" height="360" src="../assets/app_demo.gif"/>
+
+# **Author**
+- **Tonny Mwambingu** <[mwambingu](https://github.com/mwambingu)> 
