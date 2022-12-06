@@ -44,3 +44,4 @@ For a light read on the project. I have written an article on Medium. You can re
 # **Demo**
 
 <img src="https://github.com/Mwambingu/KEJA/blob/master/assets/App%20Demo.gif"/>
+<img src="../assets/app_demo.gif/>
