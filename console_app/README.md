@@ -40,3 +40,7 @@ For a light read on the project. I have written an article on Medium. You can re
 - The `main.py` is the main console application. That has an interactive cli. It has features that are indicative of what to expect in the final version of the Keja project.
 - The `console.py` is an interactive shell that is to test and work with models directly from the DB. You can list, create, update and delete models in the db.
 - Once in the directory open app a terminal and just run `./console.py` or `./main.py`.
+
+# **Demo**
+
+<img src="https://github.com/Mwambingu/KEJA/blob/master/assets/App%20Demo.gif"/>
