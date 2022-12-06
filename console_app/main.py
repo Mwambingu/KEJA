@@ -228,7 +228,6 @@ def get_houses(obj_item):
 # Creating Tenants accounts and management cli
 def access_tenants(obj_item):
     screen_clear()
-    cont = None
     print("""
     1. Create Tenant
     2. Tenants
@@ -236,11 +235,11 @@ def access_tenants(obj_item):
     """)
     value = input("Enter value: ")
     if value == "1":
-        cont = create_tenants(obj_item)
+        create_tenants(obj_item)
     if value == "2":
-        cont = get_tenants(obj_item)
+        get_tenants(obj_item)
     if value == "3":
-        landlord_cli(obj_item)
+        return
     if value not in ["1", "2", "3"]:
         print("Incorrect Input!!")
         sleep(1)
@@ -276,20 +275,61 @@ def create_tenants(obj_item):
 def get_tenants(obj_item):
     screen_clear()
     print("{}'s Tenants".format(obj_item.first_name))
+    print("To go back type 'exit' as value")
     db_tenant_objs = storage.list_all("Tenant")
     tenant_objs = []
     no_of_tenants = []
+    count = 1
 
-    for db_tenant_obj in db_tenant_objs:
-        if db_tenant_obj.landlord_id == obj_item.id:
-            tenant_objs.append(db_tenant_obj)
-    for tenant_obj in tenant_objs:
-        print("Tenant ID:{} | Name: {}  {}".format(tenant_obj.tenant_id, tenant_obj.first_name, tenant_obj.last_name))
+    if db_tenant_objs:
+        for db_tenant_obj in db_tenant_objs:
+            if db_tenant_obj.landlord_id == obj_item.id:
+                tenant_objs.append(db_tenant_obj)
+        
+        for n_tenant in range(len(tenant_objs)):
+            no_of_tenants.append(str(n_tenant))
     
+    if tenant_objs:
+        for tenant_obj in tenant_objs:
+            print("{}  {}".format(count, tenant_obj.first_name, tenant_obj.last_name))
+            count+=1
+    
+    value = input("Enter value: ")
+
+    if value == "exit":
+        return
+
+    if value not in no_of_tenants:
+        print("Incorrect input!!")
+        sleep(3)
+        return
+
     if not db_tenant_objs:
         print("No Tenants found!!")
+        sleep(3)
+        return
+    
+    if tenant_objs:
+        landlord_tenant_cli(tenant_objs[int(value)-1])
     sleep(3)
     return
+
+def landlord_tenant_cli(obj_item):
+    screen_clear()
+    aptmt_obj = obj_item.apartments
+
+    print("{} {}".format(obj_item.first_name, obj_item.last_name))
+    print("Tenant ID: {}".format(obj_item.tenant_id))
+    if aptmt_obj:
+        print("House: {}".format(aptmt_obj.houses.house_name))
+        print("Apartment: {} | {}".format(aptmt_obj.apartment_no, aptmt_obj.room_type))
+        print("Rent Amount: {}".format(aptmt_obj.rent))
+    else:
+        print("House: Not Assigned")
+    
+    sleep(3)
+    return
+
 
 # creating apartments and management cli
 def house_cli(obj_item):
@@ -308,7 +348,7 @@ def house_cli(obj_item):
     if value == "2":
         get_apartments(obj_item)
     if value == "3":
-        landlord_cli(obj_item)
+        return
     if value == "4":
         main()
     if value not in ["1", "2", "3", "4"]:
@@ -371,11 +411,11 @@ def get_apartments(obj_item):
         value = input("Enter value: ")
 
         if value == "exit":
-            house_cli(obj_item)
+            return
 
         if value not in no_of_aptmts:
             print("Incorrect Input!")
-            get_apartments(obj_item)
+            return
         
         print("{} has been selected!!".format(aptmt_objs[int(value)-1].apartment_no))
         sleep(1)
@@ -403,7 +443,7 @@ def apartment_cli(aptmt_obj, obj_item):
     if value == "2":
         print("Adjust Rent coming soon...")
     if value == "3":
-        house_cli(obj_item)
+        return
     if value == "4":
         main()
     sleep(3)
