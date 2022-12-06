@@ -35,7 +35,7 @@ For a light read on the project. I have written an article on Medium. You can re
 | `drop_table.sql`   | Drops all created tables in the test DB  |
 
 **Running the console app and handling data in the db**
-- To use the console app or setup the backend. CD into the console_app directory.
+- To use the console app or setup the backend. `cd` into the console_app directory.
 - You can use either use the `console.py` or `main.py`.
 - The `main.py` is the main console application. That has an interactive cli. It has features that are indicative of what to expect in the final version of the Keja project.
 - The `console.py` is an interactive shell that is to test and work with models directly from the DB. You can list, create, update and delete models in the db.
