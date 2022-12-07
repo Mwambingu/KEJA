@@ -47,6 +47,11 @@ def reload_obj_list(obj_to_reload, item):
 
     return obj_item_list
 
+def update_value(obj_to_update, attr, value):
+    setattr(obj_to_update, attr, value)
+    obj_to_update.update()
+    return obj_to_update
+
 # Account Authentication
 # Signup Module
 def signup():
@@ -442,13 +447,25 @@ def apartment_cli(aptmt_obj, obj_item):
     if value == "1":
         print("Add Tenant coming soon...")
     if value == "2":
-        print("Adjust Rent coming soon...")
+        adjust_rent(aptmt_obj)
     if value == "3":
         return
     if value == "4":
         main()
     sleep(3)
     apartment_cli(aptmt_obj, obj_item)
+
+def adjust_rent(aptmt_obj):
+    print("Current rent amount: {}".format(aptmt_obj.rent))
+    value = input("Enter new rent value: ")
+    if not value.isdigit():
+        print("Incorrect value!!")
+        return
+    
+    aptmt_obj = update_value(aptmt_obj, "rent", value)
+    print("Rent has been successfully updated to {}".format(aptmt_obj.rent))
+    return
+
 
 # Tenant Account CLI Functionality
 def tenant_cli():
