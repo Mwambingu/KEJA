@@ -287,7 +287,7 @@ def get_tenants(obj_item):
                 tenant_objs.append(db_tenant_obj)
         
         for n_tenant in range(len(tenant_objs)):
-            no_of_tenants.append(str(n_tenant))
+            no_of_tenants.append(str(n_tenant+1))
     
     if tenant_objs:
         for tenant_obj in tenant_objs:
@@ -298,7 +298,8 @@ def get_tenants(obj_item):
 
     if value == "exit":
         return
-
+    
+    print(no_of_tenants)
     if value not in no_of_tenants:
         print("Incorrect input!!")
         sleep(3)
