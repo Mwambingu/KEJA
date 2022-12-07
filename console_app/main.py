@@ -52,6 +52,26 @@ def update_value(obj_to_update, attr, value):
     obj_to_update.update()
     return obj_to_update
 
+def return_related_objs(obj, obj_class, id_attr):
+    obj_list = storage.list_all(obj_class)
+    new_obj_list = []
+    if not obj_list:
+        return None
+    for obj_item in obj_list:
+        attr_value = getattr(obj_item, id_attr)
+        if attr_value == obj.id:
+            return obj_item
+        else:
+            if attr_value == None:
+                new_obj_list.append(obj_item)
+    return new_obj_list
+    
+
+def delete_related_values(related_obj, related_value):
+    update_value(related_obj, "related_value", None)
+    related_obj.update()
+
+
 # Account Authentication
 # Signup Module
 def signup():
@@ -425,14 +445,14 @@ def get_apartments(obj_item):
         
         print("{} has been selected!!".format(aptmt_objs[int(value)-1].apartment_no))
         sleep(1)
-        apartment_cli(aptmt_objs[int(value)-1], obj_item)
+        apartment_cli(aptmt_objs[int(value)-1])
         return
     
     print("No Apartments Found!!")
     sleep(2)
     return
 
-def apartment_cli(aptmt_obj, obj_item):
+def apartment_cli(aptmt_obj):
     screen_clear()
     print("""
     1. Add Tenant
@@ -445,7 +465,7 @@ def apartment_cli(aptmt_obj, obj_item):
     if value not in ["1", "2", "3", "4"]:
         print("Incorrect Input")
     if value == "1":
-        print("Add Tenant coming soon...")
+        add_tenant(aptmt_obj)
     if value == "2":
         adjust_rent(aptmt_obj)
     if value == "3":
@@ -453,7 +473,43 @@ def apartment_cli(aptmt_obj, obj_item):
     if value == "4":
         main()
     sleep(3)
-    apartment_cli(aptmt_obj, obj_item)
+    apartment_cli(aptmt_obj)
+
+def add_tenant(aptmt_obj):
+    screen_clear()
+    no_of_tenants = []
+    count = 1
+    tenant_list = return_related_objs(aptmt_obj, "Tenant", "apartment_id")
+
+    if tenant_list == None:
+        return
+    if type(tenant_list) != list:
+        print("Apartment is already assigned to a tenant")
+        return
+    
+    print("List of tenants without apartments")
+    print("Type go back type 'exit' as value")
+
+    for n_tenants in range(len(tenant_list)):
+        no_of_tenants.append(str(n_tenants+1))
+    
+    for tenant_obj in tenant_list:
+        print("{}. {} {}".format(count, tenant_obj.first_name, tenant_obj.last_name))
+        count+=1
+    
+    value = input("Enter value: ")
+
+    if value == "exit":
+        return
+
+    if value not in no_of_tenants:
+        print("Error incorrect input!")
+        return
+    
+    tenant = tenant_list[int(value)-1]
+    tenant = update_value(tenant, "apartment_id", aptmt_obj.id)
+    print("{} {} has been assigned as new tenant.".format(tenant.first_name, tenant.last_name))
+    return
 
 def adjust_rent(aptmt_obj):
     print("Current rent amount: {}".format(aptmt_obj.rent))
@@ -461,10 +517,11 @@ def adjust_rent(aptmt_obj):
     if not value.isdigit():
         print("Incorrect value!!")
         return
-    
+
     aptmt_obj = update_value(aptmt_obj, "rent", value)
     print("Rent has been successfully updated to {}".format(aptmt_obj.rent))
     return
+
 
 
 # Tenant Account CLI Functionality
