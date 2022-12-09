@@ -36,6 +36,7 @@ def screen_clear():
         _ = os.system('cls')
 
 def reload_obj(sim_obj):
+    storage.reload()
     obj_list=storage.list_all(sim_obj.__class__.__name__)
     for obj_item in obj_list:
         if obj_item.id == sim_obj.id:
@@ -457,20 +458,23 @@ def apartment_cli(aptmt_obj):
     print("""
     1. Add Tenant
     2. Adjust Rent
-    3. Go back
-    4. Logout
+    3. Remove Tenant
+    4. Go Back
+    5. Logout
     """)
     value = input("Enter value: ")
 
-    if value not in ["1", "2", "3", "4"]:
+    if value not in ["1", "2", "3", "4", "5"]:
         print("Incorrect Input")
     if value == "1":
         add_tenant(aptmt_obj)
     if value == "2":
         adjust_rent(aptmt_obj)
     if value == "3":
-        return
+        remove_tenant(aptmt_obj)
     if value == "4":
+        return
+    if value == "5":
         main()
     sleep(3)
     apartment_cli(aptmt_obj)
@@ -522,7 +526,24 @@ def adjust_rent(aptmt_obj):
     print("Rent has been successfully updated to {}".format(aptmt_obj.rent))
     return
 
-
+def remove_tenant(aptmt_obj):
+    new_aptmt_obj = reload_obj(aptmt_obj)
+    tenant_list = new_aptmt_obj.tenants
+    
+    if tenant_list:
+        tenant = tenant_list[0]
+        print("You wish to remove {} from apartment?".format(tenant.first_name))
+        print("Type 'yes' to continue or 'no' to go back")
+        value = input("Enter value: ")
+        if value == "no":
+            return
+        if value == "yes":
+            tenant.apartment_id = None
+            tenant.update()
+            print("Tenant successfully removed!")
+            return
+    print("No tenant found!!")
+    return
 
 # Tenant Account CLI Functionality
 def tenant_cli():
