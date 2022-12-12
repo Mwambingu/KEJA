@@ -17,6 +17,13 @@ For a light read on the project. I have written an article on Medium. You can re
 - Mysql
 - SQLAlchemy
 
+**Dependencies:**
+| Tool/Library                                                                       | Version |
+| ---------------------------------------------------------------------------------- | ------- |
+| [Python](https://wiki.python.org/moin/BeginnersGuide/Download/)| ^3.8.10|
+| [SQLAlchemy](https://pypi.org/project/SQLAlchemy/#description)| ^1.4.41|
+| [MySQL](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04) | ^8.0.31  |
+
 # **Usage**
 **Front-End**
 <p>For the landing page. I used <a href="https://vitejs.dev/">Vite</a>. A frontend build tool. Used it to setup my development environment. I can hot reload my site with only three commands which was super convenient.</p>

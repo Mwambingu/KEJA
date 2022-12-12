@@ -41,12 +41,6 @@ def reload_obj(sim_obj):
         if obj_item.id == sim_obj.id:
             return obj_item
 
-def reload_obj_list(obj_to_reload, item):
-    obj_item = reload_obj(obj_to_reload)
-    obj_item_list = getattr(obj_item, item)
-
-    return obj_item_list
-
 def update_value(obj_to_update, attr, value):
     setattr(obj_to_update, attr, value)
     obj_to_update.update()
