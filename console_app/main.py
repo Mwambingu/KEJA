@@ -10,6 +10,18 @@ from time import sleep
 
 
 # Other Functions
+def user_check(form, login_id, pwd, user_type_str):
+    obj_list=storage.list_all(user_type_str)
+    if user_type_str == "Landlord":
+        for obj_item in obj_list:
+            if obj_item.email == login_id and obj_item.password == pwd:
+                return obj_item
+    if user_type_str == "Tenant":
+        for obj_item in obj_list:
+            if obj_item.tenant_id == login_id and obj_item.password == pwd:
+                return obj_item
+    return None
+
 def get_pass():
     letters_alpha = ["abcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyz".upper(), "1234567890", "!@#$%"]
     choice = ""
@@ -130,9 +142,9 @@ def login():
     print("\n")
 
     if value == "1":
-        landlord()
+        landlord_check()
     if value == "2":
-        tenant()
+        tenant_check()
     if value == "3":
         main()
     
@@ -140,7 +152,7 @@ def login():
     login()
 
 #Account Authenticaiton -- Login Module
-def landlord():
+def landlord_check():
     """Initiates Landlord's Account authentication"""
     screen_clear()
     print("Landlord Login:")
@@ -152,23 +164,17 @@ def landlord():
 
     if '@' not in email:
         print("Enter a valid email address!!")
-        landlord()
+        sleep(2)
+        landlord_check()
     
-    obj_item = landlord_check(email, password)
+    obj_item = user_check(email, password, "Landlord")
     if obj_item:
         landlord_cli(obj_item)
     print("User doesn't exist or password is incorrect!!")
     sleep(1)
-    landlord()
+    landlord_check()
 
-def landlord_check(em, pwd):
-    obj_list=storage.list_all("Landlord")
-    for obj_item in obj_list:
-        if obj_item.email == em and obj_item.password == pwd:
-            return obj_item
-    return None
-
-def tenant():
+def tenant_check():
     """Initiates Tenant's Account authentication"""
     screen_clear()
     print("Tenant Login:")
@@ -177,8 +183,13 @@ def tenant():
     password = str(input("Enter Tenant Password: "))
     if tenant_id == "exit" or password == "exit":
         main()
-    tenant_cli()
-    main()
+    
+    obj_item = user_check(tenant_id, password, "Tenant")
+    if obj_item:
+        tenant_cli(obj_item)
+    print("User doesn't exist or password is incorrect")
+    sleep(1)
+    tenant_check()
 
 # Landlord CLI Functionality
 def landlord_cli(obj_item):
@@ -567,8 +578,9 @@ def remove_tenant(aptmt_obj):
     return
 
 # Tenant Account CLI Functionality
-def tenant_cli():
+def tenant_cli(obj_item):
     screen_clear()
+    print("Hi {}".format(obj_item.first_name))
     print("""
     Welcome Back!!
     1. Tenancy Information
@@ -586,7 +598,7 @@ def tenant_cli():
         print("Landlord!!")
     if value == "4":
         main()
-    tenant_cli()
+    tenant_cli(obj_item)
 
 # Main application function
 def main():
