@@ -112,7 +112,7 @@ def signup():
 
     email = str(input("Enter email: "))
     if email == "exit":
-        return
+        main()
     if '@' not in email:
         print("Enter a valid email address!!")
         sleep(1)
