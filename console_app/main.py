@@ -10,7 +10,6 @@ from time import sleep
 
 
 # Other Functions
-
 def get_pass():
     letters_alpha = ["abcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyz".upper(), "1234567890", "!@#$%"]
     choice = ""
@@ -77,22 +76,48 @@ def delete_related_values(related_obj, related_value):
 # Signup Module
 def signup():
     screen_clear()
+    landlord_dict = {}
     print("SignUp")
     print("Type: 'exit' on any field to leave")
     first_name = str(input("Enter First name: "))
+    if first_name == "exit":
+        return
     last_name  = str(input("Enter Last name: "))
+    if last_name == "exit":
+        return
+    if not first_name.isalpha() and not last_name.isalpha():
+        print("Names should not contain digits!")
+        sleep(1)
+        signup()
+
     password = str(input("Enter password: "))
+    if password == "exit":
+        return
+    if len(password) < 8:
+        print("Password length is too short!")
+        sleep(1)
+        signup()
+
     email = str(input("Enter email: "))
-    print("\n")
-
-    if username == "exit" or password == "exit" or email == "exit":
-        main()
-
+    if email == "exit":
+        return
     if '@' not in email:
         print("Enter a valid email address!!")
+        sleep(1)
         signup()
+
+    landlord_dict["first_name"] = first_name
+    landlord_dict["last_name"] = last_name
+    landlord_dict["password"] = password
+    landlord_dict["email"] = email
+
+    print(landlord_dict)
+
+    new_landlord_obj = Landlord(**landlord_dict)
+    new_landlord_obj.save()
+
     print("User successfully created!!")
-    print(f"Welcome {username}!!")
+    print(f"Welcome {first_name}!!")
     sleep(2)
     main()
 
@@ -190,12 +215,12 @@ def landlord_cli(obj_item):
             print("Incorrect Input!!")
             sleep(1)
         
-        sleep(3)
+        sleep(2)
         landlord_cli(obj_item)
     except (AttributeError):
         screen_clear()
         print("Print Unmapped Instance Error! Reloading.....")
-        sleep(3)
+        sleep(2)
         landlord_cli(obj_item)
 
 # Creating houses and management cli
@@ -214,8 +239,6 @@ def create_house(obj_item):
 
 def get_houses(obj_item):
     screen_clear()
-    print("{}'s Houses".format(obj_item.first_name))
-    print("To go back type 'exit' as value")
     house_objs = storage.list_all("House")
     ld_house_objs = []
     no_of_houses = []
@@ -226,6 +249,9 @@ def get_houses(obj_item):
             ld_house_objs.append(house_obj)
     
     if ld_house_objs:
+        print("{}'s Houses".format(obj_item.first_name))
+        print("To go back type 'exit' as value")
+
         for n_house in range(len(ld_house_objs)):
             no_of_houses.append(str(n_house+1))
 
@@ -270,7 +296,7 @@ def access_tenants(obj_item):
         print("Incorrect Input!!")
         sleep(1)
         access_tenants(obj_item)
-    sleep(3)
+    sleep(2)
     access_tenants(obj_item)
 
 def create_tenants(obj_item):
@@ -294,14 +320,12 @@ def create_tenants(obj_item):
     print("{} successfully created!!".format(new_tenant))
     print("Tenant ID: {}".format(new_tenant.tenant_id))
     print("Password: {}".format(new_tenant.password))
-    sleep(3)
+    sleep(2)
     
     return
 
 def get_tenants(obj_item):
     screen_clear()
-    print("{}'s Tenants".format(obj_item.first_name))
-    print("To go back type 'exit' as value")
     db_tenant_objs = storage.list_all("Tenant")
     tenant_objs = []
     no_of_tenants = []
@@ -312,34 +336,37 @@ def get_tenants(obj_item):
             if db_tenant_obj.landlord_id == obj_item.id:
                 tenant_objs.append(db_tenant_obj)
         
-        for n_tenant in range(len(tenant_objs)):
-            no_of_tenants.append(str(n_tenant+1))
     
     if tenant_objs:
+        print("{}'s Tenants".format(obj_item.first_name))
+        print("To go back type 'exit' as value")
+
+        for n_tenant in range(len(tenant_objs)):
+            no_of_tenants.append(str(n_tenant+1))
+
         for tenant_obj in tenant_objs:
             print("{}  {}".format(count, tenant_obj.first_name, tenant_obj.last_name))
             count+=1
-    
-    value = input("Enter value: ")
+        value = input("Enter value: ")
 
-    if value == "exit":
+        if value == "exit":
+            return
+        
+        print(no_of_tenants)
+        if value not in no_of_tenants:
+            print("Incorrect input!!")
+            sleep(2)
+            return
+        
+        if tenant_objs:
+            landlord_tenant_cli(tenant_objs[int(value)-1])
+        sleep(2)
         return
     
-    print(no_of_tenants)
-    if value not in no_of_tenants:
-        print("Incorrect input!!")
-        sleep(3)
-        return
-
-    if not db_tenant_objs:
-        print("No Tenants found!!")
-        sleep(3)
-        return
-    
-    if tenant_objs:
-        landlord_tenant_cli(tenant_objs[int(value)-1])
-    sleep(3)
+    print("No Tenants Found!!")
+    sleep(2)
     return
+    
 
 def landlord_tenant_cli(obj_item):
     screen_clear()
@@ -354,7 +381,7 @@ def landlord_tenant_cli(obj_item):
     else:
         print("House: Not Assigned")
     
-    sleep(3)
+    sleep(2)
     return
 
 
@@ -476,7 +503,7 @@ def apartment_cli(aptmt_obj):
         return
     if value == "5":
         main()
-    sleep(3)
+    sleep(2)
     apartment_cli(aptmt_obj)
 
 def add_tenant(aptmt_obj):
