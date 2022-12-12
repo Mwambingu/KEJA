@@ -12,14 +12,20 @@ from time import sleep
 # Other Functions
 def user_check(form, login_id, pwd, user_type_str):
     obj_list=storage.list_all(user_type_str)
-    if user_type_str == "Landlord":
+    if form == "login":
+        if user_type_str == "Landlord":
+            for obj_item in obj_list:
+                if obj_item.email == login_id and obj_item.password == pwd:
+                    return obj_item
+        if user_type_str == "Tenant":
+            for obj_item in obj_list:
+                if obj_item.tenant_id == login_id and obj_item.password == pwd:
+                    return obj_item
+    
+    if form == "signup":
         for obj_item in obj_list:
-            if obj_item.email == login_id and obj_item.password == pwd:
-                return obj_item
-    if user_type_str == "Tenant":
-        for obj_item in obj_list:
-            if obj_item.tenant_id == login_id and obj_item.password == pwd:
-                return obj_item
+            if obj_item.email == login_id:
+                return True
     return None
 
 def get_pass():
@@ -111,6 +117,14 @@ def signup():
         print("Enter a valid email address!!")
         sleep(1)
         signup()
+    
+    user_exists = user_check("signup", email, None, "Landlord")
+
+    if user_exists == True:
+        print("Email already exists!! Use a different one!")
+        sleep(1)
+        signup()
+
 
     landlord_dict["first_name"] = first_name
     landlord_dict["last_name"] = last_name
@@ -167,7 +181,7 @@ def landlord_check():
         sleep(2)
         landlord_check()
     
-    obj_item = user_check(email, password, "Landlord")
+    obj_item = user_check("login", email, password, "Landlord")
     if obj_item:
         landlord_cli(obj_item)
     print("User doesn't exist or password is incorrect!!")
@@ -184,7 +198,7 @@ def tenant_check():
     if tenant_id == "exit" or password == "exit":
         main()
     
-    obj_item = user_check(tenant_id, password, "Tenant")
+    obj_item = user_check("login", tenant_id, password, "Tenant")
     if obj_item:
         tenant_cli(obj_item)
     print("User doesn't exist or password is incorrect")
@@ -275,8 +289,8 @@ def get_houses(obj_item):
         
         value = int(value)-1
 
-        print("{} has been selected!!".format(house_objs[value].house_name))
-        house_cli(house_objs[value])
+        print("{} has been selected!!".format(ld_house_objs[value].house_name))
+        house_cli(ld_house_objs[value])
         return
     print("No Houses Found!")
     sleep(2)
