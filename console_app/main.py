@@ -64,7 +64,7 @@ def update_value(obj_to_update, attr, value):
     obj_to_update.update()
     return obj_to_update
 
-def return_related_objs(obj, obj_class, id_attr):
+def return_related_objs(obj, obj_class, id_attr, landlord_id):
     obj_list = storage.list_all(obj_class)
     new_obj_list = []
     if not obj_list:
@@ -75,8 +75,12 @@ def return_related_objs(obj, obj_class, id_attr):
             return obj_item
         else:
             if attr_value == None:
-                new_obj_list.append(obj_item)
-    return new_obj_list
+                if obj_item.landlord_id == landlord_id:
+                    new_obj_list.append(obj_item)
+    
+    if new_obj_list:
+        return new_obj_list
+    return None
     
 
 def delete_related_values(related_obj, related_value):
@@ -397,11 +401,12 @@ def landlord_tenant_cli(obj_item):
         print("House: {}".format(aptmt_obj.houses.house_name))
         print("Apartment: {} | {}".format(aptmt_obj.apartment_no, aptmt_obj.room_type))
         print("Rent Amount: {}".format(aptmt_obj.rent))
+        sleep(2)
+        return
     else:
         print("House: Not Assigned")
-    
-    sleep(2)
-    return
+        sleep(2)
+        return
 
 
 # creating apartments and management cli
@@ -529,12 +534,16 @@ def add_tenant(aptmt_obj):
     screen_clear()
     no_of_tenants = []
     count = 1
-    tenant_list = return_related_objs(aptmt_obj, "Tenant", "apartment_id")
+    landlord_id = aptmt_obj.houses.landlord_id
+    tenant_list = return_related_objs(aptmt_obj, "Tenant", "apartment_id", landlord_id)
 
     if tenant_list == None:
+        print("There aren't any listed tenants yet!")
+        sleep(1)
         return
     if type(tenant_list) != list:
         print("Apartment is already assigned to a tenant")
+        sleep(1)
         return
     
     print("List of tenants without apartments")
