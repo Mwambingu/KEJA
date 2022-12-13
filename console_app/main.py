@@ -607,21 +607,40 @@ def tenant_cli(obj_item):
     print("""
     Welcome Back!!
     1. Tenancy Information
-    2. Rent Amount
-    3. Landlord Contact
-    4. Exit
+    2. Landlord Contact
+    3. Logout
     """)
     value = input("Enter value: ")
 
     if value == "1":
-        print("The Tenant")
+        get_tenant_info(obj_item)
     if value == "2":
-        print("Rent!!")
+        get_landlord_info(obj_item)
     if value == "3":
-        print("Landlord!!")
-    if value == "4":
         main()
     tenant_cli(obj_item)
+
+def get_tenant_info(obj_item):
+    aptmt_obj = obj_item.apartments
+    print("Name: {} {}".format(obj_item.first_name, obj_item.last_name))
+    print("Tenant ID: {}".format(obj_item.tenant_id))
+    if aptmt_obj:
+        print("House: {}".format(aptmt_obj.houses.house_name))
+        print("Apartment No: {} Type: {}".format(aptmt_obj.apartment_no, aptmt_obj.rent))
+        print("Rent Amount: {}".format(aptmt_obj.rent))
+    else:
+        print("House: Not Assigned")
+    
+    sleep(3)
+    return
+
+def get_landlord_info(obj_item):
+    landlord = obj_item.landlords
+    print("Name: {} {}".format(landlord.first_name, landlord.last_name))
+    print("email: {}".format(landlord.email))
+
+    sleep(3)
+    return
 
 # Main application function
 def main():
