@@ -4,11 +4,12 @@ Contains the Tenant class
 from sqlalchemy import Column, String, Integer, ForeignKey
 from models.basemodel import BaseModel, Base
 
+
 class Tenant(BaseModel, Base):
     """Represents an Tenant for MySQL database
 
     Inherits from SQLAlchemy Base and links to the MySQL table tenant
-    
+
     Attributes:
     __tablename__ (str): The name of the MySQL table to store tenant.
     first_name (sqlalchemy String): The first name of the tenant.
@@ -23,5 +24,11 @@ class Tenant(BaseModel, Base):
     last_name = Column(String(16), nullable=False)
     tenant_id = Column(String(16), nullable=True)
     password = Column(String(32), nullable=True)
-    apartment_id = Column(String(60), ForeignKey("apartments.id"), nullable=True)
-    landlord_id = Column(String(60), ForeignKey("landlords.id"), nullable=False)
+    apartment_id = Column(
+        String(60),
+        ForeignKey("apartments.id"),
+        nullable=True)
+    landlord_id = Column(
+        String(60),
+        ForeignKey("landlords.id"),
+        nullable=False)

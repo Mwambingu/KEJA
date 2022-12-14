@@ -6,11 +6,12 @@ from sqlalchemy.orm import relationship
 from models.basemodel import BaseModel, Base
 from models.tenants import Tenant
 
+
 class Apartment(BaseModel, Base):
     """Represents an Apartment for MySQL database
 
     Inherits from SQLAlchemy Base and links to the MySQL table apartments
-    
+
     Attributes:
     __tablename__ (str): The name of the MySQL table to store Apartments.
     apartment_no (sqlalchemy String): The apartment no.

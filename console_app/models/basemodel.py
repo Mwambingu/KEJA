@@ -10,6 +10,7 @@ import models
 
 Base = declarative_base()
 
+
 class BaseModel():
     """Defines the BaseModel class.
     Attributes:
@@ -28,12 +29,12 @@ class BaseModel():
         self.updated_at = datetime.utcnow()
         if kwargs:
             self.__dict__.update(kwargs)
-    
+
     def save(self):
         """Saves new object in the DB"""
         models.storage.new(self)
         models.storage.save()
-    
+
     def update(self, obj_dict=None):
         """Updates and saves object changes in the DB"""
         self.updated_at = datetime.utcnow()
