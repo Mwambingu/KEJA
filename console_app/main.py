@@ -11,6 +11,8 @@ from time import sleep
 
 # Other Functions
 def user_check(form, login_id, pwd, user_type_str):
+    """Handles use authentication in the db.
+    By checking if the given information matches the ones in the db."""
     obj_list=storage.list_all(user_type_str)
     if form == "login":
         if user_type_str == "Landlord":
@@ -29,6 +31,7 @@ def user_check(form, login_id, pwd, user_type_str):
     return None
 
 def get_pass():
+    """Generates a random of password of 8 characters in length"""
     letters_alpha = ["abcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyz".upper(), "1234567890", "!@#$%"]
     choice = ""
     pass_size = []
@@ -47,12 +50,14 @@ def get_pass():
     return pass_str
 
 def screen_clear():
+    """Clears the screen of the console."""
     if os.name == 'posix':
         _ = os.system('clear')
     else:
         _ = os.system('cls')
 
 def reload_obj(sim_obj):
+    """Reloads an object with a new instance from the db"""
     storage.reload()
     obj_list=storage.list_all(sim_obj.__class__.__name__)
     for obj_item in obj_list:
@@ -60,11 +65,14 @@ def reload_obj(sim_obj):
             return obj_item
 
 def update_value(obj_to_update, attr, value):
+    """Updates object with new values given in the db"""
     setattr(obj_to_update, attr, value)
     obj_to_update.update()
     return obj_to_update
 
 def return_related_objs(obj, obj_class, id_attr, landlord_id):
+    """Returns a list of related object based on the landlord id
+    If there isn't a related object it return None"""
     obj_list = storage.list_all(obj_class)
     new_obj_list = []
     if not obj_list:
@@ -84,6 +92,7 @@ def return_related_objs(obj, obj_class, id_attr, landlord_id):
     
 
 def delete_related_values(related_obj, related_value):
+    """Deletes value from db and updates the object."""
     update_value(related_obj, "related_value", None)
     related_obj.update()
 
@@ -91,6 +100,7 @@ def delete_related_values(related_obj, related_value):
 # Account Authentication
 # Signup Module
 def signup():
+    """Creates a new  landlord user and saves to db"""
     screen_clear()
     landlord_dict = {}
     print("SignUp")
@@ -211,6 +221,7 @@ def tenant_check():
 
 # Landlord CLI Functionality
 def landlord_cli(obj_item):
+    """Initiates the landlord cli"""
     try:
         screen_clear()
         print("""
@@ -248,6 +259,7 @@ def landlord_cli(obj_item):
 
 # Creating houses and management cli
 def create_house(obj_item):
+    """Creates a new house"""
     screen_clear()
     house_dict = {}
     house_dict['house_name'] = input("Enter House Name: ")
@@ -261,6 +273,7 @@ def create_house(obj_item):
     return
 
 def get_houses(obj_item):
+    """Returns a list of houses related to the landlord"""
     screen_clear()
     house_objs = storage.list_all("House")
     ld_house_objs = []
@@ -302,6 +315,7 @@ def get_houses(obj_item):
 
 # Creating Tenants accounts and management cli
 def access_tenants(obj_item):
+    """Initiates the landlord Tenant cli"""
     screen_clear()
     print("""
     1. Create Tenant
@@ -323,6 +337,7 @@ def access_tenants(obj_item):
     access_tenants(obj_item)
 
 def create_tenants(obj_item):
+    """Creates a new Tenant"""
     screen_clear()
     obj_dict = {}
     random_int = random.randint(1000,9999)
@@ -348,6 +363,7 @@ def create_tenants(obj_item):
     return
 
 def get_tenants(obj_item):
+    """Lists all tenants related to the landlord"""
     screen_clear()
     db_tenant_objs = storage.list_all("Tenant")
     tenant_objs = []
@@ -382,7 +398,7 @@ def get_tenants(obj_item):
             return
         
         if tenant_objs:
-            landlord_tenant_cli(tenant_objs[int(value)-1])
+            access_tenant_info(tenant_objs[int(value)-1])
         sleep(2)
         return
     
@@ -391,7 +407,8 @@ def get_tenants(obj_item):
     return
     
 
-def landlord_tenant_cli(obj_item):
+def access_tenant_info(obj_item):
+    """Displays Tenant information"""
     screen_clear()
     aptmt_obj = obj_item.apartments
 
@@ -411,6 +428,7 @@ def landlord_tenant_cli(obj_item):
 
 # creating apartments and management cli
 def house_cli(obj_item):
+    """Initiates the house cli"""
     screen_clear()
     print("{} Apartments: {}".format(obj_item.house_name, obj_item.number_of_apartments))
     print("""
@@ -437,6 +455,7 @@ def house_cli(obj_item):
     house_cli(obj_item)
 
 def create_apartment(obj_item):
+    """Creates a new apartment"""
     aptmt_dict = {}
     not_int = False
     new_aptmt = None
@@ -463,6 +482,7 @@ def create_apartment(obj_item):
     return
 
 def get_apartments(obj_item):
+    """Lists all apartments related to the house"""
     screen_clear()
     db_aptmt_objs = storage.list_all("Apartment")
     aptmt_objs = []
@@ -505,6 +525,7 @@ def get_apartments(obj_item):
     return
 
 def apartment_cli(aptmt_obj):
+    """Initiates the apartment cli"""
     screen_clear()
     print("""
     1. Add Tenant
@@ -531,6 +552,7 @@ def apartment_cli(aptmt_obj):
     apartment_cli(aptmt_obj)
 
 def add_tenant(aptmt_obj):
+    """Adds a selected tenant to apartment"""
     screen_clear()
     no_of_tenants = []
     count = 1
@@ -571,6 +593,7 @@ def add_tenant(aptmt_obj):
     return
 
 def adjust_rent(aptmt_obj):
+    """Adjusts the rent amount of the apartment"""
     print("Current rent amount: {}".format(aptmt_obj.rent))
     value = input("Enter new rent value: ")
     if not value.isdigit():
@@ -582,6 +605,7 @@ def adjust_rent(aptmt_obj):
     return
 
 def remove_tenant(aptmt_obj):
+    """Removes the current tenant from the apartment"""
     new_aptmt_obj = reload_obj(aptmt_obj)
     tenant_list = new_aptmt_obj.tenants
     
@@ -602,6 +626,7 @@ def remove_tenant(aptmt_obj):
 
 # Tenant Account CLI Functionality
 def tenant_cli(obj_item):
+    """Initiates the tenant cli"""
     screen_clear()
     print("Hi {}".format(obj_item.first_name))
     print("""
@@ -621,6 +646,7 @@ def tenant_cli(obj_item):
     tenant_cli(obj_item)
 
 def get_tenant_info(obj_item):
+    """Gets tenant information"""
     aptmt_obj = obj_item.apartments
     print("Name: {} {}".format(obj_item.first_name, obj_item.last_name))
     print("Tenant ID: {}".format(obj_item.tenant_id))
@@ -635,6 +661,7 @@ def get_tenant_info(obj_item):
     return
 
 def get_landlord_info(obj_item):
+    """Gets landlord information of the tenant"""
     landlord = obj_item.landlords
     print("Name: {} {}".format(landlord.first_name, landlord.last_name))
     print("email: {}".format(landlord.email))

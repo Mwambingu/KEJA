@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Contains the Keja Console
+"""
 from cmd import Cmd
 import shlex
 from models import storage
@@ -10,6 +13,7 @@ from models.house import House
 classes = ["Tenant", "House", "Landlord", "Apartment"]
 
 class KejaShell(Cmd):
+    """Defines the Keja Console"""
     intro = 'Welcome to KeJa Shell. Type help or ? to get started!\n'
     prompt = '(KeJa)> '
     
