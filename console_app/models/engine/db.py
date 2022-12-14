@@ -1,3 +1,6 @@
+"""
+Contains the DBStorage class
+"""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.basemodel import BaseModel, Base
@@ -14,6 +17,11 @@ classes = {
 }
 
 class DBStorage():
+    """Represents a database storage engine.
+    Attributes:
+        __engine (sqlalchemy.Engine): The working SQLAlchemy engine.
+        __session (sqlalchemy.Session): The working SQLAlchemy session.
+    """
   __engine=None
   __session=None
 

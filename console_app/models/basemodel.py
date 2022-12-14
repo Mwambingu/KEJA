@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Contains the base for all models.
+Contains the BaseModel class
 """
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime
@@ -11,7 +11,12 @@ import models
 Base = declarative_base()
 
 class BaseModel():
-    """Its the base model class for all models"""
+    """Defines the BaseModel class.
+    Attributes:
+        id (sqlalchemy String): The BaseModel id.
+        created_at (sqlalchemy DateTime): The datetime at creation.
+        updated_at (sqlalchemy DateTime): The datetime of last update.
+    """
     id = Column(String(60), primary_key=True)
     created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
