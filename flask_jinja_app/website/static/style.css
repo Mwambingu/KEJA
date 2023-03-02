@@ -1,0 +1,17 @@
+:root {
+    --main-bg-color: #557A1B;
+    --main-text-color: #557A1B;
+    --second-text-color: #bbbec5;
+    --second-bg-color: #c1efde;
+}
+
+.primary-text {
+    color: var(--main-text-color);
+}
+
+
+.second-text {
+  color: var(--second-text-color);
+}
+557A1B
+72B01D
