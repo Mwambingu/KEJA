@@ -102,3 +102,19 @@
         margin-left: -15rem;
     }
 }
+
+.user-card-btns {
+    background-color: var(--second-bg-color);
+    color: var(--main-bg-color);
+    border-color: var(--main-bg-color);
+}
+
+.user-card-btns:hover {
+    background-color: var(--main-bg-color);
+    color: var(--second-bg-color);
+    border-color: var(--second-bg-color);
+}
+
+.table {
+    background-color: white;
+}
