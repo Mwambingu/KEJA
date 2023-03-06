@@ -41,37 +41,37 @@
                     class="list-group list-group-flush my-3"
                 >
                     <a
-                        href="#"
-                        class="list-group-item list-group-item-action bg-transparent second-text active"
+                        href="/dashboard"
+                        class="list-group-item list-group-item-action bg-transparent second-text"
                     >
                         <i class="fas fa-tachometer-alt me-2"></i> Dashboard
                     </a>
                     <a
-                        onClick="location.href='../'"
+                        href="/houses"
                         class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
                     >
                         <i class="fas fa-house me-2"></i> Houses
                     </a>
                     <a
-                        onClick="location.href='../'"
+                        href="/tenants"
                         class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
                     >
                         <i class="fas fa-people-roof me-2"></i> Tenants
                     </a>
                     <a
-                        onClick="location.href='../'"
-                        class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
+                        href="/payments"
+                        class="list-group-item list-group-item-action bg-transparent second-text fw-bold active"
                     >
                         <i class="fas fa-money-bills me-2"></i> Payments
                     </a>
                     <a
-                        onClick="location.href='../'"
+                        href="/messages"
                         class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
                     >
                         <i class="fas fa-message me-2"></i> Messages
                     </a>
                     <a
-                        onClick="location.href='../'"
+                        href="#"
                         class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"
                     >
                         <i class="fas fa-door-open me-2"></i> Logout
@@ -159,27 +159,6 @@
             toggleButton.onclick = function () {
                 element.classList.toggle("toggled");
             };
-        </script>
-        <script>
-            // Get the container element
-            // var btnContainer = document.getElementById("dashboard-links");
-            var linkContainer = document.getElementById("dashboard-links");
-
-            // Get all buttons with class="btn" inside the container
-            // var btns = btnContainer.getElementsByClassName("btn");
-            var links = linkContainer.getElementsByClassName("list-group-item");
-
-            // Loop through the buttons and add the active class to the current/clicked button
-            for (var i = 0; i < links.length; i++) {
-                links[i].addEventListener("click", function () {
-                    var current = document.getElementsByClassName("active");
-                    current[0].className = current[0].className.replace(
-                        " active",
-                        ""
-                    );
-                    this.className += " active";
-                });
-            }
         </script>
     </body>
 </html>

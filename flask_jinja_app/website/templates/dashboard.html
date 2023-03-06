@@ -41,31 +41,31 @@
                     class="list-group list-group-flush my-3"
                 >
                     <a
-                        href="dashboard.html"
+                        href="/dashboard"
                         class="list-group-item list-group-item-action bg-transparent second-text active"
                     >
                         <i class="fas fa-tachometer-alt me-2"></i> Dashboard
                     </a>
                     <a
-                        href="houses.html"
+                        href="/houses"
                         class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
                     >
                         <i class="fas fa-house me-2"></i> Houses
                     </a>
                     <a
-                        href="tenants.html"
+                        href="/tenants"
                         class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
                     >
                         <i class="fas fa-people-roof me-2"></i> Tenants
                     </a>
                     <a
-                        href="payments.html"
+                        href="/payments"
                         class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
                     >
                         <i class="fas fa-money-bills me-2"></i> Payments
                     </a>
                     <a
-                        href="messages.html"
+                        href="/messages"
                         class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
                     >
                         <i class="fas fa-message me-2"></i> Messages
@@ -337,27 +337,6 @@
             toggleButton.onclick = function () {
                 element.classList.toggle("toggled");
             };
-        </script>
-        <script>
-            // Get the container element
-            // var btnContainer = document.getElementById("dashboard-links");
-            var linkContainer = document.getElementById("dashboard-links");
-
-            // Get all buttons with class="btn" inside the container
-            // var btns = btnContainer.getElementsByClassName("btn");
-            var links = linkContainer.getElementsByClassName("list-group-item");
-
-            // Loop through the buttons and add the active class to the current/clicked button
-            for (var i = 0; i < links.length; i++) {
-                links[i].addEventListener("click", function () {
-                    var current = document.getElementsByClassName("active");
-                    current[0].className = current[0].className.replace(
-                        " active",
-                        ""
-                    );
-                    this.className += " active";
-                });
-            }
         </script>
     </body>
 </html>
