@@ -118,3 +118,8 @@
 .table {
     background-color: white;
 }
+
+.badge {
+    color: white;
+    background-color: red;
+}

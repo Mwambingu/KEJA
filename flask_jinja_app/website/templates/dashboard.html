@@ -141,38 +141,38 @@
 
                 <!-- Main Content Starts Here -->
                 <div class="container-fluid px-4">
-                    <div class="card shadow-sm mb-3" style="max-width: 640px">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img
-                                    src="/static/images/user.png"
-                                    class="img-fluid rounded-start"
-                                    alt="..."
-                                />
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Hello John Doe!</h5>
-                                    <div
-                                        class="d-flex justify-content-evenly align-content-center"
-                                    >
-                                        <button
-                                            type="button"
-                                            class="btn btn-primary btn-lg user-card-btns"
-                                        >
-                                            <i class="fas fa-house"></i> Add
-                                            House
-                                        </button>
-                                        <button
-                                            type="button"
-                                            class="btn btn-primary btn-lg user-card-btns"
-                                        >
-                                            <i class="fas fa-people-roof"></i>
-                                            Add Tenant
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="row g-3 my-2">
+                        <div class="col-lg-4 primary-text">
+                            <h1 class="display-6">
+                                Welcome back,
+                                <span class="fw-bold">John.</span>
+                            </h1>
+                        </div>
+                        <div
+                            class="col-lg-4 d-flex justify-content-evenly align-content-center"
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-lg user-card-btns"
+                            >
+                                <i class="fas fa-house"></i> Add House
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-lg user-card-btns"
+                            >
+                                <i class="fas fa-people-roof"></i>
+                                Add Tenant
+                            </button>
+                        </div>
+                        <div class="col-lg-4 d-flex justify-content-end">
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-lg user-card-btns"
+                            >
+                                <i></i> Messages
+                                <span class="badge">4</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -234,31 +234,87 @@
                             </tr>
                             <tr>
                                 <th scope="row">12/02/2023</th>
-                                <td>Hemmingways Apartments</td>
-                                <td>D16</td>
-                                <td>Robert Ouya</td>
+                                <td>Eastern Flats</td>
+                                <td>D2</td>
+                                <td>Patricia Wamaitha</td>
+                                <td>16000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">12/02/2023</th>
+                                <td>Sakaja Heights</td>
+                                <td>D7</td>
+                                <td>Gachagua Rigathi</td>
+                                <td>34000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">12/02/2023</th>
+                                <td>Soft Life Housing</td>
+                                <td>D5</td>
+                                <td>Edian Mwambaye</td>
                                 <td>12500</td>
                             </tr>
                             <tr>
                                 <th scope="row">12/02/2023</th>
-                                <td>Hemmingways Apartments</td>
-                                <td>D16</td>
+                                <td>Stima Shida Apartments</td>
+                                <td>D25</td>
                                 <td>Robert Ouya</td>
-                                <td>12500</td>
+                                <td>5500</td>
                             </tr>
                             <tr>
                                 <th scope="row">12/02/2023</th>
                                 <td>Hemmingways Apartments</td>
-                                <td>D16</td>
-                                <td>Robert Ouya</td>
-                                <td>12500</td>
+                                <td>D1</td>
+                                <td>Solomon Wanaina</td>
+                                <td>18000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">12/02/2023</th>
+                                <td>Soft Life Housing</td>
+                                <td>D3</td>
+                                <td>Babu Notowino</td>
+                                <td>22000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">12/02/2023</th>
+                                <td>Eastern Flats</td>
+                                <td>D11</td>
+                                <td>Snape Lovespotter</td>
+                                <td>16000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">12/02/2023</th>
+                                <td>Stima Shida Apartments</td>
+                                <td>D22</td>
+                                <td>Kunguni Kwawingi</td>
+                                <td>3500</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">12/02/2023</th>
+                                <td>Nyumba Kumi Housing</td>
+                                <td>D6</td>
+                                <td>Baba Atieno</td>
+                                <td>8500</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">12/02/2023</th>
+                                <td>Sakaja Heights</td>
+                                <td>D3</td>
+                                <td>Ruto Mtutaxing</td>
+                                <td>45000</td>
                             </tr>
                             <tr>
                                 <th scope="row">12/02/2023</th>
                                 <td>Hemmingways Apartments</td>
-                                <td>D16</td>
-                                <td>Robert Ouya</td>
+                                <td>D2</td>
+                                <td>Silverstor Osoro</td>
                                 <td>12500</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">12/02/2023</th>
+                                <td>Sakaja Heights</td>
+                                <td>D4</td>
+                                <td>Shaniqwa Ma'ass</td>
+                                <td>34000</td>
                             </tr>
                         </tbody>
                     </table>
@@ -278,6 +334,10 @@
             toggleButton.onclick = function () {
                 element.classList.toggle("toggled");
             };
+        </script>
+        <script>
+            var sidebarEl = document.getElementById("sidebar-wrapper");
+            console.log(sidebarEl);
         </script>
     </body>
 </html>
