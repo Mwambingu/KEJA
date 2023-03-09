@@ -14,3 +14,9 @@ for (var i = 0; i < links.length; i++) {
         this.className += " active";
     });
 }
+
+function toggleActive() {
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
+    console.log(page);
+}
