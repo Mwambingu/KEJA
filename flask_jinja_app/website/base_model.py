@@ -9,3 +9,8 @@ class BaseModel():
 
     def __init__(self, *args, **kwargs):
         self.id = __class__.__name__ + str(uuid4())
+        self.created_at = datetime.datetime.utcnow()
+        self.updated_at = datetime.datetime.utcnow()
+    
+    def update(self):
+        pass
