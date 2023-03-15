@@ -18,10 +18,10 @@ class BaseModel:
 
     def update(self, obj_dict):
         if obj_dict:
-        self.updated_at = datetime.datetime.utcnow()
-        self.__dict__.update(obj_dict)
-        db.session.add(self)
-        db.session.commit()
+            self.updated_at = datetime.datetime.utcnow()
+            self.__dict__.update(obj_dict)
+            db.session.add(self)
+            db.session.commit()
 
     def __repr__(self):
         return "<{}> <{}>".format(self.__class__.__name__, self.id)

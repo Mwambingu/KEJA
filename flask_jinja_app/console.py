@@ -3,7 +3,8 @@ import main
 import shlex
 from website.models import Landlord, Tenant, House, Apartment
 
-classes = ["Landlord", "Tenant", "House", "Apartment"]
+classes_str = ["Landlord", "Tenant", "House", "Apartment"]
+classes = [Landlord, Tenant, House, Apartment]
 
 
 class KejaFlaskShell(Cmd):
@@ -16,21 +17,31 @@ class KejaFlaskShell(Cmd):
         return True
 
     def do_all(self, inp):
+        obj_list = []
+        inp_list = None
         if inp:
-            print(type(inp))
-            print("Argument Found!")
+            inp_list = shlex.split(inp)
+
+            if len(inp_list) > 1:
+                print(
+                    "Error can only take one class argument. Please try again with on class. Eg. <all Tenant>")
+                return
+
+            if inp_list[0] not in classes_str:
+                print("Error class doesn't exist")
+                return
+
+            obj_list = inp_list[0].query.all()
         else:
-            print("No Argument Found!")
+            for cls_obj in classes:
+                obj_list += cls_obj.query.all()
+
+        print(obj_list)
 
     def do_create(self, inp):
+        inp_list
         if inp:
-            cmds = shlex.split(inp)
-            if cmds[0] not in classes:
-                print("Class does not exist")
-            else:
-                print(cmds)
-        else:
-            print("No commnad found!")
+            inp_list = shlex.split(inp)
 
     def do_delete(self, inp):
         pass
