@@ -1,4 +1,5 @@
 from cmd import Cmd
+import main
 import shlex
 from website.models import Landlord, Tenant, House, Apartment
 
