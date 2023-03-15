@@ -1,9 +1,10 @@
 from cmd import Cmd
-import main
+from website import create_app
 import shlex
 from website.models import Landlord, Tenant, House, Apartment
 
-classes_str = ["Landlord", "Tenant", "House", "Apartment"]
+app = create_app()
+classes_str = ["landlord", "tenant", "house", "apartment"]
 classes = [Landlord, Tenant, House, Apartment]
 
 
@@ -24,24 +25,45 @@ class KejaFlaskShell(Cmd):
 
             if len(inp_list) > 1:
                 print(
-                    "Error can only take one class argument. Please try again with on class. Eg. <all Tenant>")
+                    "Error: <all> can only take one class argument. Please try again. Eg. <all Tenant>")
                 return
 
-            if inp_list[0] not in classes_str:
-                print("Error class doesn't exist")
+            if inp_list[0].lower() not in classes_str:
+                print("Error: Class doesn't exist")
                 return
 
-            obj_list = inp_list[0].query.all()
+            index = classes_str.index(inp_list[0].lower())
+            with app.app_context():
+                obj_list = classes[index].query.all()
         else:
-            for cls_obj in classes:
-                obj_list += cls_obj.query.all()
+            with app.app_context():
+                for cls_obj in classes:
+                    obj_list += cls_obj.query.all()
 
         print(obj_list)
 
     def do_create(self, inp):
-        inp_list
-        if inp:
-            inp_list = shlex.split(inp)
+        obj_dict = {}
+        if not inp:
+            print("Error: Class name missing!")
+            return
+
+        args = shlex.split(inp)
+        cls_str = args.pop(0)
+
+        if cls_str.lower() not in classes_str:
+            print("Error! Class doesn't exist!")
+
+        for arg in args:
+            if "=" not in arg:
+                print("Error: Key not assigned. E.g <'id=234579'>")
+                return
+            arg = arg.replace(" ", "")
+            print(arg)
+            split_arg = arg.split("=")
+            obj_dict[split_arg[0]] = split_arg[1]
+
+        print(obj_dict)
 
     def do_delete(self, inp):
         pass
