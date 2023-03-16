@@ -6,6 +6,21 @@ from website.models import Landlord, Tenant, House, Apartment
 app = create_app()
 classes_str = ["landlord", "tenant", "house", "apartment"]
 classes = [Landlord, Tenant, House, Apartment]
+model_args = [
+    "id",
+    "first_name",
+    "last_name",
+    "email",
+    "password",
+    "house_name",
+    "landlord_id",
+    "number_of_apartments",
+    "apartment_no",
+    "room_type",
+    "rent",
+    "house_id",
+    "tenant_id",
+    "apartment_id"]
 
 
 class KejaFlaskShell(Cmd):
@@ -43,27 +58,65 @@ class KejaFlaskShell(Cmd):
         print(obj_list)
 
     def do_create(self, inp):
+        """
+        Usage: create Landlord first_name="Ligma"
+
+        Required and allowed key word args:
+        Landlord id, first_name, last_name, email, password
+        House id, house_name, landlord_id, no_of_apts
+        Apartment id, apt_no, room_type, rent, house_id
+        Tenant id, first_name, last_name, tenant_id, apt_id, landlord_id
+        """
         obj_dict = {}
         if not inp:
             print("Error: Class name missing!")
             return
 
         args = shlex.split(inp)
-        cls_str = args.pop(0)
+        cls_str = args.pop(0).lower()
 
         if cls_str.lower() not in classes_str:
             print("Error! Class doesn't exist!")
+
+        if cls_str.lower() == "apartment" or cls_str.lower() == "landlord":
+            if len(args) != 5:
+                print("Error: {} strictly requires 5 key args".format(
+                    cls_str.lower()))
+                return
+
+        if cls_str.lower() == "tenant":
+            if len(args) != 6:
+                print("Error: {} strictly requires 6 key args".format(
+                    cls_str.lower()))
+                return
+
+        if cls_str.lower() == "house":
+            if len(args) != 4:
+                print(
+                    "Error: {} strictly requires 4 key args".format(
+                        cls_str.lower))
+                return
 
         for arg in args:
             if "=" not in arg:
                 print("Error: Key not assigned. E.g <'id=234579'>")
                 return
             arg = arg.replace(" ", "")
-            print(arg)
             split_arg = arg.split("=")
+            if split_arg[0] not in model_args:
+                print(
+                    "Error: Key argument parsed is not allowed! Type <help create> to get a list of allowed key arguments per model")
+                return
             obj_dict[split_arg[0]] = split_arg[1]
 
-        print(obj_dict)
+        cls_index = classes_str.index(cls_str.lower())
+        cls_to_create = classes[cls_index]
+
+        new_obj = cls_to_create(**obj_dict)
+
+        print(new_obj.__dict__)
+        with app.app_context():
+            new_obj.save()
 
     def do_delete(self, inp):
         pass

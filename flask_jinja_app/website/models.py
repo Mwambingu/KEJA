@@ -20,14 +20,14 @@ class House(BaseModel, db.Model):
     house_name = db.Column(db.String(32), nullable=False)
     landlord_id = db.Column(db.String(64), db.ForeignKey(
         'landlords.id'), nullable=False)
-    number_of_apartments = db.Column(db.Integer, default=0, nullable=True)
+    no_of_apts = db.Column(db.Integer, default=0, nullable=True)
     apartments = db.relationship(
         "Apartment", backref="houses", cascade="all, delete", lazy=True)
 
 
 class Apartment(BaseModel, db.Model):
     __tablename__ = "apartments"
-    apartment_no = db.Column(db.String(32), nullable=False)
+    apt_no = db.Column(db.String(32), nullable=False)
     room_type = db.Column(db.String(32), nullable=False)
     rent = db.Column(db.Integer, nullable=False)
     house_id = db.Column(db.String(64), db.ForeignKey(
@@ -42,7 +42,7 @@ class Tenant(BaseModel, db.Model):
     last_name = db.Column(db.String(16), nullable=False)
     tenant_id = db.Column(db.String(64), unique=True, nullable=False)
     password = db.Column(db.String(64), nullable=False)
-    apartment_id = db.Column(db.String(64), db.ForeignKey(
+    apt_id = db.Column(db.String(64), db.ForeignKey(
         "apartments.id"), nullable=False)
     landlord_id = db.Column(db.String(64), db.ForeignKey(
         "landlords.id"), nullable=False)

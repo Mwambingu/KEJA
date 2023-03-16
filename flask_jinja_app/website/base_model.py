@@ -9,12 +9,16 @@ class BaseModel:
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     def __init__(self, *args, **kwargs):
-        self.id = __class__.__name__ + str(uuid4())
+        self.id = self.__class__.__name__ + str(uuid4())
         self.created_at = datetime.datetime.utcnow()
         self.updated_at = datetime.datetime.utcnow()
 
         if kwargs:
             self.__dict__.update(kwargs)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
     def update(self, obj_dict):
         if obj_dict:
