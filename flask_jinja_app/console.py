@@ -14,13 +14,12 @@ model_args = [
     "password",
     "house_name",
     "landlord_id",
-    "number_of_apartments",
-    "apartment_no",
+    "apt_no",
     "room_type",
     "rent",
     "house_id",
     "tenant_id",
-    "apartment_id"]
+    "apt_id"]
 
 
 class KejaFlaskShell(Cmd):
@@ -85,15 +84,15 @@ class KejaFlaskShell(Cmd):
                 return
 
         if cls_str.lower() == "tenant":
-            if len(args) != 6:
-                print("Error: {} strictly requires 6 key args".format(
+            if len(args) != 7:
+                print("Error: {} strictly requires 7 key args".format(
                     cls_str.lower()))
                 return
 
         if cls_str.lower() == "house":
-            if len(args) != 4:
+            if len(args) != 3:
                 print(
-                    "Error: {} strictly requires 4 key args".format(
+                    "Error: {} strictly requires 3 key args".format(
                         cls_str.lower))
                 return
 

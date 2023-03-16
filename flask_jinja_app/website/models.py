@@ -20,7 +20,6 @@ class House(BaseModel, db.Model):
     house_name = db.Column(db.String(32), nullable=False)
     landlord_id = db.Column(db.String(64), db.ForeignKey(
         'landlords.id'), nullable=False)
-    no_of_apts = db.Column(db.Integer, default=0, nullable=True)
     apartments = db.relationship(
         "Apartment", backref="houses", cascade="all, delete", lazy=True)
 
