@@ -32,7 +32,7 @@ class Apartment(BaseModel, db.Model):
     house_id = db.Column(db.String(64), db.ForeignKey(
         "houses.id"), nullable=False)
     apt_tenant = db.relationship(
-        "Tenant", backref="apartments", cascade="all, delete", lazy=True)
+        "Tenant", backref="apartments", lazy=True)
 
 
 class Tenant(BaseModel, db.Model):
@@ -42,6 +42,6 @@ class Tenant(BaseModel, db.Model):
     tenant_id = db.Column(db.String(64), unique=True, nullable=False)
     password = db.Column(db.String(64), nullable=False)
     apt_id = db.Column(db.String(64), db.ForeignKey(
-        "apartments.id"), nullable=False)
+        "apartments.id"), nullable=True)
     landlord_id = db.Column(db.String(64), db.ForeignKey(
         "landlords.id"), nullable=False)

@@ -2,6 +2,7 @@ from cmd import Cmd
 from website import create_app
 import shlex
 from website.models import Landlord, Tenant, House, Apartment
+from website import db
 
 app = create_app()
 classes_str = ["landlord", "tenant", "house", "apartment"]
@@ -118,7 +119,42 @@ class KejaFlaskShell(Cmd):
             new_obj.save()
 
     def do_delete(self, inp):
-        pass
+        delete_all_class = False
+        if not inp:
+            print(
+                "Error: No argument given please try again. Run <help delete> for more information.")
+            return
+
+        input_args = shlex.split(inp)
+
+        if len(input_args) > 2:
+            print("Error: Argument threshold reached. Delete supports only 2 arguments.")
+            return
+
+        if input_args[0].lower() == "all":
+            if len(input_args) == 1:
+                with app.app_context():
+                    db.drop_all()
+                    db.create_all()
+                    db.session.commit()
+                    return
+            else:
+                delete_all_class = True
+
+        if delete_all_class:
+            if input_args[1].lower() not in classes_str:
+                print("Error: Class doesn't exist")
+                return
+
+            cls_index = classes_str.index(input_args[1].lower())
+            cls_to_delete = classes[cls_index]
+
+            with app.app_context():
+                cls_to_delete.query.delete()
+                db.session.commit()
+
+        if input_args[0].lower() not in classes_str:
+            print()
 
     def do_update(self, inp):
         pass
