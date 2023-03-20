@@ -63,7 +63,7 @@ class KejaFlaskShell(Cmd):
 
         Required and allowed key word args:
         Landlord id, first_name, last_name, email, password
-        House id, house_name, landlord_id, no_of_apts
+        House id, house_name, landlord_id
         Apartment id, apt_no, room_type, rent, house_id
         Tenant id, first_name, last_name, tenant_id, apt_id, landlord_id
         """
@@ -153,8 +153,28 @@ class KejaFlaskShell(Cmd):
                 cls_to_delete.query.delete()
                 db.session.commit()
 
-        if input_args[0].lower() not in classes_str:
-            print()
+        if len(input_args) < 2:
+            print("Error: Class argument missing!!")
+            return
+
+        cls_arg = input_args[1].split("=")[0]
+        cls_id = input_args[1].split("=")[1]
+
+        if cls_arg.lower() != "id":
+            print("Error: id class argument missing. <Tenant id=1111>")
+            return
+
+        cls_index = classes_str.index(input_args[0].lower())
+        cls_to_delete = classes[cls_index]
+
+        with app.app_context():
+            cls_obj = cls_to_delete.query.filter_by(id=cls_id.lower()).first()
+            if cls_obj:
+                db.session.delete(cls_obj)
+                db.session.commit()
+                return
+            print("Error: {} class with id: {} doesn't exist!".format(
+                str(cls_to_delete), cls_id))
 
     def do_update(self, inp):
         pass
