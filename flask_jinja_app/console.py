@@ -257,8 +257,10 @@ class KejaFlaskShell(Cmd):
                 return
 
             new_cls_obj[key] = value
+            print(new_cls_obj)
 
-        db_cls_obj.update(new_cls_obj)
+        with app.app_context():
+            db_cls_obj.update_obj(new_cls_obj)
 
     do_EOF = do_exit
 
