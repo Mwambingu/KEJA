@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 from . import db
 from .base_model import BaseModel
+from flask_login import UserMixin
 
 
-class Landlord(BaseModel, db.Model):
+class Landlord(BaseModel, db.Model, UserMixin):
     __tablename__ = "landlords"
     first_name = db.Column(db.String(16), nullable=False)
     last_name = db.Column(db.String(16), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(64), nullable=False)
+    password = db.Column(db.String(512), nullable=False)
     tenants = db.relationship(
         "Tenant", backref="landlords", cascade="all, delete", lazy=True,)
     houses = db.relationship("House", backref="landlords",
@@ -35,7 +36,7 @@ class Apartment(BaseModel, db.Model):
         "Tenant", backref="apartments", lazy=True)
 
 
-class Tenant(BaseModel, db.Model):
+class Tenant(BaseModel, db.Model, UserMixin):
     __tablename__ = "tenants"
     first_name = db.Column(db.String(16), nullable=False)
     last_name = db.Column(db.String(16), nullable=False)

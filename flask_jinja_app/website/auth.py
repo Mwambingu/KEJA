@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-from flask import Blueprint, render_template, request, flash
-
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from website.models import Landlord
+from werkzeug.security import generate_password_hash, check_password_hash
+from . import db
 auth = Blueprint('auth', __name__)
 
 
@@ -14,6 +16,7 @@ def login():
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
+        landlord_dict = {}
         email = request.form.get('email')
         first_name = request.form.get('first-name')
         last_name = request.form.get('last-name')
@@ -41,6 +44,19 @@ def signup():
                   category='error')
             pass
         else:
+            password = generate_password_hash(password1, method='sha256')
+
+            landlord_dict['first_name'] = first_name
+            landlord_dict['last_name'] = last_name
+            landlord_dict['email'] = email
+            landlord_dict['password'] = password
+
+            print(landlord_dict)
+
+            new_landlord = Landlord(**landlord_dict)
+            db.session.add(new_landlord)
+            db.session.commit()
             flash('Account successfully created!', category='success')
+            return redirect(url_for('views.dashboard'))
 
     return render_template("signup.html")
