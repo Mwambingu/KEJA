@@ -1,0 +1,29 @@
+{% extends "auth_base.html" %}
+<!-- Title Starts Here -->
+{% block title %} Keja Login {% endblock %}
+<!-- Main Content Starts Here -->
+{% block content %}
+<form method="POST">
+    <div class="form-group mt-3 mb-3">
+        <label for="email">Email Address</label>
+        <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="Enter Email..."
+        />
+    </div>
+    <div class="form-group mb-3">
+        <label for="password1">Password</label>
+        <input
+            type="password"
+            class="form-control"
+            id="password1"
+            name="password1"
+            placeholder="Enter Password..."
+        />
+    </div>
+    <button type="submit" class="btn btn-success px-3">Login</button>
+</form>
+{% endblock %}
