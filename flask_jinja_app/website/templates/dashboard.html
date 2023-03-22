@@ -10,7 +10,7 @@
         <div class="col-lg-4 primary-text">
             <h1 class="display-6">
                 Welcome back,
-                <span class="fw-bold">John.</span>
+                <span class="fw-bold">{{ landlord.first_name }}</span>
             </h1>
         </div>
         <div
@@ -38,7 +38,7 @@
             <div
                 class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded"
             >
-                <h3 class="fs-2 primary-text">15</h3>
+                <h3 class="fs-2 primary-text">{{ landlord.houses|length }}</h3>
                 <p class="fs-5 primary-text">Houses</p>
                 <i
                     class="fas fa-house fs-1 primary-text border rounded-full secondary-bg p-3"
@@ -49,7 +49,7 @@
             <div
                 class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded"
             >
-                <h3 class="fs-2 primary-text">200</h3>
+                <h3 class="fs-2 primary-text">{{ landlord.tenants|length }}</h3>
                 <p class="fs-5 primary-text">Tenants</p>
                 <i
                     class="fas fa-people-roof fs-1 primary-text border rounded-full secondary-bg p-3"

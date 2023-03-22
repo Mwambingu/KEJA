@@ -79,7 +79,7 @@ def signup():
             db.session.add(new_landlord)
             db.session.commit()
             flash('Account successfully created!', category='success')
-            login_user(landlord, remember=True)
+            login_user(new_landlord, remember=True)
             return redirect(url_for('views.dashboard'))
 
     return render_template("signup.html")
