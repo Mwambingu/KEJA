@@ -3,6 +3,8 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from website.models import Landlord
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
+from flask_login import login_user, login_required, logout_user, current_user
+
 auth = Blueprint('auth', __name__)
 
 
@@ -16,6 +18,7 @@ def login():
 
         if landlord:
             if check_password_hash(landlord.password, password):
+                login_user(landlord, remember=True)
                 flash("Logged in successfully!", category='success')
                 return redirect(url_for('views.dashboard'))
             else:
@@ -76,6 +79,15 @@ def signup():
             db.session.add(new_landlord)
             db.session.commit()
             flash('Account successfully created!', category='success')
+            login_user(landlord, remember=True)
             return redirect(url_for('views.dashboard'))
 
     return render_template("signup.html")
+
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("Logged out successfully.", category='success')
+    return redirect(url_for('auth.login'))

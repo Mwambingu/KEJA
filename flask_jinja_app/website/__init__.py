@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 DB_NAME = "KejaFlask"
@@ -19,7 +20,16 @@ def create_app():
     from website.models import Landlord, Tenant, House, Apartment
     create_database(app)
 
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return Landlord.query.get(id)
+
     return app
+
 
 def create_database(app):
     with app.app_context():
