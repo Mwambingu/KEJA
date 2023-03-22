@@ -84,10 +84,82 @@
             <button
                 type="button"
                 class="col-lg-4 mx-4 btn btn-md user-card-btns"
+                data-bs-toggle="modal"
+                data-bs-target="#add_tenant"
             >
                 <i class="fas fa-people-roof"></i>
                 Add Tenant
             </button>
+
+            <!-- Modal Add Tenant Trial -->
+            <div
+                class="modal fade"
+                id="add_tenant"
+                tabindex="-1"
+                aria-labelledby="add_tenant_label"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="add_tenant_label">
+                                Add Tenant
+                            </h5>
+
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST">
+                                <div class="mb-3">
+                                    <label for="first_name" class="form-label"
+                                        >First Name</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="first_name"
+                                        name="first_name"
+                                        aria-describedby="firstName"
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="last_name" class="form-label"
+                                        >Last Name</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="last_name"
+                                        name="last_name"
+                                        aria-describedby="lastName"
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    class="btn user-card-btns"
+                                    name="add_tenant_button"
+                                >
+                                    Add Tenant
+                                </button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-lg-4 d-flex justify-content-center row g-3">
             <button
