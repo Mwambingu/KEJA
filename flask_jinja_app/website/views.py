@@ -1,21 +1,35 @@
 #!/usr/bin/env python3
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 
 from flask_login import login_required, current_user
+from .models import Landlord, House, Tenant, Apartment
+from . import db
 
 views = Blueprint('views', __name__)
 
 
-@views.route('/')
+@views.route('/', methods=['GET', 'POST'])
 @login_required
 def index():
+    if request.method == 'POST':
+
+        if "add_house_button" in request.form:
+            house_dict = {}
+            house_dict['house_name'] = request.form.get('house_name')
+            house_dict['landlord_id'] = current_user.id
+            new_house = House(**house_dict)
+            db.session.add(new_house)
+            db.session.commit()
+            flash('House added successfully.', category='success')
+
+        return redirect(url_for('views.index'))
     return render_template("dashboard.html", landlord=current_user)
 
 
-@views.route('/dashboard')
-@login_required
-def dashboard():
-    return render_template("dashboard.html",  landlord=current_user)
+# @views.route('/dashboard')
+# @login_required
+# def dashboard():
+#     return render_template("dashboard.html",  landlord=current_user)
 
 
 @views.route('/houses')

@@ -16,13 +16,74 @@
         <div class="col-lg-4 d-flex justify-content-center row g-3">
             <button
                 type="button"
-                class="col-lg-4 mx-4 btn btn-lg user-card-btns"
+                class="col-lg-4 mx-4 btn btn-md user-card-btns"
+                data-bs-toggle="modal"
+                data-bs-target="#add_house"
             >
                 <i class="fas fa-house"></i> Add House
             </button>
+
+            <!-- Modal Add House Trial -->
+            <div
+                class="modal fade"
+                id="add_house"
+                tabindex="-1"
+                aria-labelledby="add_house_label"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="add_house_label">
+                                Add House
+                            </h5>
+
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST">
+                                <div class="mb-3">
+                                    <label for="house_name" class="form-label"
+                                        >New House Name</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="house_name"
+                                        name="house_name"
+                                        aria-describedby="houseName"
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    class="btn user-card-btns"
+                                    name="add_house_button"
+                                >
+                                    Add House
+                                </button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <button
                 type="button"
-                class="col-lg-4 mx-4 btn btn-lg user-card-btns"
+                class="col-lg-4 mx-4 btn btn-md user-card-btns"
             >
                 <i class="fas fa-people-roof"></i>
                 Add Tenant
@@ -31,7 +92,7 @@
         <div class="col-lg-4 d-flex justify-content-center row g-3">
             <button
                 type="button"
-                class="btn btn-lg user-card-btns col-lg-4 mx-4"
+                class="btn btn-md user-card-btns col-lg-4 mx-4"
             >
                 <i></i> Messages
                 <span class="badge">4</span>
