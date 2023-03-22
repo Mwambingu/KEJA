@@ -41,7 +41,7 @@ class Tenant(BaseModel, db.Model, UserMixin):
     first_name = db.Column(db.String(16), nullable=False)
     last_name = db.Column(db.String(16), nullable=False)
     tenant_id = db.Column(db.String(64), unique=True, nullable=False)
-    password = db.Column(db.String(64), nullable=False)
+    password = db.Column(db.String(512), nullable=False)
     apt_id = db.Column(db.String(64), db.ForeignKey(
         "apartments.id"), nullable=True)
     landlord_id = db.Column(db.String(64), db.ForeignKey(

@@ -3,6 +3,7 @@ from website import create_app
 import shlex
 from website.models import Landlord, Tenant, House, Apartment
 from website import db
+from werkzeug.security import generate_password_hash
 
 app = create_app()
 classes_str = ["landlord", "tenant", "house", "apartment"]
@@ -114,6 +115,10 @@ class KejaFlaskShell(Cmd):
                 print(
                     "Error: Key argument parsed is not allowed! Type <help create> to get a list of allowed key arguments per model")
                 return
+            if split_arg[0] == 'password':
+                split_arg[1] = generate_password_hash(
+                    split_arg[1], method='sha256')
+
             obj_dict[split_arg[0]] = split_arg[1]
 
         cls_index = classes_str.index(cls_str.lower())
@@ -121,7 +126,10 @@ class KejaFlaskShell(Cmd):
 
         new_obj = cls_to_create(**obj_dict)
 
-        print(new_obj.__dict__)
+        # if cls_str.lower == 'tenant' or cls_str.lower == 'landlord':
+        #     new_obj.password = generate_password_hash(
+        #         new_obj.password, method='sha256')
+
         with app.app_context():
             new_obj.save()
 
