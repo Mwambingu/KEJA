@@ -115,6 +115,12 @@
     border-color: var(--second-bg-color);
 }
 
+.user-card-btns:active {
+    background-color: var(--main-bg-color);
+    color: var(--second-bg-color);
+    border-color: var(--second-bg-color);
+}
+
 .table {
     background-color: white;
 }
