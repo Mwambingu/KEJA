@@ -34,6 +34,7 @@ def get_pass():
 
 
 @views.route('/', methods=['GET', 'POST'])
+@views.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def index():
     if request.method == 'POST':

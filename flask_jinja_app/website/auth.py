@@ -20,7 +20,7 @@ def login():
             if check_password_hash(landlord.password, password):
                 login_user(landlord, remember=True)
                 flash("Logged in successfully!", category='success')
-                return redirect(url_for('views.dashboard'))
+                return redirect(url_for('views.index'))
             else:
                 flash("Incorrect password, try again!", category='error')
         else:
@@ -80,7 +80,7 @@ def signup():
             db.session.commit()
             flash('Account successfully created!', category='success')
             login_user(new_landlord, remember=True)
-            return redirect(url_for('views.dashboard'))
+            return redirect(url_for('views.index'))
 
     return render_template("signup.html")
 
