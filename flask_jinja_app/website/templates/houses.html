@@ -5,9 +5,33 @@
 
 <!-- Main Content Starts Here -->
 {% block pageContent %}
-<div align="center" class="container-fluid px-4">
-    <img src="/static/images/chilling.png" alt="" />
-    <h1 class="primary-text fw-bold">Coming Soon...</h1>
+<div class="container-fluid px-4">
+    <div class="row g-2">
+        <div class="col">
+            <div class="card" style="width: 18rem">
+                <img
+                    class="card-img-top"
+                    src="/static/images/house_asset.jpg"
+                    alt="Card image cap"
+                />
+                <div class="card-body">
+                    <h5 class="card-title mb-3">House Name</h5>
+                    <p class="card-text">
+                        <span class="fw-bold">Apartments:</span> 0
+                    </p>
+                    <p class="card-text">
+                        <span class="fw-bold">Tenants:</span> 0
+                    </p>
+                    <div
+                        class="d-flex align-items-center justify-content-between"
+                    >
+                        <a href="#" class="btn user-card-btns">Select House</a>
+                        <button class="btn btn-danger">Delete House</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 <!-- Main Content Ends Here -->
