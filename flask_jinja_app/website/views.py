@@ -75,7 +75,9 @@ def index():
 @views.route('/houses')
 @login_required
 def house():
-    return render_template("houses.html", landlord=current_user)
+    houses = current_user.houses
+    print(houses)
+    return render_template("houses.html", landlord=current_user, houses=houses)
 
 
 @views.route('/messages')

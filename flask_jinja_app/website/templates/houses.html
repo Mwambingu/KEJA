@@ -7,17 +7,19 @@
 {% block pageContent %}
 <div class="container-fluid px-4">
     <div class="row g-2">
+        {% for house in houses %}
         <div class="col">
-            <div class="card" style="width: 18rem">
+            <div class="card house-card" style="width: 18rem">
                 <img
                     class="card-img-top"
                     src="/static/images/house_asset.jpg"
                     alt="Card image cap"
                 />
                 <div class="card-body">
-                    <h5 class="card-title mb-3">House Name</h5>
+                    <h5 class="card-title mb-3">{{house.house_name}}</h5>
                     <p class="card-text">
-                        <span class="fw-bold">Apartments:</span> 0
+                        <span class="fw-bold">Apartments:</span> {{
+                        house.apartments|length }}
                     </p>
                     <p class="card-text">
                         <span class="fw-bold">Tenants:</span> 0
@@ -31,6 +33,7 @@
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
