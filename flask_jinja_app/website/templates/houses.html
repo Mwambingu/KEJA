@@ -7,8 +7,8 @@
 {% block pageContent %}
 <div class="container-fluid px-4">
     <div class="row g-2">
-        {% for house in houses %}
-        <div class="col">
+        {% if houses %} {% for house in houses %}
+        <div class="col mb-3">
             <div class="card house-card" style="width: 18rem">
                 <img
                     class="card-img-top"
@@ -33,7 +33,12 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
+        {% endfor %} {% else %}
+        <div align="center" class="container-fluid px-4">
+            <img src="/static/images/chilling.png" alt="" />
+            <h1 class="primary-text fw-bold">No Houses Found!!</h1>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
