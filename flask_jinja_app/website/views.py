@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, session
+
 import random
 from flask_login import login_required, current_user
 from .models import Landlord, House, Tenant, Apartment
 from . import db
+import json
 
 views = Blueprint('views', __name__)
 random_int = random.randint(1000, 9999)
@@ -96,3 +98,30 @@ def payment():
 @login_required
 def tenant():
     return render_template("tenants.html", landlord=current_user)
+
+
+@views.route('/get_id', methods=['POST'])
+@login_required
+def get_id():
+    if request.method == 'POST':
+        house = json.loads(request.data)
+        house_id = house['houseId']
+        house = House.query.get(house_id)
+        apartments = house.apartments
+        session["apartments"] = apartments
+        return render_template("apartments.html", landlord=current_user, apartments=apartments)
+    return jsonify({})
+
+
+@views.route('/houses/apartments', methods=['GET', 'POST'])
+@login_required
+def apartment():
+    apartments = session.get("apartments")
+    print()
+    print()
+    print(apartments)
+    print()
+    print()
+    print()
+    print()
+    return render_template("apartments.html", landlord=current_user)

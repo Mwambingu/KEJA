@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 <!-- Navbar Starts Here -->
-{% block navHeader %}Houses{% endblock %}
+{% block navHeader %}Apartments{% endblock %}
 <!-- Navbar Ends Here -->
 
 <!-- Main Content Starts Here -->
 {% block pageContent %}
 <div class="container-fluid px-4">
     <div class="row g-2">
-        {% if houses %} {% for house in houses %}
+        {% if apartments %} {% for house in range(10) %}
         <div class="col mb-3">
             <div class="card house-card" style="width: 18rem">
                 <img
@@ -16,10 +16,9 @@
                     alt="Card image cap"
                 />
                 <div class="card-body">
-                    <h5 class="card-title mb-3">{{house.house_name}}</h5>
+                    <h5 class="card-title mb-3">{{house}}</h5>
                     <p class="card-text">
-                        <span class="fw-bold">Apartments:</span> {{
-                        house.apartments|length }}
+                        <span class="fw-bold">Apartments:</span> {{house}}
                     </p>
                     <p class="card-text">
                         <span class="fw-bold">Tenants:</span> 0
@@ -27,12 +26,7 @@
                     <div
                         class="d-flex align-items-center justify-content-between"
                     >
-                        <a
-                            class="btn user-card-btns"
-                            onclick="getHouseId( '{{ house.id }}' )"
-                        >
-                            Select House
-                        </a>
+                        <a href="#" class="btn user-card-btns">Select House</a>
                         <button class="btn btn-danger">Delete House</button>
                     </div>
                 </div>
@@ -41,20 +35,10 @@
         {% endfor %} {% else %}
         <div align="center" class="container-fluid px-4">
             <img src="/static/images/chilling.png" alt="" />
-            <h1 class="primary-text fw-bold">No Houses Found!!</h1>
+            <h1 class="primary-text fw-bold">{{ apartments }}</h1>
         </div>
         {% endif %}
     </div>
 </div>
-<script>
-    function getHouseId(houseId) {
-        fetch("/get_id", {
-            method: "POST",
-            body: JSON.stringify({ houseId: houseId }),
-        }).then((_res) => {
-            window.location.href = "/houses/apartments";
-        });
-    }
-</script>
 {% endblock %}
 <!-- Main Content Ends Here -->

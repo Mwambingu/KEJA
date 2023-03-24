@@ -275,6 +275,12 @@
             var path = window.location.pathname;
             var page = path.split("/").pop();
 
+            console.log(page);
+
+            if (page === "apartments") {
+                page = "houses";
+            }
+
             // Get all buttons with class="btn" inside the container
             // var btns = btnContainer.getElementsByClassName("btn");
 
@@ -284,5 +290,9 @@
             var navLink = document.getElementById(page);
             navLink.className += " active";
         </script>
+        <script
+            type="text/javascript"
+            src="{{ url_for('static', filename='index.js') }}"
+        ></script>
     </body>
 </html>
