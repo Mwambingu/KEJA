@@ -133,6 +133,8 @@ def delete_all():
         apartments = house.apartments
 
         for apartment in apartments:
+            db.session.delete(apartment)
+            db.session.commit()
 
         flash("All apartments Deleted successfully!", category='success')
         return render_template("apartments.html", landlord=current_user, house=house,  house_id=house_id)
