@@ -106,22 +106,19 @@ def get_id():
     if request.method == 'POST':
         house = json.loads(request.data)
         house_id = house['houseId']
-        house = House.query.get(house_id)
-        apartments = house.apartments
-        session["apartments"] = apartments
-        return render_template("apartments.html", landlord=current_user, apartments=apartments)
+
+        session["house_id"] = house_id
+        return render_template("apartments.html", landlord=current_user, house_id=house_id)
     return jsonify({})
 
 
 @views.route('/houses/apartments', methods=['GET', 'POST'])
 @login_required
 def apartment():
-    apartments = session.get("apartments")
-    print()
-    print()
+    apartments = None
+    house_id = session.get("house_id")
+    house = House.query.get(house_id)
+    apartments = house.apartments
     print(apartments)
-    print()
-    print()
-    print()
-    print()
-    return render_template("apartments.html", landlord=current_user)
+
+    return render_template("apartments.html", landlord=current_user, house=house, apartments=apartments)
