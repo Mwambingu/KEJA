@@ -58,29 +58,30 @@
                                     />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="apt_no" class="form-label"
+                                    <label for="room_type" class="form-label"
                                         >Apartment Type</label
                                     >
                                     <select
                                         class="form-select"
                                         aria-label="Select type of room"
+                                        name="room_type"
                                     >
                                         <option selected>
                                             Select Room Type
                                         </option>
-                                        <option value="single">
+                                        <option value="Single Room">
                                             Single Room
                                         </option>
-                                        <option value="bedsitter">
+                                        <option value="Bedsitter">
                                             Bedsitter
                                         </option>
-                                        <option value="one_bdrm">
+                                        <option value="1 Bedroom">
                                             1 Bedroom
                                         </option>
-                                        <option value="two_bdrm">
+                                        <option value="2 Bedroom">
                                             2 Bedroom
                                         </option>
-                                        <option value="three_bdrm">
+                                        <option value="3 Bedroom">
                                             3 Bedroom
                                         </option>
                                     </select>
@@ -175,14 +176,14 @@
     </div>
     <!-- End of Content -->
 
-    <div class="container-fluid px-4">
+    <div class="container-fluid p-0">
         <div class="row g-2">
             {% if apartments %} {% for apartment in apartments %}
             <div class="col mb-3">
                 <div class="card house-card" style="width: 18rem">
                     <img
                         class="card-img-top"
-                        src="/static/images/house_asset.jpg"
+                        src="/static/images/aptmt.jpg"
                         alt="Card image cap"
                     />
                     <div class="card-body">

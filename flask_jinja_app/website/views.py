@@ -118,8 +118,21 @@ def apartment():
     apartments = None
     house_id = session.get("house_id")
     house = House.query.get(house_id)
-    apartments = house.apartments
-    print(apartments)
+    apartments = Apartment.query.filter_by(
+        house_id=house_id).order_by("apt_no")
+
+    if request.method == 'POST':
+        apartment_dict = {}
+        apartment_dict['apt_no'] = request.form.get('apt_no')
+        apartment_dict['rent'] = request.form.get('rent')
+        apartment_dict['room_type'] = request.form.get('room_type')
+        apartment_dict['house_id'] = house.id
+
+        new_apartment = Apartment(**apartment_dict)
+        db.session.add(new_apartment)
+        db.session.commit()
+        flash('Apartment added successfully!', category='success')
+        return redirect(url_for('views.apartment'))
 
     return render_template("apartments.html", landlord=current_user, house=house, apartments=apartments)
 
