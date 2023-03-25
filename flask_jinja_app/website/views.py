@@ -122,3 +122,18 @@ def apartment():
     print(apartments)
 
     return render_template("apartments.html", landlord=current_user, house=house, apartments=apartments)
+
+
+@views.route('/delete', methods=['POST'])
+@login_required
+def delete_all():
+    if request.method == 'POST':
+        house_id = session.get("house_id")
+        house = House.query.get(house_id)
+        apartments = house.apartments
+
+        for apartment in apartments:
+
+        flash("All apartments Deleted successfully!", category='success')
+        return render_template("apartments.html", landlord=current_user, house=house,  house_id=house_id)
+    return jsonify({})
