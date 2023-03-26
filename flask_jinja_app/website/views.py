@@ -154,12 +154,15 @@ def apartment():
             room_type_dict = []
             no_of_rooms = 0
 
-            room_type_dict.append(
-                {'room_type': request.form.get('room_type1'), 'rent': request.form.get('apt1_rent')})
-            room_type_dict.append(
-                {'room_type': request.form.get('room_type2'), 'rent': request.form.get('apt2_rent')})
-            room_type_dict.append(
-                {'room_type': request.form.get('room_type3'), 'rent': request.form.get('apt3_rent')})
+            if request.form.get('room_type1') != 'Select Room Type':
+                room_type_dict.append(
+                    {'room_type': request.form.get('room_type1'), 'rent': request.form.get('apt1_rent')})
+            if request.form.get('room_type2') != 'Select Room Type':
+                room_type_dict.append(
+                    {'room_type': request.form.get('room_type2'), 'rent': request.form.get('apt2_rent')})
+            if request.form.get('room_type3') != 'Select Room Type':
+                room_type_dict.append(
+                    {'room_type': request.form.get('room_type3'), 'rent': request.form.get('apt3_rent')})
 
             no_of_rooms = int(request.form.get('no_of_apts'))
 
