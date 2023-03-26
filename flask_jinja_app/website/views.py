@@ -132,8 +132,9 @@ def apartment():
     apartments = None
     house_id = session.get("house_id")
     house = House.query.get(house_id)
-    apartments = Apartment.query.filter_by(
-        house_id=house_id).order_by("apt_no")
+    if house.apartments:
+        apartments = Apartment.query.filter_by(
+            house_id=house_id).order_by("apt_no")
 
     if request.method == 'POST':
         if "add_apartment_button" in request.form:

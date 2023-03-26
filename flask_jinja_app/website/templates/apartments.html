@@ -238,7 +238,9 @@
 
     <div class="container-fluid p-0">
         <div class="row g-2">
-            {% if apartments %} {% for apartment in apartments %}
+            {% if apartments %}
+            {% for apartment in apartments %}
+
             <div class="col mb-3">
                 <div class="card house-card" style="width: 18rem">
                     <img class="card-img-top" src="/static/images/aptmt.jpg" alt="Card image cap" />
@@ -283,8 +285,8 @@
             </div>
             {% endfor %} {% else %}
             <div align="center" class="container-fluid px-4">
-                <img src="/static/images/chilling.png" alt="" />
-                <h1 class="primary-text fw-bold">No Apartments</h1>
+                <img width="500px" height="500px" src="/static/images/panic.png" alt="" />
+                <h1 class="primary-text fw-bold">No Apartments Found!</h1>
             </div>
             {% endif %}
         </div>
