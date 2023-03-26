@@ -224,7 +224,10 @@
                             <a href="#" class="btn btn-sm user-card-btns"
                                 >Add Tenant</a
                             >
-                            <button class="btn btn-sm btn-danger">
+                            <button
+                                class="btn btn-sm btn-danger"
+                                onclick="deleteApt('{{ apartment.id }}')"
+                            >
                                 Delete Apartment
                             </button>
                         </div>
@@ -243,8 +246,18 @@
 </div>
 <script>
     function deleteAllAptms() {
-        fetch("/delete", {
+        fetch("/delete-all-apt", {
             method: "POST",
+        }).then((_res) => {
+            window.location.href = "/houses/apartments";
+        });
+    }
+</script>
+<script>
+    function deleteApt(apt_id) {
+        fetch("/delete-apt", {
+            method: "POST",
+            body: JSON.stringify({ apt_id: apt_id }),
         }).then((_res) => {
             window.location.href = "/houses/apartments";
         });

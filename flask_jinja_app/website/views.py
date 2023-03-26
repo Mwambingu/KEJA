@@ -108,7 +108,7 @@ def get_id():
         house_id = house['houseId']
 
         session["house_id"] = house_id
-        return render_template("apartments.html", landlord=current_user, house_id=house_id)
+        return redirect(url_for('views.apartment'))
     return jsonify({})
 
 
@@ -137,7 +137,7 @@ def apartment():
     return render_template("apartments.html", landlord=current_user, house=house, apartments=apartments)
 
 
-@views.route('/delete', methods=['POST'])
+@views.route('/delete-all-apt', methods=['POST'])
 @login_required
 def delete_all():
     if request.method == 'POST':
@@ -150,5 +150,20 @@ def delete_all():
             db.session.commit()
 
         flash("All apartments Deleted successfully!", category='success')
-        return render_template("apartments.html", landlord=current_user, house=house,  house_id=house_id)
+    return jsonify({})
+
+
+@views.route('/delete-apt', methods=['POST'])
+@login_required
+def delete_apt():
+    if request.method == 'POST':
+        apt_json = json.loads(request.data)
+        apt_id = apt_json['apt_id']
+
+        apt = Apartment.query.filter_by(id=apt_id).first()
+        db.session.delete(apt)
+        db.session.commit()
+
+        flash("Apartment Deleted successfully!", category='success')
+
     return jsonify({})
