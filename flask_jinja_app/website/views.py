@@ -92,7 +92,6 @@ def index():
 @login_required
 def house():
     houses = current_user.houses
-    print(houses)
     return render_template("houses.html", landlord=current_user, houses=houses)
 
 
@@ -111,7 +110,8 @@ def payment():
 @views.route('/tenants')
 @login_required
 def tenant():
-    return render_template("tenants.html", landlord=current_user)
+    tenants = current_user.tenants
+    return render_template("tenants.html", landlord=current_user, tenants=tenants)
 
 
 @views.route('/get_id', methods=['POST'])
