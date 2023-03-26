@@ -35,6 +35,20 @@ def get_pass():
     return pass_str
 
 
+def apt_generator(no_of_apts, room_type_dict, house_id):
+    """Generates a list of dicts used to create a given number of apartments"""
+    apt_dict_list = []
+
+    for i in range(1, no_of_apts+1):
+        temp_apt_dict = {}
+        temp_apt_dict['apt_no'] = "D" + str(i)
+        temp_apt_dict['house_id'] = house_id
+        index = (i % len(room_type_dict)) - 1
+        temp_apt_dict.update(room_type_dict[index])
+        apt_dict_list.append(temp_apt_dict)
+    return apt_dict_list
+
+
 @views.route('/', methods=['GET', 'POST'])
 @views.route('/dashboard', methods=['GET', 'POST'])
 @login_required
@@ -122,17 +136,42 @@ def apartment():
         house_id=house_id).order_by("apt_no")
 
     if request.method == 'POST':
-        apartment_dict = {}
-        apartment_dict['apt_no'] = request.form.get('apt_no')
-        apartment_dict['rent'] = request.form.get('rent')
-        apartment_dict['room_type'] = request.form.get('room_type')
-        apartment_dict['house_id'] = house.id
+        if "add_apartment_button" in request.form:
+            apartment_dict = {}
+            apartment_dict['apt_no'] = request.form.get('apt_no')
+            apartment_dict['rent'] = request.form.get('rent')
+            apartment_dict['room_type'] = request.form.get('room_type')
+            apartment_dict['house_id'] = house.id
 
-        new_apartment = Apartment(**apartment_dict)
-        db.session.add(new_apartment)
-        db.session.commit()
-        flash('Apartment added successfully!', category='success')
-        return redirect(url_for('views.apartment'))
+            new_apartment = Apartment(**apartment_dict)
+            db.session.add(new_apartment)
+            db.session.commit()
+            flash('Apartment added successfully!', category='success')
+            return redirect(url_for('views.apartment'))
+
+        if "gen_apt_button":
+            apt_dict_list = []
+            room_type_dict = []
+            no_of_rooms = 0
+
+            room_type_dict.append(
+                {'room_type': request.form.get('room_type1'), 'rent': request.form.get('apt1_rent')})
+            room_type_dict.append(
+                {'room_type': request.form.get('room_type2'), 'rent': request.form.get('apt2_rent')})
+            room_type_dict.append(
+                {'room_type': request.form.get('room_type3'), 'rent': request.form.get('apt3_rent')})
+
+            no_of_rooms = int(request.form.get('no_of_apts'))
+
+            apt_dict_list = apt_generator(
+                no_of_rooms, room_type_dict, house_id)
+
+            for apt_dict in apt_dict_list:
+                new_apartment = Apartment(**apt_dict)
+                db.session.add(new_apartment)
+            db.session.commit()
+            flash('Apartments successfully generated!', category='success')
+            return redirect(url_for('views.apartment'))
 
     return render_template("apartments.html", landlord=current_user, house=house, apartments=apartments)
 
