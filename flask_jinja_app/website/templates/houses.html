@@ -3,7 +3,6 @@
 {% block navHeader %}Houses{% endblock %}
 <!-- Navbar Ends Here -->
 
-
 <!-- Main Content Starts Here -->
 {% block pageContent %}
 <div class="container-fluid px-4">
@@ -15,63 +14,65 @@
         </div>
         <div class="col-lg-6 row g-2 pb-3 d-flex justify-content-center">
             <!-- Add Apartment Button Starts Here -->
-            <button type="button" class="col-lg-3 mx-2 btn btn-md user-card-btns" data-bs-toggle="modal"
-                data-bs-target="#add_apt">
+            <button
+                type="button"
+                class="col-lg-3 mx-2 btn btn-md user-card-btns"
+                data-bs-toggle="modal"
+                data-bs-target="#add_house"
+            >
                 <i class="fas fa-house"></i> Add House
             </button>
             <!-- Add Apt Modal Starts Here -->
-            <div class="modal fade" id="add_apt" tabindex="-1" aria-labelledby="add_apt_label" aria-hidden="true">
+            <div
+                class="modal fade"
+                id="add_house"
+                tabindex="-1"
+                aria-labelledby="add_house_label"
+                aria-hidden="true"
+            >
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="add_apt_label">
-                                Add Apartment
+                            <h5 class="modal-title" id="add_house_label">
+                                Add House
                             </h5>
 
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
                         </div>
                         <div class="modal-body">
                             <form method="POST">
                                 <div class="mb-3">
-                                    <label for="apt_no" class="form-label">Apartment No</label>
-                                    <input type="text" class="form-control" id="apt_no" name="apt_no"
-                                        aria-describedby="apartmentNo" />
+                                    <label for="house_name" class="form-label"
+                                        >House Name</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="house_name"
+                                        name="house_name"
+                                        aria-describedby="houseName"
+                                    />
                                 </div>
-                                <div class="mb-3">
-                                    <label for="room_type" class="form-label">Apartment Type</label>
-                                    <select class="form-select" aria-label="Select type of room" name="room_type">
-                                        <option selected>
-                                            Select Room Type
-                                        </option>
-                                        <option value="Single Room">
-                                            Single Room
-                                        </option>
-                                        <option value="Bedsitter">
-                                            Bedsitter
-                                        </option>
-                                        <option value="1 Bedroom">
-                                            1 Bedroom
-                                        </option>
-                                        <option value="2 Bedroom">
-                                            2 Bedroom
-                                        </option>
-                                        <option value="3 Bedroom">
-                                            3 Bedroom
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="rent" class="form-label">Rent Amount</label>
-                                    <input type="text" class="form-control" id="rent" name="rent"
-                                        aria-describedby="rentAmount" />
-                                </div>
-                                <button type="submit" class="btn user-card-btns" name="add_apartment_button">
-                                    Add Tenant
+                                <button
+                                    type="submit"
+                                    class="btn user-card-btns"
+                                    name="add_house_button"
+                                >
+                                    Add House
                                 </button>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                            >
                                 Close
                             </button>
                         </div>
@@ -82,13 +83,22 @@
 
             <!-- Delete Apartment Button Starts Here -->
 
-            <button type="button" class="col-lg-3 mx-2 btn btn-danger btn-md" data-bs-toggle="modal"
-                data-bs-target="#delete_apartments">
+            <button
+                type="button"
+                class="col-lg-3 mx-2 btn btn-danger btn-md"
+                data-bs-toggle="modal"
+                data-bs-target="#delete_apartments"
+            >
                 <i class="fas fa-house"></i> Delete All
             </button>
             <!-- Delete Modal Starts Here -->
-            <div class="modal fade" id="delete_apartments" tabindex="-1" aria-labelledby="delete_all_apartments"
-                aria-hidden="true">
+            <div
+                class="modal fade"
+                id="delete_apartments"
+                tabindex="-1"
+                aria-labelledby="delete_all_apartments"
+                aria-hidden="true"
+            >
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -96,14 +106,27 @@
                                 Are you sure you want to delete all?
                             </h5>
 
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal"
-                                onclick="deleteAllAptms();">
+                            <button
+                                type="submit"
+                                class="btn btn-danger"
+                                data-bs-dismiss="modal"
+                                onclick="deleteAllAptms();"
+                            >
                                 Yes
                             </button>
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                            <button
+                                type="button"
+                                class="btn btn-success"
+                                data-bs-dismiss="modal"
+                            >
                                 No
                             </button>
                         </div>
@@ -119,7 +142,11 @@
         {% if houses %} {% for house in houses %}
         <div class="col mb-3">
             <div class="card house-card" style="width: 18rem">
-                <img class="card-img-top" src="/static/images/house_asset.jpg" alt="Card image cap" />
+                <img
+                    class="card-img-top"
+                    src="/static/images/house_asset.jpg"
+                    alt="Card image cap"
+                />
                 <div class="card-body">
                     <h5 class="card-title mb-3">{{house.house_name}}</h5>
                     <p class="card-text">
@@ -129,8 +156,13 @@
                     <p class="card-text">
                         <span class="fw-bold">Tenants:</span> 0
                     </p>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <a class="btn user-card-btns" onclick="getHouseId( '{{ house.id }}' )">
+                    <div
+                        class="d-flex align-items-center justify-content-between"
+                    >
+                        <a
+                            class="btn user-card-btns"
+                            onclick="getHouseId( '{{ house.id }}' )"
+                        >
                             Select House
                         </a>
                         <button class="btn btn-danger">Delete House</button>
@@ -140,7 +172,12 @@
         </div>
         {% endfor %} {% else %}
         <div align="center" class="container-fluid px-4">
-            <img width="500px" height="500px" src="/static/images/panic.png" alt="" />
+            <img
+                width="500px"
+                height="500px"
+                src="/static/images/panic.png"
+                alt=""
+            />
             <h1 class="primary-text fw-bold">No Houses Found!</h1>
         </div>
         {% endif %}

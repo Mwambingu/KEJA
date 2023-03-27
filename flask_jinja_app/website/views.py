@@ -88,10 +88,23 @@ def index():
 #     return render_template("dashboard.html",  landlord=current_user)
 
 
-@views.route('/houses')
+@views.route('/houses', methods=["GET", "POST"])
 @login_required
 def house():
     houses = current_user.houses
+
+    if request.method == "POST":
+        if 'add_house_button' in request.form:
+            house_dict = {}
+            house_dict['house_name'] = request.form.get('house_name')
+            house_dict['landlord_id'] = current_user.id
+
+            new_house = House(**house_dict)
+            db.session.add(new_house)
+            db.session.commit()
+            flash('House Added Successfully', category="success")
+        return redirect(url_for("views.house"))
+
     return render_template("houses.html", landlord=current_user, houses=houses)
 
 
