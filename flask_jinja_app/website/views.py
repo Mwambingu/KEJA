@@ -223,3 +223,18 @@ def delete_apt():
         flash("Apartment Deleted successfully!", category='success')
 
     return jsonify({})
+
+@views.route('/delete-hse', methods=['POST'])
+@login_required
+def delete_hse():
+    if request.method == 'POST':
+        house_json = json.loads(request.data)
+        house_id = house_json['house_id']
+
+        house = House.query.filter_by(id=house_id).first()
+        db.session.delete(house)
+        db.session.commit()
+
+        flash("House Deleted successfully!", category='success')
+
+    return jsonify({})
