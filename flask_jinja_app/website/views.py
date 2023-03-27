@@ -296,16 +296,16 @@ def delete_tenant():
     return jsonify({})
 
 
-# @views.route('/delete-all-hse', methods=['POST'])
-# @login_required
-# def delete_all_hse():
-#     if request.method == 'POST':
-#         houses = current_user.houses
+@views.route('/delete-all-tenant', methods=['POST'])
+@login_required
+def delete_all_tenant():
+    if request.method == 'POST':
+        tenants = current_user.tenants
 
-#         for house in houses:
-#             db.session.delete(house)
+        for tenant in tenants:
+            db.session.delete(tenant)
 
-#         db.session.commit()
-#         flash("All Houses Deleted successfully!", category='success')
+        db.session.commit()
+        flash("All Tenants Deleted successfully!", category='success')
 
-#     return jsonify({})
+    return jsonify({})
