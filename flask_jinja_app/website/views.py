@@ -279,3 +279,33 @@ def delete_all_hse():
         flash("All Houses Deleted successfully!", category='success')
 
     return jsonify({})
+
+@views.route('/delete-tenant', methods=['POST'])
+@login_required
+def delete_tenant():
+    if request.method == 'POST':
+        tenant_json = json.loads(request.data)
+        tenant_id = tenant_json['tenant_id']
+
+        tenant = Tenant.query.filter_by(id=tenant_id).first()
+        db.session.delete(tenant)
+        db.session.commit()
+
+        flash("Tenant Deleted successfully!", category='success')
+
+    return jsonify({})
+
+
+# @views.route('/delete-all-hse', methods=['POST'])
+# @login_required
+# def delete_all_hse():
+#     if request.method == 'POST':
+#         houses = current_user.houses
+
+#         for house in houses:
+#             db.session.delete(house)
+
+#         db.session.commit()
+#         flash("All Houses Deleted successfully!", category='success')
+
+#     return jsonify({})

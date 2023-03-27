@@ -177,6 +177,19 @@
                             <span class="fw-bold">Apartment: </span>
                             tenant.apartments.apt_no
                         </p>
+                        <div
+                            class="d-flex align-items-center justify-content-between"
+                        >
+                            <a href="#" class="btn btn-sm user-card-btns"
+                                >Unassign Tenant</a
+                            >
+                            <button
+                                class="btn btn-sm btn-danger"
+                                onclick="deleteTenant('{{ tenant.id }}')"
+                            >
+                                Delete Tenant
+                            </button>
+                        </div>
                         {% else %}
                         <p class="card-text">
                             <span class="fw-bold">House:</span>
@@ -186,17 +199,20 @@
                             <span class="fw-bold">Apartment:</span>
                             Not Assigned
                         </p>
-                        {% endif %}
                         <div
                             class="d-flex align-items-center justify-content-between"
                         >
                             <a href="#" class="btn btn-sm user-card-btns"
-                                >Call Tenant</a
+                                >Assign Tenant</a
                             >
-                            <button class="btn btn-sm btn-danger">
+                            <button
+                                class="btn btn-sm btn-danger"
+                                onclick="deleteTenant('{{ tenant.id }}')"
+                            >
                                 Delete Tenant
                             </button>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -214,9 +230,15 @@
         </div>
     </div>
 </div>
-<!-- <div align="center" class="container-fluid px-4">
-    <img src="/static/images/chilling.png" alt="" />
-    <h1 class="primary-text fw-bold">Coming Soon...</h1>
-</div> -->
+<script>
+    function deleteTenant(tenant_id) {
+        fetch("/delete-tenant", {
+            method: "POST",
+            body: JSON.stringify({ tenant_id: tenant_id }),
+        }).then((_res) => {
+            window.location.href = "/tenants";
+        });
+    }
+</script>
 {% endblock %}
 <!-- Main Content Ends Here -->
