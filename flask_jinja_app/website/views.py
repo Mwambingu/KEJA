@@ -39,7 +39,7 @@ def apt_generator(no_of_apts, room_type_dict, house_id):
     """Generates a list of dicts used to create a given number of apartments"""
     apt_dict_list = []
 
-    for i in range(1, no_of_apts+1):
+    for i in range(1, no_of_apts + 1):
         temp_apt_dict = {}
         temp_apt_dict['apt_no'] = "D" + str(i)
         temp_apt_dict['house_id'] = house_id
@@ -124,7 +124,10 @@ def payment():
 @login_required
 def tenant():
     tenants = current_user.tenants
-    return render_template("tenants.html", landlord=current_user, tenants=tenants)
+    return render_template(
+        "tenants.html",
+        landlord=current_user,
+        tenants=tenants)
 
 
 @views.route('/get_id', methods=['POST'])
@@ -169,14 +172,14 @@ def apartment():
             no_of_rooms = 0
 
             if request.form.get('room_type1') != 'Select Room Type':
-                room_type_dict.append(
-                    {'room_type': request.form.get('room_type1'), 'rent': request.form.get('apt1_rent')})
+                room_type_dict.append({'room_type': request.form.get(
+                    'room_type1'), 'rent': request.form.get('apt1_rent')})
             if request.form.get('room_type2') != 'Select Room Type':
-                room_type_dict.append(
-                    {'room_type': request.form.get('room_type2'), 'rent': request.form.get('apt2_rent')})
+                room_type_dict.append({'room_type': request.form.get(
+                    'room_type2'), 'rent': request.form.get('apt2_rent')})
             if request.form.get('room_type3') != 'Select Room Type':
-                room_type_dict.append(
-                    {'room_type': request.form.get('room_type3'), 'rent': request.form.get('apt3_rent')})
+                room_type_dict.append({'room_type': request.form.get(
+                    'room_type3'), 'rent': request.form.get('apt3_rent')})
 
             no_of_rooms = int(request.form.get('no_of_apts'))
 
@@ -190,7 +193,11 @@ def apartment():
             flash('Apartments successfully generated!', category='success')
             return redirect(url_for('views.apartment'))
 
-    return render_template("apartments.html", landlord=current_user, house=house, apartments=apartments)
+    return render_template(
+        "apartments.html",
+        landlord=current_user,
+        house=house,
+        apartments=apartments)
 
 
 @views.route('/delete-all-apt', methods=['POST'])
@@ -224,6 +231,7 @@ def delete_apt():
 
     return jsonify({})
 
+
 @views.route('/delete-hse', methods=['POST'])
 @login_required
 def delete_hse():
@@ -236,5 +244,20 @@ def delete_hse():
         db.session.commit()
 
         flash("House Deleted successfully!", category='success')
+
+    return jsonify({})
+
+
+@views.route('/delete-all-hse', methods=['POST'])
+@login_required
+def delete_all_hse():
+    if request.method == 'POST':
+        houses = current_user.houses
+
+        for house in houses:
+            db.session.delete(house)
+
+        db.session.commit()
+        flash("All Houses Deleted successfully!", category='success')
 
     return jsonify({})

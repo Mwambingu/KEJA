@@ -87,22 +87,22 @@
                 type="button"
                 class="col-lg-3 mx-2 btn btn-danger btn-md"
                 data-bs-toggle="modal"
-                data-bs-target="#delete_apartments"
+                data-bs-target="#delete_houses"
             >
                 <i class="fas fa-house"></i> Delete All
             </button>
             <!-- Delete Modal Starts Here -->
             <div
                 class="modal fade"
-                id="delete_apartments"
+                id="delete_houses"
                 tabindex="-1"
-                aria-labelledby="delete_all_apartments"
+                aria-labelledby="delete_all_houses"
                 aria-hidden="true"
             >
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="delete_all_apartments">
+                            <h5 class="modal-title" id="delete_all_houses">
                                 Are you sure you want to delete all?
                             </h5>
 
@@ -118,7 +118,7 @@
                                 type="submit"
                                 class="btn btn-danger"
                                 data-bs-dismiss="modal"
-                                onclick="deleteAllAptms();"
+                                onclick="deleteAllHouses();"
                             >
                                 Yes
                             </button>
