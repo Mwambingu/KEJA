@@ -171,11 +171,11 @@
                         {% if tenant.apartments %}
                         <p class="card-text">
                             <span class="fw-bold">House: </span>
-                            tenant.apartments.houses.house_name
+                            {{ tenant.apartments.houses.house_name }}
                         </p>
                         <p class="card-text">
                             <span class="fw-bold">Apartment: </span>
-                            tenant.apartments.apt_no
+                            {{ tenant.apartments.apt_no }}
                         </p>
                         <div
                             class="d-flex align-items-center justify-content-between"

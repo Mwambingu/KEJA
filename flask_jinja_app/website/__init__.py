@@ -2,6 +2,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from flask_login import LoginManager
+from datetime import timedelta
 
 db = SQLAlchemy()
 DB_NAME = "KejaFlask"
@@ -15,6 +16,7 @@ def create_app():
     app.config['SQLALCHEMY_ECHO'] = "True"
     app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+mysqldb://{}:{}@localhost:5000/{}".format(
         DB_USER, DB_PASS, DB_NAME)
+    app.config['REMEMBER_COOKIE_DURATION'] = timedelta(seconds=30)
     db.init_app(app)
 
     from website.models import Landlord, Tenant, House, Apartment

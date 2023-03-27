@@ -184,7 +184,7 @@ def apartment():
             flash('Apartment added successfully!', category='success')
             return redirect(url_for('views.apartment'))
 
-        if "gen_apt_button":
+        if "gen_apt_button" in request.form:
             apt_dict_list = []
             room_type_dict = []
             no_of_rooms = 0
@@ -210,6 +210,23 @@ def apartment():
             db.session.commit()
             flash('Apartments successfully generated!', category='success')
             return redirect(url_for('views.apartment'))
+        
+        if "assign_tenant_btn" in request.form:
+            update_dict = {}
+            value = request.form.get('tenant')
+
+            tenant_id = value.split(".")[0]
+            apt_id = value.split(".")[1]
+            update_dict['apt_id'] = apt_id
+
+            tenant = Tenant.query.filter_by(id=tenant_id).first()
+
+            tenant.apt_id = apt_id
+
+            db.session.merge(tenant)
+            db.session.commit()
+            # flash("Tenant assigned successfully!", category='success')
+            # return redirect(url_for('views.apartment'))
 
     return render_template(
         "apartments.html",
