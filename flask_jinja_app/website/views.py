@@ -4,6 +4,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 import random
 from flask_login import login_required, current_user
 from .models import Landlord, House, Tenant, Apartment
+from werkzeug.security import generate_password_hash
 from . import db
 import json
 
@@ -70,7 +71,7 @@ def index():
             tenant_dict['last_name'] = request.form.get('last_name')
             tenant_dict['tenant_id'] = (
                 tenant_dict['first_name'][:2] + tenant_dict['last_name'][:2] + str(random_int)).upper()
-            tenant_dict['password'] = get_pass()
+            tenant_dict['password'] = generate_password_hash(get_pass(), method='sha256')
             tenant_dict['landlord_id'] = current_user.id
             new_tenant = Tenant(**tenant_dict)
             db.session.add(new_tenant)
@@ -120,10 +121,27 @@ def payment():
     return render_template("payments.html", landlord=current_user)
 
 
-@views.route('/tenants')
+@views.route('/tenants', methods=['GET', 'POST'])
 @login_required
 def tenant():
     tenants = current_user.tenants
+
+    if request.method == "POST":
+        if "add_tenant_button" in request.form:
+            tenant_dict = {}
+
+            tenant_dict["first_name"] = request.form.get('first_name')
+            tenant_dict["last_name"] = request.form.get('last_name')
+            tenant_dict["landlord_id"] = current_user.id
+            tenant_dict['tenant_id'] = (
+            tenant_dict['first_name'][:2] + tenant_dict['last_name'][:2] + str(random_int)).upper()
+            tenant_dict['password'] = generate_password_hash(get_pass(), method='sha256')
+
+            new_tenant = Tenant(**tenant_dict)
+
+            new_tenant.save()
+            return redirect(url_for('views.tenant'))
+
     return render_template(
         "tenants.html",
         landlord=current_user,
