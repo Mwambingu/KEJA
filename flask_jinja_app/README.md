@@ -55,7 +55,8 @@ The scripts below help setup the db
 
 # **Demo**
 
-<img width="640" height="360" src="../assets/Keja_demo.jpg"/>
+<img width="640" height="360" src="../assets/Keja_demo.JPG"/>
+<br>
 <img width="640" height="360" src="../assets/Keja_demo.gif"/>
 
 # **Author**
