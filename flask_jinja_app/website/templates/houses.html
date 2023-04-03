@@ -154,7 +154,8 @@
                         house.apartments|length }}
                     </p>
                     <p class="card-text">
-                        <span class="fw-bold">Tenants:</span> 0
+                        <span class="fw-bold">Tenants:</span> {{
+                        house.house_tenants() }}
                     </p>
                     <div
                         class="d-flex align-items-center justify-content-between"

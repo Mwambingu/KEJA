@@ -71,7 +71,8 @@ def index():
             tenant_dict['last_name'] = request.form.get('last_name')
             tenant_dict['tenant_id'] = (
                 tenant_dict['first_name'][:2] + tenant_dict['last_name'][:2] + str(random_int)).upper()
-            tenant_dict['password'] = generate_password_hash(get_pass(), method='sha256')
+            tenant_dict['password'] = generate_password_hash(
+                get_pass(), method='sha256')
             tenant_dict['landlord_id'] = current_user.id
             new_tenant = Tenant(**tenant_dict)
             db.session.add(new_tenant)
@@ -134,8 +135,9 @@ def tenant():
             tenant_dict["last_name"] = request.form.get('last_name')
             tenant_dict["landlord_id"] = current_user.id
             tenant_dict['tenant_id'] = (
-            tenant_dict['first_name'][:2] + tenant_dict['last_name'][:2] + str(random_int)).upper()
-            tenant_dict['password'] = generate_password_hash(get_pass(), method='sha256')
+                tenant_dict['first_name'][:2] + tenant_dict['last_name'][:2] + str(random_int)).upper()
+            tenant_dict['password'] = generate_password_hash(
+                get_pass(), method='sha256')
 
             new_tenant = Tenant(**tenant_dict)
 
@@ -210,7 +212,7 @@ def apartment():
             db.session.commit()
             flash('Apartments successfully generated!', category='success')
             return redirect(url_for('views.apartment'))
-        
+
         if "assign_tenant_btn" in request.form:
             update_dict = {}
             value = request.form.get('tenant')
@@ -225,14 +227,14 @@ def apartment():
 
             db.session.merge(tenant)
             db.session.commit()
-            # flash("Tenant assigned successfully!", category='success')
-            # return redirect(url_for('views.apartment'))
+            flash("Tenant assigned successfully!", category='success')
+            return redirect(url_for('views.apartment'))
 
     return render_template(
         "apartments.html",
         landlord=current_user,
         house=house,
-        apartments=apartments)
+        apartments=apartments, )
 
 
 @views.route('/delete-all-apt', methods=['POST'])
@@ -296,6 +298,7 @@ def delete_all_hse():
         flash("All Houses Deleted successfully!", category='success')
 
     return jsonify({})
+
 
 @views.route('/delete-tenant', methods=['POST'])
 @login_required

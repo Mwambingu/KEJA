@@ -24,6 +24,19 @@ class House(BaseModel, db.Model):
     apartments = db.relationship(
         "Apartment", backref="houses", cascade="all, delete", lazy=True)
 
+    def house_tenants(self):
+        rented_apartments = []
+        apartments = self.apartments
+
+        for apartment in apartments:
+            if apartment.apt_tenant:
+                rented_apartments.append(apartment)
+
+        if rented_apartments:
+            return len(rented_apartments)
+
+        return 0
+
 
 class Apartment(BaseModel, db.Model):
     __tablename__ = "apartments"
