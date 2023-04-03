@@ -470,6 +470,8 @@
                                                         current_user.tenants %}
                                                         {% for tenant in
                                                         current_user.tenants %}
+                                                        {% if not
+                                                        tenant.apartments %}
                                                         <option
                                                             value="{{ tenant.id + '.' + apartment.id }}"
                                                         >
@@ -477,7 +479,8 @@
                                                             }} {{
                                                             tenant.last_name }}
                                                         </option>
-                                                        {% endfor %} {% endif %}
+                                                        {% endif %} {% endfor %}
+                                                        {% endif %}
                                                     </select>
                                                 </div>
                                                 <button
