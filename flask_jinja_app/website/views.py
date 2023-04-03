@@ -329,3 +329,21 @@ def delete_all_tenant():
         flash("All Tenants Deleted successfully!", category='success')
 
     return jsonify({})
+
+
+@views.route('/remove_tenant', methods=['POST'])
+@login_required
+def remove_tenant():
+    if request.method == 'POST':
+        apt_json = json.loads(request.data)
+        apt_id = apt_json['apt_id']
+
+    apartment = Apartment.query.filter_by(id=apt_id).first()
+    tenant = apartment.apt_tenant[0]
+
+    tenant.apt_id = None
+
+    db.session.merge(tenant)
+    db.session.commit()
+
+    return jsonify({})
