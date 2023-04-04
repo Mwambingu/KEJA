@@ -615,7 +615,7 @@
 </script>
 <script>
     function removeTenant(apt_id) {
-        fetch("/remove_tenant", {
+        fetch("/remove-tenant", {
             method: "POST",
             body: JSON.stringify({ apt_id: apt_id }),
         }).then((_res) => {

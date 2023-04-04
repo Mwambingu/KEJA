@@ -180,9 +180,65 @@
                         <div
                             class="d-flex align-items-center justify-content-between"
                         >
-                            <a href="#" class="btn btn-sm user-card-btns"
-                                >Unassign Tenant</a
+                            <button
+                                type="button"
+                                class="btn btn-sm user-card-btns"
+                                data-bs-toggle="modal"
+                                data-bs-target="#{{ tenant.tenant_id }}"
                             >
+                                Unassign Tenant
+                            </button>
+
+                            <!-- Remove Tenant Modal Starts Here -->
+                            <div
+                                class="modal fade"
+                                id="{{ tenant.tenant_id }}"
+                                tabindex="-1"
+                                aria-labelledby="unassign_tenant"
+                                aria-hidden="true"
+                            >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5
+                                                class="modal-title"
+                                                id="unassign_tenant"
+                                            >
+                                                Are you sure you want to remove
+                                                <span class="text-danger"
+                                                    >{{ tenant.first_name }} {{
+                                                    tenant.last_name }}</span
+                                                >
+                                                from the apartment?
+                                            </h5>
+
+                                            <button
+                                                type="button"
+                                                class="btn-close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"
+                                            ></button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button
+                                                type="submit"
+                                                class="btn btn-danger"
+                                                data-bs-dismiss="modal"
+                                                onclick="removeTenant('{{ tenant.id }}');"
+                                            >
+                                                Yes
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-success"
+                                                data-bs-dismiss="modal"
+                                            >
+                                                No
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <button
                                 class="btn btn-sm btn-danger"
                                 onclick="deleteTenant('{{ tenant.id }}')"
@@ -244,6 +300,16 @@
     function deleteAllTenant() {
         fetch("/delete-all-tenant", {
             method: "POST",
+        }).then((_res) => {
+            window.location.href = "/tenants";
+        });
+    }
+</script>
+<script>
+    function removeTenant(tenant_id) {
+        fetch("/remove-tenant", {
+            method: "POST",
+            body: JSON.stringify({ tenant_id: tenant_id }),
         }).then((_res) => {
             window.location.href = "/tenants";
         });

@@ -331,19 +331,26 @@ def delete_all_tenant():
     return jsonify({})
 
 
-@views.route('/remove_tenant', methods=['POST'])
+@views.route('/remove-tenant', methods=['POST'])
 @login_required
 def remove_tenant():
+    tenant = None
     if request.method == 'POST':
-        apt_json = json.loads(request.data)
-        apt_id = apt_json['apt_id']
+        obj_json = json.loads(request.data)
+        if "apt_id" in obj_json.keys():
+            apt_id = obj_json['apt_id']
+            apartment = Apartment.query.filter_by(id=apt_id).first()
+            tenant = apartment.apt_tenant[0]
 
-    apartment = Apartment.query.filter_by(id=apt_id).first()
-    tenant = apartment.apt_tenant[0]
+        if "tenant_id" in obj_json.keys():
+            tenant_id = obj_json["tenant_id"]
+            tenant = Tenant.query.filter_by(id=tenant_id).first()
 
-    tenant.apt_id = None
+    if tenant:
+        tenant.apt_id = None
 
-    db.session.merge(tenant)
-    db.session.commit()
+        db.session.merge(tenant)
+        db.session.commit()
+        flash("Tenant Unassigned Successfully!", category="success")
 
     return jsonify({})
