@@ -258,9 +258,91 @@
                         <div
                             class="d-flex align-items-center justify-content-between"
                         >
-                            <a href="#" class="btn btn-sm user-card-btns"
-                                >Assign Tenant</a
+                            <button
+                                type="button"
+                                class="btn btn-sm user-card-btns"
+                                data-bs-toggle="modal"
+                                data-bs-target="#assign_tenant"
                             >
+                                Assign Tenant
+                            </button>
+                            <div
+                                class="modal fade"
+                                id="assign_tenant"
+                                tabindex="-1"
+                                aria-labelledby="assign_tenant_label"
+                                aria-hidden="true"
+                            >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5
+                                                class="modal-title"
+                                                id="assign_tenant_label"
+                                            >
+                                                Assign Tenant
+                                            </h5>
+
+                                            <button
+                                                type="button"
+                                                class="btn-close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"
+                                            ></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST">
+                                                <div class="mb-3">
+                                                    {% for house in
+                                                    current_user.houses %}
+                                                    <label
+                                                        for="tenant"
+                                                        class="form-label"
+                                                        >{{ house.house_name
+                                                        }}</label
+                                                    >
+                                                    <select
+                                                        class="form-select"
+                                                        aria-label="Select House"
+                                                        name="tenant"
+                                                    >
+                                                        <option selected>
+                                                            Select Apartment
+                                                        </option>
+                                                        {% if house.apartments
+                                                        %} {% for apartment in
+                                                        house.apartments %}
+                                                        <option
+                                                            value="{{ apartment.id }}"
+                                                        >
+                                                            {{ apartment.apt_no
+                                                            }}
+                                                        </option>
+                                                        {% endfor %} {% endif %}
+                                                    </select>
+                                                    {% endfor %}
+                                                </div>
+                                                <button
+                                                    type="submit"
+                                                    class="btn user-card-btns"
+                                                    name="assign_tenant_btn"
+                                                >
+                                                    Assign
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button
+                                                type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal"
+                                            >
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <button
                                 class="btn btn-sm btn-danger"
                                 onclick="deleteTenant('{{ tenant.id }}')"
