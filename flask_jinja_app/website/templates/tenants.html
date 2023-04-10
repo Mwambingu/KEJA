@@ -292,17 +292,21 @@
                                         </div>
                                         <div class="modal-body">
                                             <form method="POST">
-                                                <div class="mb-3">
+                                                <div
+                                                    id="house-select"
+                                                    ="mb-3 fw-bolder"
+                                                >
                                                     {% for house in
                                                     current_user.houses %}
                                                     <label
-                                                        for="tenant"
+                                                        for="{{ house.house_name
+                                                        }}"
                                                         class="form-label"
                                                         >{{ house.house_name
                                                         }}</label
                                                     >
                                                     <select
-                                                        class="form-select"
+                                                        class="form-select mb-3"
                                                         aria-label="Select House"
                                                         name="tenant"
                                                     >
@@ -395,6 +399,20 @@
         }).then((_res) => {
             window.location.href = "/tenants";
         });
+    }
+</script>
+<script>
+    function myName() {
+        console.log("JS ROCKS!");
+    }
+    var selectedDiv = document.getElementById("house-select");
+    console.log(selectedDiv);
+    selects = selectedDiv.getElementsByTagName("select");
+    console.log(selects);
+    for (i = 0; i < selects.length; i++) {
+        for (j = 0; j < selects[i].options.length; i++) {
+            console.log(j);
+        }
     }
 </script>
 {% endblock %}
