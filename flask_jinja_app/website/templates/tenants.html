@@ -292,21 +292,18 @@
                                         </div>
                                         <div class="modal-body">
                                             <form method="POST">
-                                                <div
-                                                    id="house-select"
-                                                    ="mb-3 fw-bolder"
-                                                >
+                                                <div id="house-select" ="mb-3">
                                                     {% for house in
                                                     current_user.houses %}
                                                     <label
                                                         for="{{ house.house_name
                                                         }}"
-                                                        class="form-label"
+                                                        class="form-label fw-bolder"
                                                         >{{ house.house_name
                                                         }}</label
                                                     >
                                                     <select
-                                                        class="form-select mb-3"
+                                                        class="form-select mb-4 house-select"
                                                         aria-label="Select House"
                                                         name="tenant"
                                                     >
@@ -402,18 +399,33 @@
     }
 </script>
 <script>
-    function myName() {
-        console.log("JS ROCKS!");
-    }
-    var selectedDiv = document.getElementById("house-select");
-    console.log(selectedDiv);
-    selects = selectedDiv.getElementsByTagName("select");
-    console.log(selects);
-    for (i = 0; i < selects.length; i++) {
-        for (j = 0; j < selects[i].options.length; i++) {
-            console.log(j);
-        }
-    }
+    //function myName() {
+    //  console.log("JS ROCKS!");
+    //}
+    //var selectedDiv = document.getElementById("house-select");
+    //console.log(selectedDiv);
+    //selects = selectedDiv.getElementsByTagName("select");
+    //console.log(selects);
+    //for (i = 0; i < selects.length; i++) {
+    //for (option in selects[0].options) {
+    //  console.log(option.value);
+    //   }
+    //}
+    const selectEl = document.getElementsByClassName("house-select");
+
+    //const selectOptions = selectEl.getElementsByTagName("option");
+
+    console.log(selectEl);
+
+    //console.log(selectEl);
+    //console.log(selectOptions);
+    //selectEl.addEventListener("change", function handleChange(event) {
+    //if (event.target.value != "show") {
+    //box.style.display = "block";
+    //} else {
+    //box.style.display = "none";
+    //}
+    //});
 </script>
 {% endblock %}
 <!-- Main Content Ends Here -->
