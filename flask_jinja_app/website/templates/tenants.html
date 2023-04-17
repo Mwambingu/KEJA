@@ -303,9 +303,11 @@
                                                         }}</label
                                                     >
                                                     <select
-                                                        class="form-select mb-4 house-select"
+                                                        class="form-select mb-4"
                                                         aria-label="Select House"
                                                         name="tenant"
+                                                        id="{{ house.house_name }}"
+                                                        onchange="checkChange('{{ house.house_name}}')"
                                                     >
                                                         <option selected>
                                                             Select Apartment
@@ -411,11 +413,24 @@
     //  console.log(option.value);
     //   }
     //}
-    const selectEl = document.getElementsByClassName("house-select");
+    function checkChange(selectId) {
+        const selectElDiv = document.getElementById("house-select");
 
-    //const selectOptions = selectEl.getElementsByTagName("option");
+        //const selectOptions = selectEl.getElementsByTagName("option");
 
-    console.log(selectEl);
+        const selectEl = selectElDiv.getElementsByTagName("select");
+
+        for (select of selectEl) {
+            console.log(select.id);
+            //console.log(selectId);
+            if (select.id === selectId) {
+                console.log("They are equal!!");
+            }
+            if (select.id !== selectId) {
+                select.style.display = "none";
+            }
+        }
+    }
 
     //console.log(selectEl);
     //console.log(selectOptions);
