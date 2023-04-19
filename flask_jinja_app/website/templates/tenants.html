@@ -414,21 +414,27 @@
     //   }
     //}
     function checkChange(selectId) {
+        let count = 0;
         const selectElDiv = document.getElementById("house-select");
 
         //const selectOptions = selectEl.getElementsByTagName("option");
 
         const selectEl = selectElDiv.getElementsByTagName("select");
+        const labelEl = selectElDiv.getElementsByTagName("label");
 
         for (select of selectEl) {
             console.log(select.id);
-            //console.log(selectId);
+            console.log(labelEl[count].htmlFor);
             if (select.id === selectId) {
                 console.log("They are equal!!");
             }
             if (select.id !== selectId) {
                 select.style.display = "none";
             }
+            if (labelEl[count].htmlFor !== selectId) {
+                labelEl[count].style.display = "none";
+            }
+            count += 1;
         }
     }
 
