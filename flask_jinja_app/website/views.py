@@ -84,12 +84,6 @@ def index():
     return render_template("dashboard.html", landlord=current_user)
 
 
-# @views.route('/dashboard')
-# @login_required
-# def dashboard():
-#     return render_template("dashboard.html",  landlord=current_user)
-
-
 @views.route('/houses', methods=["GET", "POST"])
 @login_required
 def house():
@@ -142,6 +136,22 @@ def tenant():
             new_tenant = Tenant(**tenant_dict)
 
             new_tenant.save()
+            return redirect(url_for('views.tenant'))
+
+        if "assign_tenant_btn" in request.form:
+            comb_id = request.form.get("selected")
+
+            tenant_id = comb_id.split(".")[0]
+            apt_id = comb_id.split(".")[1]
+
+            tenant_obj = Tenant.query.get(tenant_id)
+
+            tenant_obj.apt_id = apt_id
+
+            db.session.merge(tenant_obj)
+            db.session.commit()
+
+            flash("Tenant Assigned Successfully!", category="success")
             return redirect(url_for('views.tenant'))
 
     return render_template(

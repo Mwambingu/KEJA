@@ -262,13 +262,13 @@
                                 type="button"
                                 class="btn btn-sm user-card-btns"
                                 data-bs-toggle="modal"
-                                data-bs-target="#assign_tenant"
+                                data-bs-target="#{{ tenant.id }}"
                             >
                                 Assign Tenant
                             </button>
                             <div
                                 class="modal fade"
-                                id="assign_tenant"
+                                id="{{ tenant.id }}"
                                 tabindex="-1"
                                 aria-labelledby="assign_tenant_label"
                                 aria-hidden="true"
@@ -280,7 +280,8 @@
                                                 class="modal-title"
                                                 id="assign_tenant_label"
                                             >
-                                                Assign Tenant
+                                                Assign Tenant {{
+                                                tenant.first_name }}
                                             </h5>
 
                                             <button
@@ -292,7 +293,10 @@
                                         </div>
                                         <div class="modal-body">
                                             <form method="POST">
-                                                <div id="house-select" ="mb-3">
+                                                <div
+                                                    id="house-select"
+                                                    class="mb-3"
+                                                >
                                                     {% for house in
                                                     current_user.houses %}
                                                     <label
@@ -307,7 +311,7 @@
                                                         aria-label="Select House"
                                                         name="tenant"
                                                         id="{{ house.house_name }}"
-                                                        onchange="checkChange('{{ house.house_name}}')"
+                                                        onchange="checkChange('{{ house.house_name }}')"
                                                     >
                                                         <option selected>
                                                             Select Apartment
@@ -316,7 +320,7 @@
                                                         %} {% for apartment in
                                                         house.apartments %}
                                                         <option
-                                                            value="{{ apartment.id }}"
+                                                            value="{{ tenant.id + '.' + apartment.id }}"
                                                         >
                                                             {{ apartment.apt_no
                                                             }}
@@ -431,6 +435,11 @@
             if (select.id !== selectId) {
                 select.style.display = "none";
             }
+
+            if (select.id === selectId) {
+                select.name = "selected";
+            }
+
             if (labelEl[count].htmlFor !== selectId) {
                 labelEl[count].style.display = "none";
             }
