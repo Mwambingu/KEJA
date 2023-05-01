@@ -10,6 +10,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    """Handles login functionality for the login page"""
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -31,6 +32,7 @@ def login():
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
+    """Handles signup functionality for the signup page"""
     if request.method == 'POST':
         landlord_dict = {}
         email = request.form.get('email')
@@ -88,6 +90,7 @@ def signup():
 @auth.route('/logout')
 @login_required
 def logout():
+    """Handles Logout functionality for the logged in user"""
     logout_user()
     flash("Logged out successfully.", category='success')
     return redirect(url_for('auth.login'))

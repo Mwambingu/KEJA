@@ -5,6 +5,7 @@ from flask_login import UserMixin
 
 
 class Landlord(BaseModel, db.Model, UserMixin):
+    """The landlord db model"""
     __tablename__ = "landlords"
     first_name = db.Column(db.String(16), nullable=False)
     last_name = db.Column(db.String(16), nullable=False)
@@ -17,6 +18,7 @@ class Landlord(BaseModel, db.Model, UserMixin):
 
 
 class House(BaseModel, db.Model):
+    """The house db model"""
     __tablename__ = "houses"
     house_name = db.Column(db.String(32), nullable=False)
     landlord_id = db.Column(db.String(64), db.ForeignKey(
@@ -25,6 +27,7 @@ class House(BaseModel, db.Model):
         "Apartment", backref="houses", cascade="all, delete", lazy=True)
 
     def house_tenants(self):
+        """Returns the number of tenants in the house"""
         rented_apartments = []
         apartments = self.apartments
 
@@ -39,6 +42,7 @@ class House(BaseModel, db.Model):
 
 
 class Apartment(BaseModel, db.Model):
+    """The apartment db model"""
     __tablename__ = "apartments"
     apt_no = db.Column(db.String(32), nullable=False)
     room_type = db.Column(db.String(32), nullable=False)
@@ -50,6 +54,7 @@ class Apartment(BaseModel, db.Model):
 
 
 class Tenant(BaseModel, db.Model, UserMixin):
+    """The tenant db model"""
     __tablename__ = "tenants"
     first_name = db.Column(db.String(16), nullable=False)
     last_name = db.Column(db.String(16), nullable=False)

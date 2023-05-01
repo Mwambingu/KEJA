@@ -54,6 +54,7 @@ def apt_generator(no_of_apts, room_type_dict, house_id):
 @views.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def index():
+    """Handles the home-dashboard"""
     if request.method == 'POST':
 
         if "add_house_button" in request.form:
@@ -87,6 +88,7 @@ def index():
 @views.route('/houses', methods=["GET", "POST"])
 @login_required
 def house():
+    """Handles the houses dashboard"""
     houses = current_user.houses
 
     if request.method == "POST":
@@ -119,6 +121,7 @@ def payment():
 @views.route('/tenants', methods=['GET', 'POST'])
 @login_required
 def tenant():
+    """Handles the tenant dashboard"""
     tenants = current_user.tenants
 
     if request.method == "POST":
@@ -163,6 +166,7 @@ def tenant():
 @views.route('/get_id', methods=['POST'])
 @login_required
 def get_id():
+    """ Gets houses id and loads it in a session for access by apartments """
     if request.method == 'POST':
         house = json.loads(request.data)
         house_id = house['houseId']
@@ -175,6 +179,7 @@ def get_id():
 @views.route('/houses/apartments', methods=['GET', 'POST'])
 @login_required
 def apartment():
+    """ Handles the apartment dashboard """
     apartments = None
     house_id = session.get("house_id")
     house = House.query.get(house_id)

@@ -4,6 +4,7 @@ from . import db
 
 
 class BaseModel:
+    """The base model for all the other db models"""
     id = db.Column(db.String(64), primary_key=True)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
