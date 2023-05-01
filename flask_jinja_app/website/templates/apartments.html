@@ -594,33 +594,4 @@
     </div>
 </div>
 <!-- Main Content Ends Here -->
-<script>
-    function deleteAllAptms() {
-        fetch("/delete-all-apt", {
-            method: "POST",
-        }).then((_res) => {
-            window.location.href = "/houses/apartments";
-        });
-    }
-</script>
-<script>
-    function deleteApt(apt_id) {
-        fetch("/delete-apt", {
-            method: "POST",
-            body: JSON.stringify({ apt_id: apt_id }),
-        }).then((_res) => {
-            window.location.href = "/houses/apartments";
-        });
-    }
-</script>
-<script>
-    function removeTenant(apt_id) {
-        fetch("/remove-tenant", {
-            method: "POST",
-            body: JSON.stringify({ apt_id: apt_id }),
-        }).then((_res) => {
-            window.location.href = "/houses/apartments";
-        });
-    }
-</script>
 {% endblock %}

@@ -263,33 +263,6 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"
         ></script>
-        <script>
-            var element = document.getElementById("wrapper");
-            var toggleButton = document.getElementById("menu-toggle");
-
-            toggleButton.onclick = function () {
-                element.classList.toggle("toggled");
-            };
-        </script>
-        <script>
-            var path = window.location.pathname;
-            var page = path.split("/").pop();
-
-            console.log(page);
-
-            if (page === "apartments") {
-                page = "houses";
-            }
-
-            // Get all buttons with class="btn" inside the container
-            // var btns = btnContainer.getElementsByClassName("btn");
-
-            var current = document.getElementsByClassName("active");
-            console.log(current);
-            current[0].className = current[0].className.replace(" active", "");
-            var navLink = document.getElementById(page);
-            navLink.className += " active";
-        </script>
         <script
             type="text/javascript"
             src="{{ url_for('static', filename='index.js') }}"

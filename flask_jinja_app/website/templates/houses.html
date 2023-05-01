@@ -189,34 +189,5 @@
         {% endif %}
     </div>
 </div>
-<script>
-    function getHouseId(houseId) {
-        fetch("/get_id", {
-            method: "POST",
-            body: JSON.stringify({ houseId: houseId }),
-        }).then((_res) => {
-            window.location.href = "/houses/apartments";
-        });
-    }
-</script>
-<script>
-    function deleteAllHouses() {
-        fetch("/delete-all-hse", {
-            method: "POST",
-        }).then((_res) => {
-            window.location.href = "/houses";
-        });
-    }
-</script>
-<script>
-    function deleteHouse(house_id) {
-        fetch("/delete-hse", {
-            method: "POST",
-            body: JSON.stringify({ house_id: house_id }),
-        }).then((_res) => {
-            window.location.href = "/houses";
-        });
-    }
-</script>
 {% endblock %}
 <!-- Main Content Ends Here -->
