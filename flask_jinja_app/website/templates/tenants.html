@@ -318,14 +318,17 @@
                                                         </option>
                                                         {% if house.apartments
                                                         %} {% for apartment in
-                                                        house.apartments %}
+                                                        house.apartments %} {%
+                                                        if not
+                                                        apartment.apt_tenant %}
                                                         <option
                                                             value="{{ tenant.id + '.' + apartment.id }}"
                                                         >
                                                             {{ apartment.apt_no
                                                             }}
                                                         </option>
-                                                        {% endfor %} {% endif %}
+                                                        {% endif %} {% endfor %}
+                                                        {% endif %}
                                                     </select>
                                                     {% endfor %}
                                                 </div>
