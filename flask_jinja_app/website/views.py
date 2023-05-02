@@ -54,7 +54,7 @@ def apt_generator(no_of_apts, room_type_dict, house_id):
 @views.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def index():
-    """Handles the home-dashboard"""
+    """Handles the home-dashboard functionality"""
     if request.method == 'POST':
 
         if "add_house_button" in request.form:
@@ -121,7 +121,7 @@ def payment():
 @views.route('/tenants', methods=['GET', 'POST'])
 @login_required
 def tenant():
-    """Handles the tenant dashboard"""
+    """Handles the tenant dashboard functionality"""
     tenants = current_user.tenants
 
     if request.method == "POST":
@@ -166,7 +166,7 @@ def tenant():
 @views.route('/get_id', methods=['POST'])
 @login_required
 def get_id():
-    """ Gets houses id and loads it in a session for access by apartments """
+    """ Gets currently selected house id and loads it in a session for access by apartments """
     if request.method == 'POST':
         house = json.loads(request.data)
         house_id = house['houseId']
@@ -179,7 +179,7 @@ def get_id():
 @views.route('/houses/apartments', methods=['GET', 'POST'])
 @login_required
 def apartment():
-    """ Handles the apartment dashboard """
+    """ Handles the apartment dashboard functionality"""
     apartments = None
     house_id = session.get("house_id")
     house = House.query.get(house_id)
@@ -255,6 +255,7 @@ def apartment():
 @views.route('/delete-all-apt', methods=['POST'])
 @login_required
 def delete_all():
+    """ Handles all apartment deletion functionality"""
     if request.method == 'POST':
         house_id = session.get("house_id")
         house = House.query.get(house_id)
@@ -271,6 +272,7 @@ def delete_all():
 @views.route('/delete-apt', methods=['POST'])
 @login_required
 def delete_apt():
+    """ Handles single apartment deletion functionality"""
     if request.method == 'POST':
         apt_json = json.loads(request.data)
         apt_id = apt_json['apt_id']
@@ -287,6 +289,7 @@ def delete_apt():
 @views.route('/delete-hse', methods=['POST'])
 @login_required
 def delete_hse():
+    """ Handles single house deletion functionality"""
     if request.method == 'POST':
         house_json = json.loads(request.data)
         house_id = house_json['house_id']
@@ -303,6 +306,7 @@ def delete_hse():
 @views.route('/delete-all-hse', methods=['POST'])
 @login_required
 def delete_all_hse():
+    """ Handles all house deletion functionality"""
     if request.method == 'POST':
         houses = current_user.houses
 
@@ -318,6 +322,7 @@ def delete_all_hse():
 @views.route('/delete-tenant', methods=['POST'])
 @login_required
 def delete_tenant():
+    """ Handles single tenant deletion functionality"""
     if request.method == 'POST':
         tenant_json = json.loads(request.data)
         tenant_id = tenant_json['tenant_id']
@@ -334,6 +339,7 @@ def delete_tenant():
 @views.route('/delete-all-tenant', methods=['POST'])
 @login_required
 def delete_all_tenant():
+    """ Handles all tenant deletion functionality"""
     if request.method == 'POST':
         tenants = current_user.tenants
 
@@ -349,6 +355,7 @@ def delete_all_tenant():
 @views.route('/remove-tenant', methods=['POST'])
 @login_required
 def remove_tenant():
+    """ Handles unassign tenant from apartment functionality"""
     tenant = None
     if request.method == 'POST':
         obj_json = json.loads(request.data)
