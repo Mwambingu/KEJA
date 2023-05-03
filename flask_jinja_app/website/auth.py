@@ -87,6 +87,11 @@ def signup():
     return render_template("signup.html")
 
 
+@auth.route('/tenant-login', methods=["GET", "POST"])
+def tenant_login():
+    return render_template("tenant_login.html")
+
+
 @auth.route('/logout')
 @login_required
 def logout():
