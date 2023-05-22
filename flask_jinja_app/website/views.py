@@ -67,13 +67,14 @@ def index():
             flash('House added successfully.', category='success')
 
         if "add_tenant_button" in request.form:
+            password = get_pass()
             tenant_dict = {}
             tenant_dict['first_name'] = request.form.get('first_name')
             tenant_dict['last_name'] = request.form.get('last_name')
             tenant_dict['tenant_id'] = (
                 tenant_dict['first_name'][:2] + tenant_dict['last_name'][:2] + str(random_int)).upper()
             tenant_dict['password'] = generate_password_hash(
-                get_pass(), method='sha256')
+                password, method='sha256')
             tenant_dict['landlord_id'] = current_user.id
             new_tenant = Tenant(**tenant_dict)
             db.session.add(new_tenant)
@@ -126,6 +127,7 @@ def tenant():
 
     if request.method == "POST":
         if "add_tenant_button" in request.form:
+            password = get_pass()
             tenant_dict = {}
 
             tenant_dict["first_name"] = request.form.get('first_name')
@@ -134,11 +136,13 @@ def tenant():
             tenant_dict['tenant_id'] = (
                 tenant_dict['first_name'][:2] + tenant_dict['last_name'][:2] + str(random_int)).upper()
             tenant_dict['password'] = generate_password_hash(
-                get_pass(), method='sha256')
+                password, method='sha256')
 
             new_tenant = Tenant(**tenant_dict)
 
             new_tenant.save()
+            flash("Tenant created successfully {} {}".format(
+                new_tenant.tenant_id, password), category="success")
             return redirect(url_for('views.tenant'))
 
         if "assign_tenant_btn" in request.form:
@@ -376,3 +380,16 @@ def remove_tenant():
         flash("Tenant Unassigned Successfully!", category="success")
 
     return jsonify({})
+
+
+@views.route('/tenant-dashboard', methods=['GET', 'POST'])
+@login_required
+def tenant_login():
+    """ Handles unassign tenant from apartment functionality"""
+    return render_template("tenant_dashboard.html", tenant=current_user)
+
+
+@views.route("/tenant-messages", methods=['GET', 'POST'])
+@login_required
+def tenant_messages():
+    return render_template("tenant_messages.html", tenant=current_user)

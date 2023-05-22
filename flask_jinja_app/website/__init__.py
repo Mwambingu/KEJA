@@ -28,7 +28,10 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(id):
-        return Landlord.query.get(id)
+        if Landlord.query.get(id):
+            return Landlord.query.get(id)
+        if Tenant.query.get(id):
+            return Tenant.query.get(id)
 
     return app
 
