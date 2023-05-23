@@ -291,6 +291,7 @@
                                                 aria-label="Close"
                                             ></button>
                                         </div>
+                                        {% if current_user.houses %}
                                         <div class="modal-body">
                                             <form method="POST">
                                                 <div
@@ -341,6 +342,12 @@
                                                 </button>
                                             </form>
                                         </div>
+                                        {% else %}
+                                        <div class="modal-body">
+                                            <p>No Houses Found!</p>
+                                        </div>
+                                        {% endif %}
+
                                         <div class="modal-footer">
                                             <button
                                                 type="button"

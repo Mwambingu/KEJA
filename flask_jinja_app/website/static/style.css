@@ -133,3 +133,11 @@
 .house-card:hover {
     border: 2px solid var(--second-bg-color);
 }
+
+.t-house-info {
+    color: var(--main-bg-color);
+}
+
+.t-house-info:hover {
+    border: 2px solid #9ada40;
+}
