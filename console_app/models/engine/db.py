@@ -28,7 +28,7 @@ class DBStorage():
 
     def __init__(self):
         self.__engine = create_engine(
-            "mysql+mysqldb://keja_admin:keja001@localhost/Keja_TestDB",
+            "mysql+mysqldb://keja_admin:keja0001@localhost/Keja_TestDB",
             echo=False,
             pool_pre_ping=True)
 
