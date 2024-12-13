@@ -64,3 +64,8 @@ class Tenant(BaseModel, db.Model, UserMixin):
         "apartments.id"), nullable=True)
     landlord_id = db.Column(db.String(64), db.ForeignKey(
         "landlords.id"), nullable=False)
+
+
+class Payments(BaseModel, db.Model):
+    "Payment db Model"
+    pass
